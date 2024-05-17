@@ -5,6 +5,7 @@ Prerequisites
 1. Create Git repo
 2. Create SSH key pair
 3. Add public key to Git repo
+4. Clone repo
 
 Bootstrap Flux
 
@@ -24,10 +25,24 @@ flux bootstrap git \
 Add podinfo repository to Flux
 
 ```sh
-K8S_CLUSTER=talos
 flux create source git podinfo \
   --url=https://github.com/stefanprodan/podinfo \
   --branch=master \
   --interval=1m \
   --export > ./clusters/$K8S_CLUSTER/podinfo-source.yaml
 ```
+
+Deploy podinfo
+
+```sh
+flux create kustomization podinfo \
+  --target-namespace=default \
+  --source=podinfo \
+  --path="./kustomize" \
+  --prune=true \
+  --wait=true \
+  --interval=30m \
+  --retry-interval=2m \
+  --health-check-timeout=3m \
+  --export > ./clusters/$K8S_CLUSTER/podinfo-kustomization.yaml
+  ```

@@ -20,3 +20,14 @@ flux bootstrap git \
   --private-key-file=$SSH_KEY_FILE \
   --path=clusters/$K8S_CLUSTER
 ```
+
+Add podinfo repository to Flux
+
+```sh
+K8S_CLUSTER=talos
+flux create source git podinfo \
+  --url=https://github.com/stefanprodan/podinfo \
+  --branch=master \
+  --interval=1m \
+  --export > ./clusters/$K8S_CLUSTER/podinfo-source.yaml
+```

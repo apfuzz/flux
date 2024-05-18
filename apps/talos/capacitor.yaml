@@ -39,7 +39,7 @@ metadata:
   namespace: flux-system
 spec:
   rules:
-  - host: capacitor.gangsterkitties.com
+  - host: talos-capacitor.gangsterkitties.com
     http:
       paths:
       - pathType: Prefix
@@ -51,4 +51,4 @@ spec:
               number: 80
   tls:
   - hosts:
-      - capacitor.gangsterkitties.com
+      - talos-capacitor.gangsterkitties.com

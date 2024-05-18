@@ -1,0 +1,1 @@
+# Apps for talos cluster

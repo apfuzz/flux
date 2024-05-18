@@ -29,17 +29,24 @@ Add bitnami helm repository
 flux create source helm bitnami \
   --url=https://charts.bitnami.com/bitnami \
   --export > clusters/$K8S_CLUSTER/bitnami-source.yaml
-
-flux create source git podinfo \
-  --url=https://github.com/stefanprodan/podinfo \
-  --branch=master \
-  --interval=1m \
-  --export > ./clusters/$K8S_CLUSTER/podinfo-source.yaml
 ```
 
 Deploy redis helm chart with values from file
 
 ```sh
+flux create helmrelease redis \
+  --source=HelmRepository/bitnami.flux-system \
+  --chart=redis \
+  --chart-version=19.3.2 \
+  --namespace=default \
+  --values=helm/$K8S_CLUSTER/redis-values.yaml \
+  --export > apps/$K8S_CLUSTERs/redis.yaml
+  ```
+
+Update chart version or values for redis
+
+```sh
+/bin/rm -f apps/$K8S_CLUSTERs/redis.yaml && \
 flux create helmrelease redis \
   --source=HelmRepository/bitnami.flux-system \
   --chart=redis \

@@ -48,7 +48,7 @@ spec:
           service:
             name: capacitor
             port:
-              number: 80
+              number: 9000
   tls:
   - hosts:
       - talos-capacitor.gangsterkitties.com

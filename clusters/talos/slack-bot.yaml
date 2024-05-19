@@ -39,13 +39,13 @@ spec:
     cluster: "talos"
   providerRef:
     name: slack-bot
-  eventSeverity: info
+  eventSeverity: error
   eventSources:
-    # - kind: GitRepository
-    #   name: '*'
-    # - kind: HelmRepository
-    #   name: '*'
-    # - kind: HelmRelease
-    #   name: '*'
+    - kind: GitRepository
+      name: '*'
+    - kind: HelmRepository
+      name: '*'
+    - kind: HelmRelease
+      name: '*'
     - kind: Kustomization
       name: '*'

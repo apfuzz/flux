@@ -14,7 +14,6 @@ metadata:
   name: headlamp
   namespace: kube-system
 spec:
-  suspend: false
   chart:
     spec:
       chart: headlamp
@@ -39,7 +38,6 @@ metadata:
   name: headlamp
   namespace: flux-system
 spec:
-  suspend: false
   interval: 1h0m0s
   path: ./manifests/talos/headlamp
   prune: true

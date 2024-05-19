@@ -71,7 +71,6 @@ flux create helmrelease headlamp \
   --source=HelmRepository/headlamp.flux-system \
   --chart=headlamp \
   --chart-version=0.20.0 \
-  --release-name=headlamp \
   --namespace=kube-system \
   --values=helm/$K8S_CLUSTER/headlamp-values.yaml \
   --export >> apps/$K8S_CLUSTER/headlamp.yaml

@@ -23,6 +23,10 @@ flux bootstrap git \
   --path=clusters/$K8S_CLUSTER
 ```
 
+## Examples
+
+### Redis
+
 Add bitnami helm repository
 
 ```sh
@@ -55,6 +59,8 @@ flux create helmrelease redis \
   --values=helm/$K8S_CLUSTER/redis-values.yaml \
   --export > apps/$K8S_CLUSTERs/redis.yaml
   ```
+
+### Headlamp
 
 Add headlamp helm repository
 
@@ -90,3 +96,25 @@ flux create kustomization headlamp \
   --wait=true \
   --export >> apps/$K8S_CLUSTER/headlamp.yaml
 ```
+
+### Argo CD
+
+Add argocd helm repository
+
+```sh
+flux create source helm argocd \
+  --url=https://argoproj.github.io/argo-helm \
+  --export > apps/$K8S_CLUSTER/argocd.yaml
+```
+
+Create helm release for argocd with values from file
+
+```sh
+flux create helmrelease argocd \
+  --source=HelmRepository/argocd.flux-system \
+  --chart=argocd \
+  --chart-version=6.7.18 \
+  --namespace=argocd \
+  --values=helm/$K8S_CLUSTER/argocd-values.yaml \
+  --export >> apps/$K8S_CLUSTER/argocd.yaml
+  ```

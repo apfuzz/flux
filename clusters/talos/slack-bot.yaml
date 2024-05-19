@@ -42,5 +42,9 @@ spec:
   eventSources:
     - kind: GitRepository
       name: '*'
+    - kind: HelmRepository
+      name: '*'
+    - kind: HelmRelease
+      name: '*'
     - kind: Kustomization
       name: '*'

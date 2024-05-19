@@ -55,3 +55,38 @@ flux create helmrelease redis \
   --values=helm/$K8S_CLUSTER/redis-values.yaml \
   --export > apps/$K8S_CLUSTERs/redis.yaml
   ```
+
+Add headlamp helm repository
+
+```sh
+flux create source helm headlamp \
+  --url=https://headlamp-k8s.github.io/headlamp \
+  --export > apps/$K8S_CLUSTER/headlamp.yaml
+```
+
+Create helm release for headlamp with values from file
+
+```sh
+flux create helmrelease headlamp \
+  --source=HelmRepository/headlamp.flux-system \
+  --chart=headlamp \
+  --chart-version=0.20.0 \
+  --namespace=kube-system \
+  --values=helm/$K8S_CLUSTER/headlamp-values.yaml \
+  --export >> apps/$K8S_CLUSTER/headlamp.yaml
+  ```
+
+Create kustomization for headlamp
+
+```sh
+mkdir manifests/$K8S_CLUSTER/headlamp
+cp ../argocd/manifests/headlamp/ingress.yaml manifests/$K8S_CLUSTER/headlamp/
+
+flux create kustomization headlamp \
+  --source=GitRepository/flux-system \
+  --path="./manifests/$K8S_CLUSTER/headlamp" \
+  --prune=true \
+  --interval=1h0m0s \
+  --wait=true \
+  --export >> apps/$K8S_CLUSTER/headlamp.yaml
+```

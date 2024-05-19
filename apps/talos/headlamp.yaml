@@ -39,7 +39,7 @@ metadata:
   name: headlamp
   namespace: flux-system
 spec:
-  suspend: true
+  suspend: false
   interval: 1h0m0s
   path: ./manifests/talos/headlamp
   prune: true

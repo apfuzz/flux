@@ -16,7 +16,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: argocd
+      chart: argo-cd
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository

@@ -25,41 +25,6 @@ flux bootstrap git \
 
 ## Examples
 
-### Redis
-
-Add bitnami helm repository
-
-```sh
-flux create source helm bitnami \
-  --url=https://charts.bitnami.com/bitnami \
-  --export > clusters/$K8S_CLUSTER/bitnami-source.yaml
-```
-
-Deploy redis helm chart with values from file
-
-```sh
-flux create helmrelease redis \
-  --source=HelmRepository/bitnami.flux-system \
-  --chart=redis \
-  --chart-version=19.3.2 \
-  --namespace=default \
-  --values=helm/$K8S_CLUSTER/redis-values.yaml \
-  --export > apps/$K8S_CLUSTERs/redis.yaml
-  ```
-
-Update chart version or values for redis
-
-```sh
-/bin/rm -f apps/$K8S_CLUSTERs/redis.yaml && \
-flux create helmrelease redis \
-  --source=HelmRepository/bitnami.flux-system \
-  --chart=redis \
-  --chart-version=19.3.2 \
-  --namespace=default \
-  --values=helm/$K8S_CLUSTER/redis-values.yaml \
-  --export > apps/$K8S_CLUSTERs/redis.yaml
-  ```
-
 ### Headlamp
 
 Add headlamp helm repository
@@ -98,6 +63,23 @@ flux create kustomization headlamp \
 ```
 
 ### Argo CD
+
+Create kustomization for headlamp
+
+```sh
+mkdir manifests/$K8S_CLUSTER/argocd
+cp ../kubernetes/argocd/gitlab-repo.yaml manifests/$K8S_CLUSTER/argocd/
+cp ../kubernetes/argocd/projects.yaml manifests/$K8S_CLUSTER/argocd/
+cp ../kubernetes/argocd/slack-token.yaml manifests/$K8S_CLUSTER/argocd/
+
+flux create kustomization argocd \
+  --source=GitRepository/flux-system \
+  --path="./manifests/$K8S_CLUSTER/argocd" \
+  --prune=true \
+  --interval=1h0m0s \
+  --wait=true \
+  --export >> apps/$K8S_CLUSTER/argocd.yaml
+```
 
 Add argocd helm repository
 

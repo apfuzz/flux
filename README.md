@@ -100,3 +100,9 @@ flux create helmrelease argocd \
   --values=helm/$K8S_CLUSTER/argocd-values.yaml \
   --export >> apps/$K8S_CLUSTER/argocd.yaml
   ```
+
+Uninstall Flux CD
+
+```sh
+flux uninstall
+```

@@ -14,6 +14,7 @@ spec:
         name: podinfo
   values:
     ingress:
+      className: cilium
       annotations:
         external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
       hosts:

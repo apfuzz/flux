@@ -4,9 +4,14 @@ kind: HelmRelease
 metadata:
   name: podinfo
 spec:
+  interval: 15m
   chart:
     spec:
+      chart: podinfo
       version: 6.9.1
+      sourceRef:
+        kind: HelmRepository
+        name: podinfo
   values:
     ingress:
       annotations:

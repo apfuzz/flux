@@ -7,3 +7,5 @@ metadata:
 spec:
   interval: 1h
   url: oci://ghcr.io/stefanprodan/charts/podinfo
+  ref:
+    semver: ">=1.0.0"

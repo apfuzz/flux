@@ -1,6 +1,0 @@
-config:
-  oidc:
-    clientID: kubernetes
-    clientSecret: kubernetes-secret
-    issuerURL: https://dex.gangsterkitties.com/dex
-    scopes: groups

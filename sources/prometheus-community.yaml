@@ -2,10 +2,10 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: podinfo
+  name: prometheus-community
   namespace: flux-system
 spec:
   interval: 24h
-  url: oci://ghcr.io/stefanprodan/manifests/podinfo
+  url: oci://ghcr.io/prometheus-community/charts
   ref:
-    tag: latest
+    semver: ">=1.0.0"

@@ -7,5 +7,3 @@ metadata:
 spec:
   interval: 24h
   url: oci://ghcr.io/stefanprodan/manifests/podinfo
-  ref:
-    tag: latest

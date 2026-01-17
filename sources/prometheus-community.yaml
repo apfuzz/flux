@@ -2,8 +2,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: prometheus-community
+  name: kube-prometheus-stack
   namespace: flux-system
 spec:
   interval: 24h
-  url: oci://ghcr.io/prometheus-community/charts
+  url: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack

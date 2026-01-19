@@ -3,7 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: podinfo
-  namespace: default
+  namespace: flux-system
 spec:
   interval: 5m0s
   url: oci://ghcr.io/stefanprodan/manifests/podinfo

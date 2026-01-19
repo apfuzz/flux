@@ -7,15 +7,10 @@ metadata:
 spec:
   interval: 15m
   timeout: 5m
-  chart:
-    spec:
-      chart: podinfo
-      version: ">=1.0.0"
-      sourceRef:
-        kind: OCIRepository
-        name: podinfo
-        namespace: flux-system
-      interval: 5m
+  chartRef:
+    kind: OCIRepository
+    name: podinfo
+    namespace: flux-system
   releaseName: podinfo
   values:
     ingress:

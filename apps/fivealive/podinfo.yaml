@@ -6,14 +6,10 @@ metadata:
   namespace: default
 spec:
   interval: 15m
-  chart:
-    spec:
-      chart: podinfo
-      version: 6.9.1
-      sourceRef:
-        kind: OCIRepository
-        name: podinfo
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: podinfo
+    namespace: flux-system
   values:
     ingress:
       className: cilium

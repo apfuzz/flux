@@ -11,8 +11,8 @@ resources:
 configMapGenerator:
   - name: flux-grafana-dashboards
     files:
-      # - dashboards/control-plane.json
       - dashboards/cluster.json
+      - dashboards/control-plane.json
       # - dashboards/logs.json
     options:
       labels:
@@ -20,5 +20,5 @@ configMapGenerator:
         app.kubernetes.io/part-of: flux
         app.kubernetes.io/component: monitoring
         kustomize.toolkit.fluxcd.io/substitute: disabled
-      annotations:
-        grafana_folder: "Flux CD"
+      # annotations:
+      #   grafana_folder: "Flux CD"

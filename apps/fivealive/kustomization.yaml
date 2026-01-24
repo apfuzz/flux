@@ -14,7 +14,7 @@ patches:
   - path: podinfo.yaml
     target:
       kind: HelmRelease
-      name: podinfo.yaml
+      name: podinfo
       namespace: default
   - path: headlamp.yaml
     target:

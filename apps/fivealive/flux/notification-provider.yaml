@@ -5,7 +5,7 @@ metadata:
   name: slack-bot
 spec:
   address: https://slack.com/api/chat.postMessage
-  channel: alerts
+  channel: alerts-info
   secretRef:
     name: slack-bot-token
   type: slack

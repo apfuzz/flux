@@ -1,12 +1,12 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-resources: []
-# resources:
-#   - ./flux
+# resources: []
+resources:
+  - ./flux
 #   - ../base/podinfo
-# patches:
-#   - path: flux.yaml
-#     target:
-#       kind: HelmRelease
+patches:
+  - path: flux.yaml
+    target:
+      kind: HelmRelease
 #   - path: podinfo.yaml

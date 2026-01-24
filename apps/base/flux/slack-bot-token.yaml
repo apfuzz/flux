@@ -12,5 +12,5 @@ spec:
   data:
     - secretKey: token
       remoteRef:
-        key: slack/flux
-        property: token
+        key: slack
+        property: flux

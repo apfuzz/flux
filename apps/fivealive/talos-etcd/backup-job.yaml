@@ -1,0 +1,88 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: backup-job
+spec:
+  schedule: "0 1 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: debian-tools
+            image: registry.gangsterkitties.com/images/debian-tools:2026.01.22-266
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: AWS_ACCESS_KEY_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: backup-secret
+                    key: AWS_ACCESS_KEY_ID
+              - name: AWS_SECRET_ACCESS_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: backup-secret
+                    key: AWS_SECRET_ACCESS_KEY
+            command:
+              - /backup-script/etcd-backup.sh
+            volumeMounts:
+              - name: backup-script
+                mountPath: /backup-script
+              - name: talos-secrets
+                mountPath: /var/run/secrets/talos.dev
+          volumes:
+            - name: backup-script
+              configMap:
+                name: backup-script
+                defaultMode: 0777
+            - name: talos-secrets
+              secret:
+                secretName: talos-secrets
+          restartPolicy: OnFailure
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backup-script
+data:
+  etcd-backup.sh: |
+    #!/bin/bash
+
+    # debug
+    # set -xv
+
+    # set variables
+    BUCKET_NAME=backups
+    DATE=`date +%Y-%m-%d-%H-%M`
+
+    # set job-specific variables
+    BUCKET_PATH=talos
+    CLUSTER_NAME=fivealive
+    CP01_IP=10.0.101.101
+    CP01_NAME=$CLUSTER_NAME-01
+    FILENAME=${CP01_NAME}-etcd-${DATE}.snapshot
+
+    # set more variables
+    export AWS_DEFAULT_REGION=us-east-1
+    export AWS_ENDPOINT_URL_S3=https://idopqt7hl3bt.compat.objectstorage.us-ashburn-1.oraclecloud.com
+    export AWS_REQUEST_CHECKSUM_CALCULATION=when_required
+    export AWS_RESPONSE_CHECKSUM_VALIDATION=when_required
+
+    # back up cluster
+    echo -e "backing up etcd in cluster $CLUSTER_NAME...\n"
+
+    # back up etcd cluster
+    talosctl -n $CP01_IP etcd snapshot $FILENAME
+
+    # exit if previous command fails
+    if [ $? -ne 0 ] ; then
+      echo -e "previous command failed - exiting...\n"
+      exit 1
+    fi
+
+    # compress database backup file
+    gzip $FILENAME
+
+    # upload backup file
+    echo -e "uploading backup file to object storage...\n"
+    aws s3 cp $FILENAME.gz s3://$BUCKET_NAME/$BUCKET_PATH/ --no-progress

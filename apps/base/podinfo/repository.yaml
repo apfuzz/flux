@@ -5,6 +5,6 @@ metadata:
   name: podinfo
 spec:
   interval: 24h
-  url: oci://ghcr.io/stefanprodan/manifests/podinfo
+  url: oci://ghcr.io/stefanprodan/charts/podinfo
   ref:
     tag: latest

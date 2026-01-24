@@ -3,15 +3,12 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: podinfo
-  namespace: default
 spec:
   interval: 15m
   timeout: 5m
   chartRef:
     kind: OCIRepository
     name: podinfo
-    namespace: flux-system
-  releaseName: podinfo
   values:
     ingress:
       enabled: true

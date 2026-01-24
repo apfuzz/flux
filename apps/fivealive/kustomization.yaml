@@ -4,10 +4,14 @@ kind: Kustomization
 resources:
   - ./flux
   - ../base/podinfo
+  - ../base/headlamp
 patches:
   - path: flux.yaml
     target:
       kind: HelmRelease
   - path: podinfo.yaml
+    target:
+      kind: HelmRelease
+  - path: headlamp.yaml
     target:
       kind: HelmRelease

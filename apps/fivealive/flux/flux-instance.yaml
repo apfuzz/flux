@@ -20,6 +20,7 @@ spec:
     networkPolicy: false
   sync:
     kind: GitRepository
+    interval: 1m
     url: "ssh://git@gitlab.com/gangsterkitties/flux"
     ref: "refs/heads/main"
     path: "clusters/fivealive"

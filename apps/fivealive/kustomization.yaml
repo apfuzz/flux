@@ -9,9 +9,15 @@ patches:
   - path: flux.yaml
     target:
       kind: HelmRelease
+      name: flux-operator
+      namespace: flux-system
   - path: podinfo.yaml
     target:
       kind: HelmRelease
+      name: podinfo.yaml
+      namespace: default
   - path: headlamp.yaml
     target:
       kind: HelmRelease
+      name: headlamp
+      namespace: kube-system

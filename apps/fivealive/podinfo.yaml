@@ -9,7 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: podinfo
-    namespace: flux-system
   values:
     ingress:
       className: cilium

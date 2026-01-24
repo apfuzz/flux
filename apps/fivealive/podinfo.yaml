@@ -24,7 +24,7 @@ spec:
     httpRoute:
       enabled: true
       parentRefs:
-        - name: cilium
+        - name: cilium-gateway
           sectionName: https
           namespace: cilium
       hostnames:

@@ -7,3 +7,16 @@ resources:
   - flux-gitlab.yaml
   - slack-bot-token.yaml
   - release.yaml
+  # - podmonitor.yaml
+configMapGenerator:
+  - name: flux-grafana-dashboards
+    files:
+      # - dashboards/control-plane.json
+      - dashboards/cluster.json
+      # - dashboards/logs.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+        app.kubernetes.io/part-of: flux
+        app.kubernetes.io/component: monitoring
+        kustomize.toolkit.fluxcd.io/substitute: disabled

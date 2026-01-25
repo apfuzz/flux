@@ -23,6 +23,11 @@ spec:
       watchPlugins: true
     ingress:
       enabled: true
+    resources:
+      requests:
+        memory: 128Mi
+      limits:
+        memory: 128Mi
     pluginsManager:
       enabled: true
       configContent: |

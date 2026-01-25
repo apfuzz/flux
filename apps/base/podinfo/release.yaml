@@ -23,3 +23,8 @@ spec:
     #   tls:
     #    - hosts:
     #        - podinfo-<name>.gangsterkitties.com
+    resources:
+      requests:
+        memory: 32Mi
+      limits:
+        memory: 32Mi

@@ -1,0 +1,196 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kps
+  namespace: monitoring
+spec:
+  interval: 15m
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: kube-prometheus-stack
+  driftDetection:
+    mode: enabled
+  values:
+    alertmanager:
+      config:
+        route:
+          receiver: 'slack'
+      templateFiles:
+        slack.tmpl: |-
+          {{ define "__alertmanager" }}fivealive{{ end }}
+
+          {{/* Alertmanager Silence link */}}
+          {{ define "__alert_silence_link" -}}
+            {{ .ExternalURL }}/#/silences/new?filter=%7B
+            {{- range .CommonLabels.SortedPairs -}}
+              {{- if ne .Name "alertname" -}}
+                {{- .Name }}%3D"{{- .Value -}}"%2C%20
+              {{- end -}}
+            {{- end -}}
+            alertname%3D"{{- .CommonLabels.alertname -}}"%7D
+          {{- end }}
+
+          {{/* Severity of the alert */}}
+          {{ define "__alert_severity" -}}
+            {{- if eq .CommonLabels.severity "critical" -}}
+              *Severity:* `Critical`
+            {{- else if eq .CommonLabels.severity "warning" -}}
+              *Severity:* `Warning`
+            {{- else if eq .CommonLabels.severity "info" -}}
+              *Severity:* `Info`
+            {{- else -}}
+              *Severity:* :question: {{ .CommonLabels.severity }}
+            {{- end }}
+          {{- end }}
+
+          {{/* Title of the Slack alert */}}
+          {{ define "slack.title" -}}
+            [{{ .Status | toUpper -}}
+            {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
+            ] {{ .CommonLabels.alertname }}
+          {{- end }}
+
+          {{/* Color of Slack attachment (appears as line next to alert )*/}}
+          {{ define "slack.color" -}}
+            {{ if eq .Status "firing" -}}
+              {{ if eq .CommonLabels.severity "warning" -}}
+                  warning
+              {{- else if eq .CommonLabels.severity "critical" -}}
+                  danger
+              {{- else -}}
+                  #439FE0
+              {{- end -}}
+            {{ else -}}
+            good
+            {{- end }}
+          {{- end }}
+
+          {{/* The text to display in the alert */}}
+          {{ define "slack.text" -}}
+            {{ template "__alert_severity" . }}
+            {{- if (index .Alerts 0).Annotations.summary }}
+              {{- "\n" -}}
+              *Summary:* {{ (index .Alerts 0).Annotations.summary }}
+            {{- end }}
+            {{ range .Alerts }}
+              {{- if .Annotations.description }}
+                {{- "\n" -}}
+                {{ .Annotations.description }}
+                {{- "\n" -}}
+              {{- end }}
+              {{- if .Annotations.message }}
+                {{- "\n" -}}
+                {{ .Annotations.message }}
+                {{- "\n" -}}
+              {{- end }}
+            {{- end }}
+          {{- end }}
+      ingress:
+        annotations:
+          external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
+        hosts:
+          - alertmanager.gangsterkitties.com
+        tls:
+          - hosts:
+              - alertmanager.gangsterkitties.com
+      alertmanagerSpec:
+        resources:
+          limits:
+            memory: 128Mi
+          requests:
+            memory: 128Mi
+    grafana:
+      ingress:
+        annotations:
+          external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
+        hosts:
+          - grafana.gangsterkitties.com
+        tls:
+          - hosts:
+              - grafana.gangsterkitties.com
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          memory: 256Mi
+      persistence:
+        enabled: true
+        size: 1Gi
+      sidecar:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 384Mi
+          requests:
+            cpu: 100m
+            memory: 384Mi
+        dashboards:
+          enabled: true
+          folderAnnotation: grafana_folder
+          provider:
+            foldersFromFilesStructure: true
+    kubeEtcd:
+      endpoints:
+        - 10.0.101.101
+        - 10.0.101.102
+        - 10.0.101.103
+    prometheus:
+      ingress:
+        annotations:
+          external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
+        hosts:
+          - prometheus.gangsterkitties.com
+        tls:
+          - hosts:
+              - prometheus.gangsterkitties.com
+      prometheusSpec:
+        resources:
+          limits:
+            memory: 2Gi
+          requests:
+            memory: 2Gi
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 100Gi
+        additionalScrapeConfigs:
+          - job_name: cadvisor
+            scheme: https
+            static_configs:
+              - targets: ['cadvisor.gangsterkitties.com']
+          - job_name: node
+            static_configs:
+              - targets:
+                  - shakenbake.gangsterkitties.com:9100
+                  - pihole.gangsterkitties.com:9100
+              - targets: ['54.161.174.188:9100']
+                labels:
+                  instance: 'www.gangsterkitties.com'
+          - job_name: network
+            scheme: https
+            static_configs:
+              - targets: ['10.0.100.1']
+                labels:
+                  job: 'router'
+              - targets: ['192.168.0.106']
+                labels:
+                  job: 'switch'
+            metrics_path: /snmp
+            params:
+              module: [if_mib]
+            relabel_configs:
+              - source_labels: [__address__]
+                target_label: __param_target
+              - source_labels: [__param_target]
+                target_label: instance
+              - target_label: __address__
+                replacement: snmp-exporter.gangsterkitties.com
+          - job_name: traefik
+            scheme: https
+            static_configs:
+              - targets: ['traefik.gangsterkitties.com']

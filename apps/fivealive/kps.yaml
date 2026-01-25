@@ -118,6 +118,7 @@ spec:
       persistence:
         enabled: true
         size: 1Gi
+        claimName: kps-grafana
       sidecar:
         resources:
           limits:
@@ -153,6 +154,8 @@ spec:
             memory: 2Gi
         storageSpec:
           volumeClaimTemplate:
+            metadata:
+              name: prometheus-data
             spec:
               accessModes: ["ReadWriteOnce"]
               resources:

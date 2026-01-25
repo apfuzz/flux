@@ -13,6 +13,7 @@ configMapGenerator:
     files:
       - dashboards/cluster.json
       - dashboards/control-plane.json
+      # - dashboards/logs.json
     options:
       labels:
         grafana_dashboard: "1"
@@ -21,25 +22,3 @@ configMapGenerator:
         kustomize.toolkit.fluxcd.io/substitute: disabled
       annotations:
         grafana_folder: Flux
-  # - name: flux-control-plane-dashboard
-  #   files:
-  #     - dashboards/control-plane.json
-  #   options:
-  #     labels:
-  #       grafana_dashboard: "1"
-  #       app.kubernetes.io/part-of: flux
-  #       app.kubernetes.io/component: monitoring
-  #       kustomize.toolkit.fluxcd.io/substitute: disabled
-  #     annotations:
-  #       grafana_folder: flux
-  # - name: flux-logs-dashboard
-  #   files:
-  #     - dashboards/logs.json
-  #   options:
-  #     labels:
-  #       grafana_dashboard: "1"
-  #       app.kubernetes.io/part-of: flux
-  #       app.kubernetes.io/component: monitoring
-  #       kustomize.toolkit.fluxcd.io/substitute: disabled
-  #     annotations:
-  #       grafana_folder: flux

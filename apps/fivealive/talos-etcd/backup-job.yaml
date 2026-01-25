@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: backup-etcd
 spec:
-  schedule: "0 1 * * *"
+  schedule: "0 4 * * *"
   jobTemplate:
     spec:
       template:

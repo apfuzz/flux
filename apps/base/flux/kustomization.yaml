@@ -21,4 +21,4 @@ configMapGenerator:
         app.kubernetes.io/component: monitoring
         kustomize.toolkit.fluxcd.io/substitute: disabled
       annotations:
-        grafana_folder: Flux
+        grafana_folder: flux

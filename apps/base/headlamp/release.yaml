@@ -4,8 +4,7 @@ kind: HelmRelease
 metadata:
   name: headlamp
 spec:
-  # interval: 15m
-  interval: 5m
+  interval: 15m
   timeout: 5m
   chart:
     spec:
@@ -15,7 +14,7 @@ spec:
         kind: HelmRepository
         name: headlamp
   driftDetection:
-    mode: warn
+    mode: enabled
   values:
     config:
       oidc:

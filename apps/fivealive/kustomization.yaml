@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - ./flux
   - ./talos-etcd
-  - ../base/podinfo
   - ../base/headlamp
 patches:
   - path: flux.yaml
@@ -12,11 +11,6 @@ patches:
       kind: HelmRelease
       name: flux-operator
       namespace: flux-system
-  - path: podinfo.yaml
-    target:
-      kind: HelmRelease
-      name: podinfo
-      namespace: default
   - path: headlamp.yaml
     target:
       kind: HelmRelease

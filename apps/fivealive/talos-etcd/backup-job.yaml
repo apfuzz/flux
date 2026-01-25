@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: backup-job
+  name: backup-etcd
 spec:
   schedule: "0 1 * * *"
   jobTemplate:

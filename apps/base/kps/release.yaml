@@ -11,6 +11,8 @@ spec:
     name: kube-prometheus-stack
   driftDetection:
     mode: enabled
+  install:
+    crds: Skip
   values:
     nameOverride: kps
     crds:

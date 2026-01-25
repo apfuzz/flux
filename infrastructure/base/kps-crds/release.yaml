@@ -10,3 +10,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: prometheus-operator-crds
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace

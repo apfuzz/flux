@@ -155,7 +155,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             metadata:
-              name: prometheus-data
+              name: prometheus-kps-prometheus-db
             spec:
               accessModes: ["ReadWriteOnce"]
               resources:

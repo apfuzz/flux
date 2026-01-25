@@ -17,3 +17,10 @@ spec:
           to: "@artifact/base/"
         - from: "@monorepo/apps/fivealive/**"
           to: "@artifact/fivealive/"
+    - name: infrastructure
+      originRevision: "@monorepo"
+      copy:
+        - from: "@monorepo/infrastructure/base/**"
+          to: "@artifact/base/"
+        - from: "@monorepo/infrastructure/fivealive/**"
+          to: "@artifact/fivealive/"

@@ -19,7 +19,7 @@ configMapGenerator:
         app.kubernetes.io/component: monitoring
         kustomize.toolkit.fluxcd.io/substitute: disabled
       annotations:
-        grafana_folder: flux
+        grafana_folder: Flux
   # - name: flux-control-plane-dashboard
   #   files:
   #     - dashboards/control-plane.json

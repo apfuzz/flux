@@ -1,0 +1,35 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: metallb
+  namespace: metallb-system
+spec:
+  interval: 15m
+  timeout: 5m
+  chart:
+    spec:
+      chart: metallb
+      sourceRef:
+        kind: HelmRepository
+        name: metallb
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  driftDetection:
+    mode: enabled
+  values:
+    controller:
+      resources:
+        requests:
+          memory: 128Mi
+        limits:
+          memory: 128Mi
+    speaker:
+      resources:
+        requests:
+          memory: 64Mi
+        limits:
+          memory: 64Mi
+      ignoreExcludeLB: true

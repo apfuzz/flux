@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infrastructure
+  name: infra-stage1
   namespace: flux-system
 spec:
   interval: 1h
@@ -11,6 +11,24 @@ spec:
   sourceRef:
     kind: ExternalArtifact
     name: infrastructure
-  path: ./fivealive
+  path: ./fivealive/infra-stage1
+  prune: true
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-stage2
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-stage1
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  sourceRef:
+    kind: ExternalArtifact
+    name: infrastructure
+  path: ./fivealive/infra-stage2
   prune: true
   wait: true

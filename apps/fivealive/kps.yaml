@@ -156,8 +156,6 @@ spec:
             memory: 2Gi
         storageSpec:
           volumeClaimTemplate:
-            metadata:
-              name: prometheus-kps-prometheus-db
             spec:
               accessModes: ["ReadWriteOnce"]
               resources:

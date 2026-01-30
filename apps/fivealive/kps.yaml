@@ -197,3 +197,7 @@ spec:
             scheme: https
             static_configs:
               - targets: ['traefik.gangsterkitties.com']
+          - job_name: nvidia
+            static_configs:
+              - targets:
+                  - jarvis.gangsterkitties.com:9400

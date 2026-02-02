@@ -169,8 +169,9 @@ spec:
           - job_name: node
             static_configs:
               - targets:
-                  - shakenbake.gangsterkitties.com:9100
+                  - jarvis.gangsterkitties.com:9100
                   - pihole.gangsterkitties.com:9100
+                  - shakenbake.gangsterkitties.com:9100
               - targets: ['54.161.174.188:9100']
                 labels:
                   instance: 'www.gangsterkitties.com'

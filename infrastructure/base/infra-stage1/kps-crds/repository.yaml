@@ -6,6 +6,9 @@ metadata:
   namespace: monitoring
 spec:
   interval: 24h
-  url: oci://ghcr.io/prometheus-community/charts/prometheus-operator-crds
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: copy
   ref:
     semver: ">=1.0.0"
+  url: oci://ghcr.io/prometheus-community/charts/prometheus-operator-crds

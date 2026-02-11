@@ -101,6 +101,7 @@ spec:
               editable: false
               options:
                 path: /var/lib/grafana/dashboards/grafana-dashboards-kubernetes
+      dashboards:
         grafana-dashboards-kubernetes:
           k8s-addons-prometheus:
             url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-addons-prometheus.json

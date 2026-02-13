@@ -5,17 +5,4 @@ metadata:
   name: CHART_NAME
 spec:
   interval: 15m
-  timeout: 5m
-  # OCI source
-  chartRef:
-    kind: OCIRepository
-    name: CHART_NAME
-  # Helm source
-  chart:
-    spec:
-      chart: CHART_NAME
-      version: ">= 1.0.0"
-      sourceRef:
-        kind: HelmRepository
-        name: REPO_NAME
   values: {}

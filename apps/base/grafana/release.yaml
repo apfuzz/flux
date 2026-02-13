@@ -21,4 +21,4 @@ spec:
     adminPassword: strongpassword
     persistence:
       enabled: true
-      claimName: grafana
+      existingClaim: grafana

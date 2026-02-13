@@ -5,6 +5,7 @@ resources:
   - ./flux
   - ./kps
   - ./talos-etcd
+  - ../base/grafana
   - ../base/headlamp
 patches:
   - path: flux.yaml

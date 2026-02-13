@@ -1,0 +1,24 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: grafana
+spec:
+  interval: 15m
+  timeout: 5m
+  chart:
+    spec:
+      chart: grafana
+      version: ">= 0.1.0"
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+  driftDetection:
+    mode: enabled
+  values:
+    adminUser: admin
+    adminPassword: strongpassword
+    persistence:
+      enabled: true
+      size: 1Gi

@@ -6,13 +6,6 @@ metadata:
   namespace: metallb-system
 spec:
   interval: 15m
-  timeout: 5m
-  chart:
-    spec:
-      chart: metallb
-      sourceRef:
-        kind: HelmRepository
-        name: metallb
   values:
     controller:
       resources:

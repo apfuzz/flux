@@ -21,4 +21,5 @@ spec:
     adminPassword: strongpassword
     persistence:
       enabled: true
+      size: 1Gi
       claimName: grafana

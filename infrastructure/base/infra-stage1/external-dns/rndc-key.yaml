@@ -3,6 +3,7 @@ apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: rfc2136-keys
+  namespace: external-dns
 spec:
   secretStoreRef:
     name: vault-backend

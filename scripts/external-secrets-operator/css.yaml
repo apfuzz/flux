@@ -1,0 +1,20 @@
+apiVersion: external-secrets.io/v1
+kind: ClusterSecretStore
+metadata:
+  name: vault-backend
+spec:
+  provider:
+    vault:
+      server: "https://vault.gangsterkitties.com"
+      path: "gangsterkitties"
+      version: "v2"
+      auth:
+        kubernetes:
+          mountPath: kubernetes
+          role: kubernetes
+          serviceAccountRef:
+            name: vault
+            namespace: external-secrets
+          secretRef:
+            name: vault-token
+            key: token

@@ -1,0 +1,91 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: dex-config
+  namespace: dex
+spec:
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+  - remoteRef:
+      key: ldap
+      property: readonly
+    secretKey: BIND_PASS
+  - remoteRef:
+      key: cnpg
+      property: dex
+    secretKey: postgres_talos_dex
+  target:
+    name: dex-config
+    template:
+      engineVersion: v2
+      data:
+        config.yaml: |
+          issuer: https://dex.gangsterkitties.com/dex
+          storage:
+            type: postgres
+            config:
+              host: fivealive-rw.postgres.svc.cluster.local.
+              port: 5432
+              database: dex
+              user: dex
+              password: {{ .postgres_talos_dex }}
+              ssl:
+                mode: require
+          web:
+            http: 0.0.0.0:5556
+          oauth2:
+            skipApprovalScreen: true
+          staticClients:
+          - id: kubernetes
+            name: Kubernetes
+            secret: kubernetes-secret
+            redirectURIs:
+            - http://localhost:8000
+            - https://headlamp.gangsterkitties.com/oidc-callback
+            - https://cka-headlamp.gangsterkitties.com/oidc-callback
+            - https://kitkat-headlamp.gangsterkitties.com/oidc-callback
+            - https://poptart-headlamp.gangsterkitties.com/oidc-callback
+            - https://twix-headlamp.gangsterkitties.com/oidc-callback
+          - id: argocd
+            name: Argo CD
+            public: true
+            redirectURIs:
+            - https://argocd.gangsterkitties.com/auth/callback
+            - http://localhost:8085/auth/callback
+          - id: harbor
+            name: Harbor Registry
+            secret: harbor
+            redirectURIs:
+            - https://registry.gangsterkitties.com/c/oidc/callback
+          - id: open-webui
+            name: Open WebUI
+            secret: open-webui-secret
+            redirectURIs:
+            - https://genai.gangsterkitties.com/oauth/oidc/callback
+          connectors:
+          - type: ldap
+            name: OpenLDAP
+            id: ldap
+            config:
+              host: ldap.gangsterkitties.com
+              insecureNoSSL: false
+              insecureSkipVerify: false
+              bindDN: uid=readonly,cn=users,dc=gangsterkitties,dc=com
+              bindPW: "{{ .BIND_PASS }}"
+              usernamePrompt: Username
+              userSearch:
+                baseDN: cn=users,dc=gangsterkitties,dc=com
+                filter: "(objectClass=posixAccount)"
+                username: uid
+                idAttr: DN
+                emailAttr: mail
+                nameAttr: gecos
+              groupSearch:
+                baseDN: cn=groups,dc=gangsterkitties,dc=com
+                filter: "(objectClass=posixGroup)"
+                userMatchers:
+                - userAttr: uid
+                  groupAttr: memberUid
+                nameAttr: cn

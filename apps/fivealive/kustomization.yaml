@@ -5,6 +5,7 @@ resources:
   - ../base/dex
   - ../base/external-secrets
   - ../base/flux
+  - ../base/gitlab-runner
   - ../base/headlamp
   - ../base/kps
   - ./dex
@@ -28,6 +29,11 @@ patches:
       kind: HelmRelease
       name: flux-operator
       namespace: flux-system
+  - path: gitlab-runner.yaml
+    target:
+      kind: HelmRelease
+      name: gitlab-runner
+      namespace: gitlab
   - path: headlamp.yaml
     target:
       kind: HelmRelease

@@ -1,0 +1,20 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitlab-runner
+spec:
+  interval: 15m
+  values:
+    gitlabUrl: https://gitlab.com
+    runnerToken: glrt-eVpnu4Dgs894mUe24zTJ
+    runners:
+      config: |
+        [[runners]]
+          [runners.kubernetes]
+            helper_image = "registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:arm64-latest"
+    resources:
+      requests:
+        memory: 256Mi
+      limits:
+        memory: 256Mi

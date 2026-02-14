@@ -1,0 +1,23 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitlab-runner
+  namespace: gitlab
+spec:
+  interval: 15m
+  timeout: 5m
+  chart:
+    spec:
+      chart: gitlab-runner
+      version: ">= 0.1.0"
+      sourceRef:
+        kind: HelmRepository
+        name: gitlab-runner
+  driftDetection:
+    mode: enabled
+  values:
+    rbac:
+      create: true
+    serviceAccount:
+      name: gitlab

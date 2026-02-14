@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: headlamp
+spec:
+  interval: 15m
+  values:
+    ingress:
+      annotations:
+        external-dns.alpha.kubernetes.io/target: poptart-ingress.gangsterkitties.com
+      hosts:
+        - host: headlamp.gangsterkitties.com
+          paths:
+            - path: /
+              type: Prefix
+      tls:
+        - hosts:
+            - headlamp.gangsterkitties.com

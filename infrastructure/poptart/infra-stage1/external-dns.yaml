@@ -1,0 +1,20 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: external-dns
+spec:
+  interval: 15m
+  values:
+    resources:
+      requests:
+        memory: 128Mi
+      limits:
+        memory: 128Mi
+    # logLevel: debug
+    sources:
+      - gateway-grpcroute
+      - gateway-httproute
+      - ingress
+      - service
+    txtOwnerId: poptart

@@ -1,0 +1,21 @@
+apiVersion: external-secrets.io/v1
+kind: ClusterSecretStore
+metadata:
+  name: vault-backend
+  namespace: external-secrets
+spec:
+  provider:
+    vault:
+      server: https://vault.gangsterkitties.com
+      path: gangsterkitties
+      version: v2
+      auth:
+        kubernetes:
+          mountPath: eso-poptart
+          role: kubernetes
+          serviceAccountRef:
+            name: vault
+            namespace: vault
+          secretRef:
+            name: eso-vault
+            key: token

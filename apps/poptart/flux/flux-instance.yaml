@@ -1,0 +1,27 @@
+---
+apiVersion: fluxcd.controlplane.io/v1
+kind: FluxInstance
+metadata:
+  name: flux
+spec:
+  distribution:
+    version: "2.7.x"
+    registry: "ghcr.io/fluxcd"
+    artifact: "oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests"
+  components:
+    - source-controller
+    - source-watcher
+    - kustomize-controller
+    - helm-controller
+    - notification-controller
+  cluster:
+    type: kubernetes
+    size: small
+    networkPolicy: false
+  sync:
+    kind: GitRepository
+    interval: 1m
+    url: "ssh://git@gitlab.com/gangsterkitties/flux"
+    ref: "refs/heads/main"
+    path: "clusters/poptart"
+    pullSecret: "fluxcd-gitlab"

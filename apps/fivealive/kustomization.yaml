@@ -3,10 +3,12 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../base/dex
+  - ../base/external-secrets
   - ../base/flux
   - ../base/headlamp
   - ../base/kps
   - ./dex
+  - ./external-secrets
   - ./flux
   - ./kps
   - ./talos-etcd
@@ -16,6 +18,11 @@ patches:
       kind: HelmRelease
       name: dex
       namespace: dex
+  - path: external-secrets.yaml
+    target:
+      kind: HelmRelease
+      name: external-secrets
+      namespace: external-secrets
   - path: flux.yaml
     target:
       kind: HelmRelease

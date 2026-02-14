@@ -8,6 +8,7 @@ resources:
   - ../base/gitlab-runner
   - ../base/headlamp
   - ../base/kps
+  - ../base/valkey
   - ./dex
   - ./external-secrets
   - ./flux
@@ -44,3 +45,8 @@ patches:
       kind: HelmRelease
       name: kps
       namespace: monitoring
+  - path: valkey.yaml
+    target:
+      kind: HelmRelease
+      name: valkey
+      namespace: valkey

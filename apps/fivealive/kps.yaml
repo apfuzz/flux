@@ -113,8 +113,7 @@ spec:
           memory: 384Mi
       persistence:
         enabled: true
-        size: 1Gi
-        claimName: kps-grafana
+        existingClaim: grafana
       sidecar:
         resources:
           limits:
@@ -148,7 +147,10 @@ spec:
             memory: 2Gi
         storageSpec:
           volumeClaimTemplate:
+            metadata:
+              name: prometheus-kps-prometheus-db-prometheus-kps-prometheus-0
             spec:
+              storageClassName: longhorn
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:

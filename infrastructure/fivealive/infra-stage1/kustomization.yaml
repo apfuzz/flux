@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../../base/infra-stage1/kps-crds
   - ../../base/infra-stage1/metallb
+  - ./kps
 patches:
   - path: metallb.yaml
     target:

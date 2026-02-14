@@ -15,7 +15,9 @@ spec:
   values:
     configSecret:
       create: false
-      name: dex-secrets
+      name: dex-config
+    rbac:
+      create: false
     ingress:
       enabled: true
     serviceMonitor:

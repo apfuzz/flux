@@ -1,0 +1,34 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cert-manager
+spec:
+  dependsOn:
+    - name: kps-crds
+      namespace: monitoring
+  interval: 15m
+  timeout: 5m
+  chart:
+    spec:
+      chart: cert-manager
+      version: "1.19.x"
+      sourceRef:
+        kind: HelmRepository
+        name: cert-manager
+  driftDetection:
+    mode: enabled
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    crds:
+      enabled: true
+    dns01RecursiveNameservers: "1.1.1.1:53,8.8.8.8:53"
+    dns01RecursiveNameserversOnly: true
+    prometheus:
+      servicemonitor:
+        enabled: true
+        labels:
+          release: kps

@@ -11,4 +11,6 @@ spec:
   resources:
     requests:
       storage: 1Gi
+  storageClassName: longhorn
   volumeMode: Filesystem
+  volumeName: pvc-8052717e-da9d-4af3-9c74-60e6f08f90db

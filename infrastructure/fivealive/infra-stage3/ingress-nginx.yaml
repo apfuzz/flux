@@ -1,0 +1,20 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ingress-nginx
+spec:
+  interval: 15m
+  values:
+    controller:
+      ingressClassResource:
+        default: false
+      resources:
+        requests:
+          memory: 256Mi
+        limits:
+          memory: 256Mi
+      service:
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: fivealive-ingress2.gangsterkitties.com
+          metallb.io/loadBalancerIPs: 10.0.101.252

@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: infra-stage2
+    - name: infra-stage3
   interval: 1h
   retryInterval: 2m
   timeout: 5m

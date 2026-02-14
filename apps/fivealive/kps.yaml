@@ -113,7 +113,7 @@ spec:
           memory: 384Mi
       persistence:
         enabled: true
-        existingClaim: grafana
+        existingClaim: kps-grafana
       sidecar:
         resources:
           limits:

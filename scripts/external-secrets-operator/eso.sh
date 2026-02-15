@@ -73,18 +73,18 @@ vault_login() {
 
 # enable the kubernetes authentication method in vault
 vault_auth() {
-  echo -e "${BLUE}Enabling Vault Kubernetes auth method...${NC}"
+  echo -e "\n${BLUE}Enabling Vault Kubernetes auth method...${NC}"
   VAULT_AUTH_EXISTS=$(vault auth list | grep -c eso-poptart)
   if [ $VAULT_AUTH_EXISTS -eq 0 ] ; then
     vault auth enable -path=$VAULT_AUTH_NAME -description="External Secrets Operator for K8s cluster $K8S_CLUSTER" kubernetes
   else
-    echo -e "${YELLOW}Vault Kubernetes auth method already enabled. Skipping...${NC}"
+    echo -e "\n${YELLOW}Vault Kubernetes auth method already enabled. Skipping...${NC}"
   fi
 }
 
 # install external secrets operator
 eso_install() {
-  echo -e "${BLUE}Installing External Secrets Operator...${NC}"
+  echo -e "\n${BLUE}Installing External Secrets Operator...${NC}"
 
   # add helm repo
   helm repo add external-secrets https://charts.external-secrets.io
@@ -95,11 +95,12 @@ eso_install() {
 
   # create vault service account and token
   kubectl apply -f $SCRIPT_DIR/vault-sa.yaml
+  sleep 2
 }
 
 # write vault auth config
 vault_auth_config() {
-  echo -e "${BLUE}Configuring Vault Kubernetes auth method...${NC}"
+  echo -e "\n${BLUE}Configuring Vault Kubernetes auth method...${NC}"
 
   # set variables for Vault Kubernetes auth config
   TOKEN_REVIEW_JWT=$(kubectl get secret vault-token -n external-secrets --output='go-template={{ .data.token }}' | base64 -d)
@@ -127,7 +128,7 @@ cluster_secret_store() {
   $SED_CMD "s/mountPath.*/mountPath:\ eso-$K8S_CLUSTER/" $CSS_MANIFEST
 
   # wait for external-secrets-webhook to become available
-  echo -e "${BLUE}Waiting for external-secrets-webhook to become available...${NC}"
+  echo -e "\n${BLUE}Waiting for external-secrets-webhook to become available...${NC}"
   kubectl wait -n external-secrets deploy/external-secrets-webhook --for condition=available --timeout=60s
 
   # apply manifest
@@ -140,9 +141,9 @@ cluster_secret_store() {
   kubectl apply -f $TEST_SECRET_MANIFEST
 
   # get test secret status
-  echo -e "${BLUE}Waiting for test secret to be ready...${NC}"
+  echo -e "\n${BLUE}Waiting for test secret to be ready...${NC}"
   kubectl wait -n external-secrets externalsecret/test-secret --for=condition=Ready --timeout=60s
-  echo -e "${GREEN}Test secret synced successfully!${NC}"
+  echo -e "\n${GREEN}Test secret synced successfully!${NC}"
 }
 
 ### main

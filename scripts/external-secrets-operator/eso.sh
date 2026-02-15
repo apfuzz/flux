@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# exit on error
+set -e
+
 # set -xv
 
 # eso.sh
@@ -71,7 +74,12 @@ vault_login() {
 # enable the kubernetes authentication method in vault
 vault_auth() {
   echo -e "${BLUE}Enabling Vault Kubernetes auth method...${NC}"
-  vault auth enable -path=$VAULT_AUTH_NAME -description="External Secrets Operator for K8s cluster $K8S_CLUSTER" kubernetes
+  VAULT_AUTH_EXISTS=$(vault auth list | grep -c eso-poptart)
+  if [ $VAULT_AUTH_EXISTS -eq 0 ] ; then
+    vault auth enable -path=$VAULT_AUTH_NAME -description="External Secrets Operator for K8s cluster $K8S_CLUSTER" kubernetes
+  else
+    echo -e "${YELLOW}Vault Kubernetes auth method already enabled. Skipping...${NC}"
+  fi
 }
 
 # install external secrets operator
@@ -133,7 +141,7 @@ cluster_secret_store() {
 
   # get test secret status
   echo -e "${BLUE}Waiting for test secret to be ready...${NC}"
-  kubectl wait -n external-secrets externalsecret/test-secret --for jsonpath='{.status.conditions[0].status}' --timeout=60s
+  kubectl wait -n external-secrets externalsecret/test-secret --for=condition=Ready --timeout=60s
   echo -e "${GREEN}Test secret synced successfully!${NC}"
 }
 

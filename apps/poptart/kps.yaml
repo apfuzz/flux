@@ -102,8 +102,9 @@ spec:
               - poptart-grafana.gangsterkitties.com
       persistence:
         enabled: true
-        volumeName: kps-grafana
+        size: 1Gi
         subPath: grafana
+        volumeName: kps-grafana
       initChownData:
         enabled: false
       sidecar:

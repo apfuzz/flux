@@ -47,14 +47,14 @@ There is a 1:1 relationship with the Flux Operator and FluxInstance resource. Th
 helm install flux-operator oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator \
   --namespace flux-system \
   --create-namespace && \
-kubectl wait -n flux-system deploy/flux-operator --for=condition=Available --timeout=60s
+kubectl wait -n flux-system deploy/flux-operator --for=condition=Available --timeout=120s
 ```
 
 ### Apply external secret with git credentials
 
 ```bash
 kubectl apply -f apps/base/flux/flux-gitlab.yaml -n flux-system && \
-kubectl wait -n flux-system externalsecret/fluxcd-gitlab --for=condition=Ready --timeout=60s
+kubectl wait -n flux-system externalsecret/fluxcd-gitlab --for=condition=Ready
 ```
 
 ### Create FluxInstance resoruce (aka "bootstrap" cluster)
@@ -87,5 +87,5 @@ spec:
     ref: refs/heads/main
     url: ssh://git@gitlab.com/gangsterkitties/flux
 EOF
-kubectl wait -n flux-system fluxinstance/flux --for=condition=Ready --timeout=60s
+kubectl wait -n flux-system fluxinstance/flux --for=condition=Ready --timeout=120s
 ```

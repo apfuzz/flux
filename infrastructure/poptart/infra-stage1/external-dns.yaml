@@ -8,8 +8,8 @@ spec:
   values:
     # logLevel: debug
     sources:
-      - gateway-grpcroute
-      - gateway-httproute
+      # - gateway-grpcroute
+      # - gateway-httproute
       - ingress
       - service
     txtOwnerId: poptart

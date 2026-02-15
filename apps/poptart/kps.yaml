@@ -87,19 +87,19 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: poptart-ingress.gangsterkitties.com
         hosts:
-          - alertmanager-poptart.gangsterkitties.com
+          - poptart-alertmanager.gangsterkitties.com
         tls:
           - hosts:
-              - alertmanager-poptart.gangsterkitties.com
+              - poptart-alertmanager.gangsterkitties.com
     grafana:
       ingress:
         annotations:
           external-dns.alpha.kubernetes.io/target: poptart-ingress.gangsterkitties.com
         hosts:
-          - grafana-poptart.gangsterkitties.com
+          - poptart-grafana.gangsterkitties.com
         tls:
           - hosts:
-              - grafana-poptart.gangsterkitties.com
+              - poptart-grafana.gangsterkitties.com
       persistence:
         enabled: true
         existingClaim: kps-grafana
@@ -120,10 +120,10 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: poptart-ingress.gangsterkitties.com
         hosts:
-          - prometheus-poptart.gangsterkitties.com
+          - poptart-prometheus.gangsterkitties.com
         tls:
           - hosts:
-              - prometheus-poptart.gangsterkitties.com
+              - poptart-prometheus.gangsterkitties.com
       prometheusSpec:
         storageSpec:
           volumeClaimTemplate:

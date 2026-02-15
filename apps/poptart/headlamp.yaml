@@ -10,10 +10,10 @@ spec:
       annotations:
         external-dns.alpha.kubernetes.io/target: poptart-ingress.gangsterkitties.com
       hosts:
-        - host: headlamp-poptart.gangsterkitties.com
+        - host: poptart-headlamp.gangsterkitties.com
           paths:
             - path: /
               type: Prefix
       tls:
         - hosts:
-            - headlamp-poptart.gangsterkitties.com
+            - poptart-headlamp.gangsterkitties.com

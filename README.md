@@ -1,108 +1,82 @@
-# flux
+# Flux CD
 
-Prerequisites
+This repository is dedicated to Flux CD.
 
-1. Create Git repo
-2. Create SSH key pair
-3. Add public key to Git repo
-4. Clone repo
-5. Install flux cli
-
-Bootstrap Flux
+It follows the monorepo design as described on [fluxcd.io](https://fluxcd.io/flux/guides/repository-structure/#monorepo).
 
 ```sh
-GIT_URL=ssh://git@gitlab.com/gangsterkitties/flux
-GIT_BRANCH=main
-SSH_KEY_FILE=/home/aaron/.ssh/flux
-K8S_CLUSTER=talos
-
-flux bootstrap git \
-  --url=$GIT_URL \
-  --branch=$GIT_BRANCH \
-  --private-key-file=$SSH_KEY_FILE \
-  --path=clusters/$K8S_CLUSTER
+├── apps                  depends on infrastructure, no interdependencies
+│   ├── base
+│   ├── fivealive
+│   └── poptart
+├── clusters              flux sync path
+│   ├── fivealive
+│   └── poptart
+├── infrastructure        crds, networking with interdependencies
+│   ├── base
+│   │   ├── infra-stage1
+│   │   ├── infra-stage2
+│   │   ├── infra-stage3
+│   ├── fivealive
+│   │   ├── infra-stage1
+│   │   ├── infra-stage2
+│   │   ├── infra-stage3
+│   └── poptart
+│       ├── infra-stage1
+│       ├── infra-stage2
+│       └── infra-stage3
+├── scripts               various utility scripts
+└── templates             flux resource templates
 ```
 
-## Examples
+## Flux Operator
 
-### Headlamp
+The Flux Operator is the best way to get started with Flux. It comes with the FluxInstance CRD, which is used to bootstrap a cluster.
 
-Add headlamp helm repository
+There is a 1:1 relationship with the Flux Operator and FluxInstance resource. That is, a single operator deployed in a cluster manages a single FluxInstance resource, which in turn manages all other resources via controllers in that cluster.
 
-```sh
-flux create source helm headlamp \
-  --url=https://headlamp-k8s.github.io/headlamp \
-  --export > apps/$K8S_CLUSTER/headlamp.yaml
+### Deploy Flux Operator
+
+```bash
+helm install flux-operator oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator \
+  --namespace flux-system \
+  --create-namespace
 ```
 
-Create helm release for headlamp with values from file
+### Apply external secret with git credentials
 
-```sh
-flux create helmrelease headlamp \
-  --source=HelmRepository/headlamp.flux-system \
-  --chart=headlamp \
-  --chart-version=0.20.0 \
-  --namespace=kube-system \
-  --values=helm/$K8S_CLUSTER/headlamp-values.yaml \
-  --export >> apps/$K8S_CLUSTER/headlamp.yaml
-  ```
-
-Create kustomization for headlamp
-
-```sh
-mkdir manifests/$K8S_CLUSTER/headlamp
-cp ../argocd/manifests/headlamp/ingress.yaml manifests/$K8S_CLUSTER/headlamp/
-
-flux create kustomization headlamp \
-  --source=GitRepository/flux-system \
-  --path="./manifests/$K8S_CLUSTER/headlamp" \
-  --prune=true \
-  --interval=1h0m0s \
-  --wait=true \
-  --export >> apps/$K8S_CLUSTER/headlamp.yaml
+```bash
+kubectl apply -f apps/base/flux/flux-gitlab.yaml -n flux-system
 ```
 
-### Argo CD
-
-Create kustomization for headlamp
+### Create FluxInstance resoruce (aka "bootstrap" cluster)
 
 ```sh
-mkdir manifests/$K8S_CLUSTER/argocd
-cp ../kubernetes/argocd/gitlab-repo.yaml manifests/$K8S_CLUSTER/argocd/
-cp ../kubernetes/argocd/projects.yaml manifests/$K8S_CLUSTER/argocd/
-cp ../kubernetes/argocd/slack-token.yaml manifests/$K8S_CLUSTER/argocd/
-
-flux create kustomization argocd \
-  --source=GitRepository/flux-system \
-  --path="./manifests/$K8S_CLUSTER/argocd" \
-  --prune=true \
-  --interval=1h0m0s \
-  --wait=true \
-  --export >> apps/$K8S_CLUSTER/argocd.yaml
-```
-
-Add argocd helm repository
-
-```sh
-flux create source helm argocd \
-  --url=https://argoproj.github.io/argo-helm \
-  --export > apps/$K8S_CLUSTER/argocd.yaml
-```
-
-Create helm release for argocd with values from file
-
-```sh
-flux create helmrelease argocd \
-  --source=HelmRepository/argocd.flux-system \
-  --chart=argocd \
-  --chart-version=6.7.18 \
-  --namespace=argocd \
-  --values=helm/$K8S_CLUSTER/argocd-values.yaml \
-  --export >> apps/$K8S_CLUSTER/argocd.yaml
-  ```
-
-Uninstall Flux CD
-
-```sh
-flux uninstall
+cat <<EOF | kubectl apply -f -
+apiVersion: fluxcd.controlplane.io/v1
+kind: FluxInstance
+metadata:
+  name: flux
+  namespace: flux-system
+spec:
+  distribution:
+    version: "2.7.x"
+    registry: "ghcr.io/fluxcd"
+    artifact: "oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests"
+  components:
+    - source-controller
+    - source-watcher
+    - kustomize-controller
+    - helm-controller
+    - notification-controller
+  cluster:
+    type: kubernetes
+    size: small
+  sync:
+    kind: GitRepository
+    path: clusters/poptart
+    pullSecret: fluxcd-gitlab
+    ref: refs/heads/main
+    url: ssh://git@gitlab.com/gangsterkitties/flux
+EOF
 ```

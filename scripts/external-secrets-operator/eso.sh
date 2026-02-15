@@ -140,7 +140,7 @@ cluster_secret_store() {
 ### main
 
 # check syntax
-if [ $# -ne 3 ] ; then
+if [ $# -ne 2 ] ; then
   usage
   exit 1
 fi

@@ -91,12 +91,6 @@ spec:
         tls:
           - hosts:
               - alertmanager-poptart.gangsterkitties.com
-      alertmanagerSpec:
-        resources:
-          limits:
-            memory: 128Mi
-          requests:
-            memory: 128Mi
     grafana:
       ingress:
         annotations:
@@ -106,20 +100,10 @@ spec:
         tls:
           - hosts:
               - grafana-poptart.gangsterkitties.com
-      resources:
-        limits:
-          memory: 384Mi
-        requests:
-          memory: 384Mi
       # persistence:
       #   enabled: true
       #   existingClaim: kps-grafana
       sidecar:
-        resources:
-          limits:
-            memory: 384Mi
-          requests:
-            memory: 384Mi
         dashboards:
           enabled: true
           folderAnnotation: grafana_folder

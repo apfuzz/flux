@@ -6,11 +6,6 @@ metadata:
 spec:
   interval: 15m
   values:
-    resources:
-      requests:
-        memory: 128Mi
-      limits:
-        memory: 128Mi
     # logLevel: debug
     sources:
       - gateway-grpcroute

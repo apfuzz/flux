@@ -7,16 +7,5 @@ metadata:
 spec:
   interval: 15m
   values:
-    controller:
-      resources:
-        requests:
-          memory: 128Mi
-        limits:
-          memory: 128Mi
     speaker:
-      resources:
-        requests:
-          memory: 64Mi
-        limits:
-          memory: 64Mi
       ignoreExcludeLB: true

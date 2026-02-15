@@ -5,21 +5,4 @@ metadata:
   name: cert-manager
 spec:
   interval: 15m
-  values:
-    resources:
-      limits:
-        memory: 128Mi
-      requests:
-        memory: 128Mi
-    webhook:
-      resources:
-        limits:
-          memory: 64Mi
-        requests:
-          memory: 64Mi
-    cainjector:
-      resources:
-        limits:
-          memory: 128Mi
-        requests:
-          memory: 128Mi
+  values: {}

@@ -7,7 +7,6 @@ resources:
   - ../../base/infra-stage1/gateway-api
   - ../../base/infra-stage1/kps-crds
   - ../../base/infra-stage1/metallb
-  - ./kps
 patches:
   - path: cert-manager.yaml
     target:

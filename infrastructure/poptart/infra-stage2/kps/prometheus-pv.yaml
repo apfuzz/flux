@@ -2,14 +2,16 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: kps-grafana
+  name: kps-prometheus
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
   labels:
-    app.kubernetes.io/name: grafana
+    app.kubernetes.io/name: prometheus
 spec:
   accessModes:
     - ReadWriteOnce
   capacity:
-    storage: 1Gi
+    storage: 20Gi
   local:
     path: /var/mnt/local-storage
   nodeAffinity:
@@ -23,19 +25,3 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   volumeMode: Filesystem
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: kps-grafana
-spec:
-  accessModes:
-    - ReadWriteOnce
-  volumeMode: Filesystem
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: local-storage
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: grafana

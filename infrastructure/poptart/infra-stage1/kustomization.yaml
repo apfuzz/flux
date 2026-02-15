@@ -4,9 +4,10 @@ kind: Kustomization
 resources:
   - ../../base/infra-stage1/cert-manager
   - ../../base/infra-stage1/external-dns
+  - ../../base/infra-stage1/gateway-api
   - ../../base/infra-stage1/kps-crds
   - ../../base/infra-stage1/metallb
-  # - ./kps
+  - ./kps
 patches:
   - path: cert-manager.yaml
     target:

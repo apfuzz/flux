@@ -2,7 +2,6 @@ apiVersion: external-secrets.io/v1
 kind: ClusterSecretStore
 metadata:
   name: vault-backend
-  namespace: external-secrets
 spec:
   provider:
     vault:
@@ -15,7 +14,7 @@ spec:
           role: kubernetes
           serviceAccountRef:
             name: vault
-            namespace: vault
+            namespace: external-secrets
           secretRef:
-            name: eso-vault
+            name: vault-token
             key: token

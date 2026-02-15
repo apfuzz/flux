@@ -81,4 +81,5 @@ spec:
     ref: refs/heads/main
     url: ssh://git@gitlab.com/gangsterkitties/flux
 EOF
+kubectl wait -n flux-system fluxinstance/flux --for=condition=Ready --timeout=60s
 ```

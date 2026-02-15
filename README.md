@@ -35,6 +35,12 @@ The Flux Operator is the best way to get started with Flux. It comes with the Fl
 
 There is a 1:1 relationship with the Flux Operator and FluxInstance resource. That is, a single operator deployed in a cluster manages a single FluxInstance resource, which in turn manages all other resources via controllers in that cluster.
 
+### Install External Secrets Operator
+
+```bash
+./scripts/external-secrets-operator/eso.sh poptart vault.gangsterkitties.com
+```
+
 ### Deploy Flux Operator
 
 ```bash

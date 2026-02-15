@@ -25,21 +25,3 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   volumeMode: Filesystem
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: kps-grafana
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes:
-    - ReadWriteOnce
-  volumeMode: Filesystem
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: local-storage
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: grafana

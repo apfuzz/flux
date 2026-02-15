@@ -102,7 +102,7 @@ spec:
               - poptart-grafana.gangsterkitties.com
       persistence:
         enabled: true
-        existingClaim: kps-grafana
+        volumeName: kps-grafana
         subPath: grafana
       initChownData:
         enabled: false

@@ -103,6 +103,7 @@ spec:
       persistence:
         enabled: true
         size: 1Gi
+        storageClassName: local-storage
         subPath: grafana
         volumeName: kps-grafana
       initChownData:

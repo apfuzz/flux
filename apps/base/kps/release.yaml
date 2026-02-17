@@ -29,6 +29,9 @@ spec:
                 - alertname = "KubeMemoryOvercommit"
               receiver: 'null'
             - matchers:
+                - alertname = "NodeMemoryMajorPagesFaults"
+              receiver: 'null'
+            - matchers:
                 - alertname = "NodeMemoryHighUtilization"
                 - severity = "warning"
               receiver: 'null'

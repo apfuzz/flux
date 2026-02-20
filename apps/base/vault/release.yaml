@@ -1,0 +1,60 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vault-test
+  namespace: vault-test
+spec:
+  interval: 15m
+  timeout: 5m
+  chart:
+    spec:
+      chart: vault
+      version: "0.32.0"
+      sourceRef:
+        kind: HelmRepository
+        name: vault
+  driftDetection:
+    mode: enabled
+  values:
+    global:
+      serverTelemetry:
+        prometheusOperator: true
+    injector:
+      enabled: false
+    server:
+      standalone:
+        enabled: false
+      ha:
+        enabled: true
+        raft:
+          enabled: true
+          config: |
+            ui = true
+
+            listener "tcp" {
+              tls_disable = 1
+              address = "[::]:8200"
+              cluster_address = "[::]:8201"
+              telemetry {
+                unauthenticated_metrics_access = "true"
+              }
+            }
+
+            storage "raft" {
+              path = "/vault/data"
+            }
+
+            telemetry {
+              prometheus_retention_time = "30s"
+              disable_hostname = true
+            }
+
+            service_registration "kubernetes" {}
+    ui:
+      enabled: true
+    serverTelemetry:
+      serviceMonitor:
+        enabled: true
+        selectors:
+          release: kps

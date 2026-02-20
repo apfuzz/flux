@@ -9,7 +9,7 @@ resources:
   - ../base/headlamp
   - ../base/kps
   - ../base/valkey
-  - ../base/vault
+  # - ../base/vault
   - ./dex
   - ./external-secrets
   - ./flux
@@ -51,8 +51,8 @@ patches:
       kind: HelmRelease
       name: valkey
       namespace: valkey
-  - path: vault-test.yaml
-    target:
-      kind: HelmRelease
-      name: vault
-      namespace: vault-test
+  # - path: vault-test.yaml
+  #   target:
+  #     kind: HelmRelease
+  #     name: vault
+  #     namespace: vault-test

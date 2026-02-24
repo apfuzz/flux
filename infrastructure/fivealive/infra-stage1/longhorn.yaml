@@ -1,0 +1,17 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: longhorn
+  namespace: longhorn
+spec:
+  interval: 15m
+  values:
+    ingress:
+      enabled: true
+      host: longhorn.gangsterkitties.com
+      pathType: Prefix
+      # tls: true
+      # tlsSecret: wildcard
+      annotations:
+        external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com

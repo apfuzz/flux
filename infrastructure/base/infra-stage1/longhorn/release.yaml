@@ -1,0 +1,45 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: longhorn
+  namespace: longhorn
+spec:
+  dependsOn:
+    - name: kps-crds
+      namespace: monitoring
+  interval: 15m
+  timeout: 5m
+  chart:
+    spec:
+      chart: longhorn
+      version: "1.10.x"
+      sourceRef:
+        kind: HelmRepository
+        name: longhorn
+  driftDetection:
+    mode: enabled
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    persistence:
+      defaultDiskSelector:
+        enable: true
+        selector: "nvme"
+      defaultNodeSelector:
+        enable: true
+        selector: "storage"
+    preUpgradeChecker:
+      jobEnabled: false
+    defaultSettings:
+      createDefaultDiskLabeledNodes: true
+      storageReservedPercentageForDefaultDisk: 0
+    longhornUI:
+      replicas: 1
+    metrics:
+      serviceMonitor:
+        enabled: true
+        additionalLabels:
+          release: kps

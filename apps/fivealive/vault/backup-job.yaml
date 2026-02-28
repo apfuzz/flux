@@ -1,0 +1,96 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: backup-vault
+spec:
+  schedule: "0 5 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: debian-tools
+            image: registry.gangsterkitties.com/images/debian-tools:2026.01.25-268
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: AWS_ACCESS_KEY_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: backup-secret
+                    key: AWS_ACCESS_KEY_ID
+              - name: AWS_SECRET_ACCESS_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: backup-secret
+                    key: AWS_SECRET_ACCESS_KEY
+              - name: VAULT_APPROLE_ROLE_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: backup-secret
+                    key: VAULT_APPROLE_ROLE_ID
+              - name: VAULT_APPROLE_SECRET_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: backup-secret
+                    key: VAULT_APPROLE_SECRET_ID
+            command:
+              - /backup-script/vault-backup.sh
+            volumeMounts:
+              - name: backup-script
+                mountPath: /backup-script
+          volumes:
+            - name: backup-script
+              configMap:
+                name: backup-script
+                defaultMode: 0777
+          restartPolicy: OnFailure
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backup-script
+data:
+  vault-backup.sh: |
+    #!/bin/bash
+
+    # debug
+    # set -xv
+
+    # set variables
+    BUCKET_NAME=backups
+    BUCKET_PATH=vault
+    VAULT_NAME=vault
+    DATE=`date +%Y-%m-%d-%H-%M`
+    FILENAME=${VAULT_NAME}-${DATE}.snapshot
+
+    # set more variables
+    export VAULT_ADDR=https://vault.gangsterkitties.com
+    export AWS_DEFAULT_REGION=us-east-1
+    export AWS_ENDPOINT_URL_S3=https://idopqt7hl3bt.compat.objectstorage.us-ashburn-1.oraclecloud.com
+    export AWS_REQUEST_CHECKSUM_CALCULATION=when_required
+    export AWS_RESPONSE_CHECKSUM_VALIDATION=when_required
+
+    # get token
+    echo -e "getting vault token...\n"
+    VAULT_TOKEN=`vault write auth/approle/login role_id=$VAULT_APPROLE_ROLE_ID secret_id=$VAULT_APPROLE_SECRET_ID | grep -w token | awk '{print $2}'`
+
+    # log in using token
+    echo -e "logging into vault...\n"
+    vault login $VAULT_TOKEN 2>&1 > /dev/null
+
+    # take snapshot
+    echo -e "taking raft snapshot...\n"
+    vault operator raft snapshot save $FILENAME
+
+    # exit if previous command fails
+    if [ $? -ne 0 ] ; then
+      echo -e "previous command failed - exiting...\n"
+      exit 1
+    fi
+
+    # compress database backup file
+    gzip $FILENAME
+
+    # upload backup file
+    echo -e "uploading backup file to object storage...\n"
+    aws s3 cp $FILENAME.gz s3://$BUCKET_NAME/$BUCKET_PATH/ --no-progress

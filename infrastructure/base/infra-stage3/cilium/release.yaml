@@ -32,6 +32,7 @@ spec:
       defaultSecretName: wildcard
     gatewayAPI:
       enabled: true
+      enableAlpn: true
     encryption:
       enabled: true
       type: wireguard
@@ -55,8 +56,6 @@ spec:
           - SYS_RESOURCE
     ipam:
       mode: kubernetes
-    nodePort:
-      enabled: true
     prometheus:
       enabled: true
       serviceMonitor:
@@ -84,6 +83,7 @@ spec:
         enabled: true
         annotations:
           grafana_folder: Cilium
+    kubeProxyReplacement: true
     cgroup:
       autoMount:
         enabled: false

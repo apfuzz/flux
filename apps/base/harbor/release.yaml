@@ -25,12 +25,12 @@ spec:
     harborAdminPassword: "Harbor12345"
     updateStrategy:
       type: Recreate
-    # metrics:
-    #   enabled: true
-    #   serviceMonitor:
-    #     enabled: true
-    #     additionalLabels:
-    #       release: kps
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        additionalLabels:
+          release: kps
     portal:
       image:
         repository: ghcr.io/octohelm/harbor/harbor-portal

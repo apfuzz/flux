@@ -15,3 +15,11 @@ patches:
       kind: HelmRelease
       name: ingress-nginx
       namespace: ingress-nginx
+  - patch: |-
+      - op: add
+        path: /spec/infrastructure/annotations/metallb.io~1loadBalancerIPs
+        value: 10.0.101.253
+    target:
+      kind: Gateway
+      name: cilium-gateway
+      namespace: cilium

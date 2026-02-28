@@ -1,0 +1,64 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  interval: 15m
+  timeout: 5m
+  chart:
+    spec:
+      chart: argo-cd
+      version: ">= 1.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: argocd
+  driftDetection:
+    mode: enabled
+  values:
+    configs:
+      cm:
+        accounts.automation: apiKey
+        exec.enabled: true
+        oidc.config: |
+          name: Dex
+          issuer: https://dex.gangsterkitties.com/dex
+          clientID: argocd
+          requestedScopes:
+            - openid
+            - groups
+      params:
+        server.insecure: true
+      rbac:
+        policy.csv: |
+          g, admins, role:admin
+          g, automation, role:admin
+        scopes: "[groups]"
+    dex:
+      enabled: false
+    controller:
+      metrics:
+        enabled: true
+        applicationLabels:
+          enabled: true
+        serviceMonitor:
+          enabled: true
+          selector:
+            release: kps
+    server:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+          selector:
+            release: kps
+    repoServer:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+          selector:
+            release: kps
+    notifications:
+      enabled: false

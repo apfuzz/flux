@@ -1,0 +1,59 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: harbor
+  namespace: harbor
+spec:
+  interval: 15m
+  values:
+    expose:
+      ingress:
+        className: nginx
+        annotations:
+          external-dns.alpha.kubernetes.io/target: fivealive-ingress2.gangsterkitties.com
+        hosts:
+          core: registry.gangsterkitties.com
+    externalURL: https://registry.gangsterkitties.com
+    persistence:
+      imageChartStorage:
+        type: s3
+        s3:
+          existingSecret: "oci-secrets"
+          region: us-ashburn-1
+          bucket: harbor-registry
+          regionendpoint: https://idopqt7hl3bt.compat.objectstorage.us-ashburn-1.oraclecloud.com
+    core:
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          memory: 128Mi
+    jobservice:
+      resources:
+        limits:
+          memory: 64Mi
+        requests:
+          memory: 64Mi
+    registry:
+      registry:
+        resources:
+          limits:
+            memory: 128Mi
+          requests:
+            memory: 128Mi
+    exporter:
+      resources:
+        limits:
+          memory: 64Mi
+        requests:
+          memory: 64Mi
+    database:
+      type: external
+      external:
+        host: "fivealive-rw.postgres.svc.cluster.local."
+        port: "5432"
+        username: "registry"
+        coreDatabase: "registry"
+        existingSecret: "registry-db-password"
+        sslmode: "require"

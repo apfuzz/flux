@@ -16,6 +16,7 @@ resources:
   - ./external-secrets
   - ./flux
   - ./kps
+  - ./postgres
   - ./talos-etcd
 patches:
   - path: argocd.yaml

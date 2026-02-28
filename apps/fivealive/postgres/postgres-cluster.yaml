@@ -1,0 +1,32 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: fivealive
+  namespace: postgres
+spec:
+  instances: 1
+  storage:
+    size: 1Gi
+  resources:
+    limits:
+      memory: 256Mi
+    requests:
+      memory: 256Mi
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: fivealive-postgres
+  managed:
+    roles:
+      - name: dex
+        comment: Dex IdP DB User
+        login: true
+        passwordSecret:
+          name: fivealive-dex
+      - name: registry
+        comment: Harbor Registry DB User
+        login: true
+        passwordSecret:
+          name: fivealive-registry
+  monitoring:
+    enablePodMonitor: false  # deprecated - use custom pod monitor instead

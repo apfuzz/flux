@@ -1,0 +1,22 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: fivealive-dex
+  namespace: postgres
+spec:
+  name: dex
+  owner: dex
+  cluster:
+    name: fivealive
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: fivealive-registry
+  namespace: postgres
+spec:
+  name: registry
+  owner: registry
+  cluster:
+    name: fivealive

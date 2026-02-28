@@ -1,0 +1,105 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: backup-postgres
+  namespace: postgres
+spec:
+  schedule: "0 6 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: debian-tools
+            image: registry.gangsterkitties.com/images/debian-tools:2026.01.25-268
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: AWS_ACCESS_KEY_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: oci-backup
+                    key: AWS_ACCESS_KEY_ID
+              - name: AWS_SECRET_ACCESS_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: oci-backup
+                    key: AWS_SECRET_ACCESS_KEY
+              - name: POSTGRES_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: fivealive-postgres
+                    key: password
+              - name: POSTGRES_USERNAME
+                valueFrom:
+                  secretKeyRef:
+                    name: fivealive-postgres
+                    key: username
+            command:
+              - /backup-script/pgdump.sh
+            volumeMounts:
+              - name: backup-script
+                mountPath: /backup-script
+          volumes:
+            - name: backup-script
+              configMap:
+                name: backup-script
+                defaultMode: 0777
+          restartPolicy: OnFailure
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backup-script
+  namespace: postgres
+data:
+  pgdump.sh: |
+    #!/bin/bash
+
+    # debug
+    # set -xv
+
+    # set variables
+    BUCKET_NAME=backups
+    BUCKET_PATH=postgres
+    DATE=`date +%Y-%m-%d-%H-%M`
+
+    # set database variables
+    DB_HOST=fivealive-rw.postgres.svc.cluster.local.
+    DATABASES=(
+      registry
+    )
+
+    # set object storage variables
+    export AWS_DEFAULT_REGION=us-east-1
+    export AWS_ENDPOINT_URL_S3=https://idopqt7hl3bt.compat.objectstorage.us-ashburn-1.oraclecloud.com
+    export AWS_REQUEST_CHECKSUM_CALCULATION=when_required
+    export AWS_RESPONSE_CHECKSUM_VALIDATION=when_required
+
+    # strip single quotes from psql password and write .pgpass file
+    echo "$DB_HOST:5432:*:postgres:`echo $POSTGRES_PASSWORD | sed "s/'//g"`" > ~/.pgpass
+    chmod 600 ~/.pgpass
+
+    # dump each database to a file then copy it to object storage
+    for DATABASE in ${DATABASES[@]} ; do
+
+      # set variables for database backup file name
+      FILENAME=$DATABASE.$DATE.dump
+
+      # dump database to file
+      echo -e "dumping $DATABASE...\n"
+      pg_dump -h $DB_HOST -U $POSTGRES_USERNAME -Fc $DATABASE > $FILENAME
+
+      # exit if previous command fails
+      if [ $? -ne 0 ] ; then
+        echo -e "previous command failed - exiting...\n"
+        exit 1
+      fi
+
+      # compress backup file
+      gzip $FILENAME
+
+      # copy backup file to oci bucket
+      echo -e "uploading backup file to object storage...\n"
+      aws s3 cp $FILENAME.gz s3://$BUCKET_NAME/$BUCKET_PATH/ --no-progress
+
+    done

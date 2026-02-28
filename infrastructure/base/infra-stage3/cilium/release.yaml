@@ -24,6 +24,8 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    k8sServiceHost: localhost
+    k8sServicePort: 7445
     ingressController:
       enabled: true
       default: true

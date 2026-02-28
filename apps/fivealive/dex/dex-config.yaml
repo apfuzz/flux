@@ -64,11 +64,11 @@ spec:
             secret: open-webui-secret
             redirectURIs:
             - https://genai.gangsterkitties.com/oauth/oidc/callback
-          - id: oauth2-proxy
-            name: OAuth2 Proxy
-            secret: oauth2-proxy
+          - id: flux
+            name: Flux CD
+            secret: flux
             redirectURIs:
-            - https://oauth2-proxy.gangsterkitties.com/oauth2/callback
+            - https://flux.gangsterkitties.com/oauth2/callback
           connectors:
           - type: ldap
             name: OpenLDAP

@@ -16,6 +16,10 @@ spec:
         name: argocd
   driftDetection:
     mode: enabled
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     configs:
       cm:

@@ -11,5 +11,5 @@ spec:
         default: true
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: poptart-ingress.gangsterkitties.com
+          external-dns.alpha.kubernetes.io/hostname: poptart-ingress2.gangsterkitties.com
           metallb.io/loadBalancerIPs: 10.0.102.251

@@ -13,7 +13,7 @@ spec:
   chart:
     spec:
       chart: cilium
-      version: "1.19.x"
+      version: "1.18.x"
       sourceRef:
         kind: HelmRepository
         name: cilium
@@ -24,8 +24,6 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    k8sServiceHost: localhost
-    k8sServicePort: 7445
     ingressController:
       enabled: true
       default: true
@@ -56,9 +54,6 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
-    bpf:
-      masquerade: true
-      tproxy: true
     ipam:
       mode: kubernetes
     prometheus:
@@ -88,7 +83,6 @@ spec:
         enabled: true
         annotations:
           grafana_folder: Cilium
-    kubeProxyReplacement: true
     cgroup:
       autoMount:
         enabled: false

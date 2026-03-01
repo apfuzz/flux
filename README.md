@@ -60,6 +60,7 @@ kubectl wait -n flux-system externalsecret/fluxcd-gitlab --for=condition=Ready
 ### Create FluxInstance resoruce (aka "bootstrap" cluster)
 
 ```sh
+K8S_CLUSTER=poptart
 cat <<EOF | kubectl apply -f -
 apiVersion: fluxcd.controlplane.io/v1
 kind: FluxInstance
@@ -68,7 +69,7 @@ metadata:
   namespace: flux-system
 spec:
   distribution:
-    version: "2.7.x"
+    version: "2.8.x"
     registry: "ghcr.io/fluxcd"
     artifact: "oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests"
   components:
@@ -82,7 +83,7 @@ spec:
     size: small
   sync:
     kind: GitRepository
-    path: clusters/poptart
+    path: clusters/$K8S_CLUSTER
     pullSecret: fluxcd-gitlab
     ref: refs/heads/main
     url: ssh://git@gitlab.com/gangsterkitties/flux

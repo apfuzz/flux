@@ -8,8 +8,6 @@ metadata:
     external-dns.alpha.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
 spec:
   gatewayClassName: cilium
-  infrastructure:
-    annotations: {}
   listeners:
     - allowedRoutes:
         namespaces:
@@ -23,3 +21,6 @@ spec:
             kind: Secret
             name: wildcard
             namespace: cert-manager
+  infrastructure:
+    annotations:
+      metallb.io/loadBalancerIPs: 10.0.101.253

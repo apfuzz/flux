@@ -22,6 +22,8 @@ spec:
           memory: 128Mi
         requests:
           memory: 128Mi
+    nodePort:
+      enabled: true
     operator:
       resources:
         limits:

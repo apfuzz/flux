@@ -7,8 +7,6 @@ spec:
   interval: 15m
   values:
     controller:
-      ingressClassResource:
-        default: true
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: poptart-ingress2.gangsterkitties.com

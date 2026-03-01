@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../../base/infra-stage3/cilium
   - ../../base/infra-stage3/ingress-nginx
+  - ./cilium
 patches:
   - path: cilium.yaml
     target:

@@ -57,6 +57,7 @@ spec:
           - SYS_ADMIN
           - SYS_RESOURCE
     bpf:
+      masquerade: true
       tproxy: true
     ipam:
       mode: kubernetes

@@ -6,6 +6,9 @@ metadata:
   namespace: cilium
 spec:
   interval: 15m
+  chart:
+    spec:
+      version: "1.19.x"
   values:
     ingressController:
       service:

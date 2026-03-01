@@ -4,7 +4,7 @@ kind: Gateway
 metadata:
   name: cilium-gateway
   annotations:
-    external-dns.alpha.kubernetes.io/target: poptart-gateway.gangsterkitties.com
+    external-dns.alpha.kubernetes.io/hostname: poptart-gateway.gangsterkitties.com
 spec:
   gatewayClassName: cilium
   listeners:

@@ -12,9 +12,4 @@ spec:
       limits:
         memory: 128Mi
     # logLevel: debug
-    sources:
-      - gateway-grpcroute
-      - gateway-httproute
-      - ingress
-      - service
     txtOwnerId: fivealive

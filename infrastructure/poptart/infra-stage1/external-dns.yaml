@@ -7,9 +7,4 @@ spec:
   interval: 15m
   values:
     # logLevel: debug
-    sources:
-      # - gateway-grpcroute
-      # - gateway-httproute
-      - ingress
-      - service
     txtOwnerId: poptart

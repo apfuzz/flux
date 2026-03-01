@@ -8,7 +8,11 @@ spec:
   interval: 15m
   chart:
     spec:
+      chart: cilium
       version: "1.19.x"
+      sourceRef:
+        kind: HelmRepository
+        name: cilium
   values:
     k8sServiceHost: localhost
     k8sServicePort: 7445

@@ -5,7 +5,9 @@ metadata:
   name: default-pool
 spec:
   addresses:
-    - 10.0.102.251/32  # cilium-ingress
+    - 10.0.102.251/32  # ingress-nginx
+    - 10.0.102.252/32  # cilium-ingress
+    - 10.0.102.253/32  # cilium-gateway
   autoAssign: false
 ---
 apiVersion: metallb.io/v1beta1

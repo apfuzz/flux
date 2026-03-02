@@ -7,6 +7,8 @@ spec:
   interval: 15m
   values:
     web:
+      config:
+        baseURL: https://poptart-flux.gangsterkitties.com
       networkPolicy:
         create: false
       ingress:

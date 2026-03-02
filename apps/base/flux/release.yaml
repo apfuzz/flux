@@ -11,7 +11,6 @@ spec:
   values:
     web:
       config:
-        baseURL: https://flux.gangsterkitties.com
         authentication:
           type: OAuth2
           oauth2:

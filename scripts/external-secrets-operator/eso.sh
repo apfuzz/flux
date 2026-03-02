@@ -132,6 +132,7 @@ cluster_secret_store() {
   kubectl wait -n external-secrets deploy/external-secrets-webhook --for condition=available --timeout=60s
 
   # apply manifest
+  sleep 2
   kubectl apply -f $CSS_MANIFEST
 
   # delete manifest file

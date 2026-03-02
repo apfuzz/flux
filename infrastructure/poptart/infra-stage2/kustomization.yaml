@@ -3,6 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base/infra-stage2/cert-manager
+  - ../../base/infra-stage2/k8s-admins.yaml
   - ./kps
   - ./metallb
 patches:

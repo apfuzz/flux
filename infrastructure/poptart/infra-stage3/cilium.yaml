@@ -37,6 +37,8 @@ spec:
             release: kps
         dashboards:
           enabled: true
+          annotations:
+            grafana_folder: Cilium
       relay:
         enabled: true
         prometheus:

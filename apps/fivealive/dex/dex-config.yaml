@@ -69,6 +69,7 @@ spec:
             secret: flux
             redirectURIs:
             - https://flux.gangsterkitties.com/oauth2/callback
+            - https://poptart-flux.gangsterkitties.com/oauth2/callback
           connectors:
           - type: ldap
             name: OpenLDAP

@@ -2,6 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: dex
+  namespace: dex
 spec:
   interval: 15m
   timeout: 5m

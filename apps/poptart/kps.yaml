@@ -120,6 +120,8 @@ spec:
     kubeEtcd:
       endpoints:
         - 10.0.102.100
+    kubeProxy:
+      enabled: false
     prometheus:
       ingress:
         annotations:

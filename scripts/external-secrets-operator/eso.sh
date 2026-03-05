@@ -25,7 +25,7 @@ K8S_CLUSTER=$1
 VAULT_ADDR="https://$2"
 
 # set variables
-ES_VERSION=1.3.2  # latest as of Feb 2026
+ES_VERSION=2.0.1  # latest as of Feb 2026
 VAULT_AUTH_NAME=eso-$K8S_CLUSTER
 VAULT_POLICY=gangsterkitties-readonly
 

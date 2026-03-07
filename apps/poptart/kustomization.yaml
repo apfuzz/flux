@@ -30,3 +30,26 @@ patches:
       kind: HelmRelease
       name: kps
       namespace: monitoring
+
+  ### json patches
+
+  # FluxInstance sync path
+
+  - patch: |
+      - op: replace
+        path: /spec/sync/path
+        value: "clusters/poptart"
+    target:
+      kind: FluxInstance
+      name: flux
+      namespace: flux-system
+
+  # Flux Slack alert username
+  - patch: |
+      - op: replace
+        path: /spec/username
+        value: "Flux - poptart"
+    target:
+      kind: Provider
+      name: slack-bot
+      namespace: flux-system

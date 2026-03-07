@@ -20,6 +20,9 @@ resources:
   - ./talos-etcd
   - ./vault
 patches:
+
+  ### helm release overrides
+
   - path: argocd.yaml
     target:
       kind: HelmRelease
@@ -70,3 +73,26 @@ patches:
       kind: HelmRelease
       name: vault
       namespace: vault
+
+  ### json patches
+
+  # FluxInstance sync path
+
+  - patch: |
+      - op: replace
+        path: /spec/sync/path
+        value: "clusters/fivealive"
+    target:
+      kind: FluxInstance
+      name: flux
+      namespace: flux-system
+
+  # Flux Slack alert username
+  - patch: |
+      - op: replace
+        path: /spec/username
+        value: "Flux - fivealive"
+    target:
+      kind: Provider
+      name: slack-bot
+      namespace: flux-system

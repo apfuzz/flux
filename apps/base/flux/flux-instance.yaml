@@ -23,5 +23,5 @@ spec:
     interval: 1m
     url: "ssh://git@gitlab.com/gangsterkitties/flux"
     ref: "refs/heads/main"
-    path: "clusters/poptart"
+    path: json-patch-will-replace-this
     pullSecret: "fluxcd-gitlab"

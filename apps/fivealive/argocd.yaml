@@ -37,6 +37,12 @@ spec:
             sectionName: https
         hostnames:
           - argocd-grpc.gangsterkitties.com
+        rules:
+          - matches:
+              - headers:
+                  - name: Content-Type
+                    type: RegularExpression
+                    value: "^application/grpc.*$"
     repoServer:
       resources:
         limits:

@@ -140,6 +140,7 @@ spec:
           - hosts:
               - prometheus.gangsterkitties.com
       prometheusSpec:
+        retention: 30d
         resources:
           limits:
             memory: 2Gi

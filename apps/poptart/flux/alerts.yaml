@@ -6,20 +6,7 @@ metadata:
 spec:
   eventSeverity: info
   eventSources:
-  # flux-system sources
-  - kind: GitRepository
-    name: '*'
   - kind: Kustomization
     name: '*'
-  # helm release sources
-  - kind: HelmRelease
-    name: '*'
-    namespace: external-dns
-  - kind: HelmRelease
-    name: '*'
-    namespace: monitoring
-  - kind: HelmRelease
-    name: '*'
-    namespace: flux-system
   providerRef:
     name: slack-bot

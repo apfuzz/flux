@@ -103,14 +103,14 @@ spec:
         tls:
           - hosts:
               - poptart-grafana.gangsterkitties.com
-      persistence:
-        enabled: true
-        size: 1Gi
-        storageClassName: local-storage
-        subPath: grafana
-        volumeName: kps-grafana
-      initChownData:
-        enabled: false
+      # persistence:
+      #   enabled: true
+      #   size: 1Gi
+      #   storageClassName: local-storage
+      #   subPath: grafana
+      #   volumeName: kps-grafana
+      # initChownData:
+      #   enabled: false
       sidecar:
         dashboards:
           enabled: true
@@ -131,12 +131,12 @@ spec:
         tls:
           - hosts:
               - poptart-prometheus.gangsterkitties.com
-      prometheusSpec:
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              resources:
-                requests:
-                  storage: 20Gi
-              storageClassName: local-storage
-              volumeName: kps-prometheus
+      # prometheusSpec:
+      #   storageSpec:
+      #     volumeClaimTemplate:
+      #       spec:
+      #         resources:
+      #           requests:
+      #             storage: 20Gi
+      #         storageClassName: local-storage
+      #         volumeName: kps-prometheus

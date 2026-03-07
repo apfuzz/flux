@@ -29,6 +29,14 @@ spec:
             sectionName: https
         hostnames:
           - argocd.gangsterkitties.com
+      grpcroute:
+        enabled: true
+        parentRefs:
+          - name: cilium-gateway
+            namespace: cilium
+            sectionName: https
+        hostnames:
+          - argocd-grpc.gangsterkitties.com
     repoServer:
       resources:
         limits:

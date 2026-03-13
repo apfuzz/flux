@@ -10,14 +10,14 @@ spec:
     name: flux-operator
   values:
     web:
-      config:
-        authentication:
-          type: OAuth2
-          oauth2:
-            provider: OIDC
-            clientID: flux
-            clientSecret: flux
-            issuerURL: https://dex.gangsterkitties.com/dex
+      # config:
+      #   authentication:
+      #     type: OAuth2
+      #     oauth2:
+      #       provider: OIDC
+      #       clientID: flux
+      #       clientSecret: flux
+      #       issuerURL: https://dex.gangsterkitties.com/dex
       ingress:
         enabled: true
     resources:

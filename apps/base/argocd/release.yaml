@@ -24,6 +24,7 @@ spec:
     configs:
       cm:
         accounts.automation: apiKey
+        accounts.readonly: apiKey
         exec.enabled: true
         oidc.config: |
           name: Dex
@@ -38,6 +39,7 @@ spec:
         policy.csv: |
           g, admins, role:admin
           g, automation, role:admin
+          g, readonly, role:readonly
         scopes: "[groups]"
     dex:
       enabled: false

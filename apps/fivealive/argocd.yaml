@@ -6,6 +6,16 @@ metadata:
   namespace: argocd
 spec:
   interval: 15m
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: GRPCRoute
+              name: argocd-server-grpc
+            patch: |
+              - op: replace
+                path: /spec/rules/0/backendRefs/0/port
+                value: 443
   values:
     global:
       domain: argocd.gangsterkitties.com

@@ -74,7 +74,7 @@ spec:
             name: Gitea
             secret: gitea
             redirectURIs:
-            - https://gitea.gangsterkitties.com/user/oauth2/Dex%20IdP/callback
+            - https://gitea.gangsterkitties.com/user/oauth2/dex/callback
           connectors:
           - type: ldap
             name: OpenLDAP

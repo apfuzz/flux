@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
           - name: debian-tools
-            image: registry.gangsterkitties.com/images/debian-tools:2026.01.25-268
+            image: registry.gangsterkitties.com/images/debian-tools:2026.03.21-272
             imagePullPolicy: IfNotPresent
             env:
               - name: AWS_ACCESS_KEY_ID

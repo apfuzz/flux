@@ -4,3 +4,11 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - recording-rules.yaml
+configMapGenerator:
+  - name: podman-exporter-dashboard
+    files:
+      - podman-exporter.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+        kustomize.toolkit.fluxcd.io/substitute: disabled

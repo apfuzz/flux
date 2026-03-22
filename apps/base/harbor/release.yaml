@@ -54,7 +54,3 @@ spec:
     exporter:
       image:
         repository: ghcr.io/octohelm/harbor/harbor-exporter
-    redis:
-      type: external
-      external:
-        addr: "valkey.valkey.svc.cluster.local.:6379"

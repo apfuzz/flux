@@ -57,3 +57,8 @@ spec:
         coreDatabase: "registry"
         existingSecret: "registry-db-password"
         sslmode: "require"
+    redis:
+      type: external
+      external:
+        addr: "valkey.valkey.svc.cluster.local.:6379"
+        # existingSecret: valkey-secret

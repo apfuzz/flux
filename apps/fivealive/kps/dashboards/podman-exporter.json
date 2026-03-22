@@ -15,7 +15,7 @@
       }
     ]
   },
-  "description": "This dashboard leverages Prometheus podman exporter as the data source and utilizes various visualization panels like time series and tables, providing critical insights into the operational metrics of Podman containers.",
+  "description": "Source: https://grafana.com/grafana/dashboards/21559-podman-exporter-dashboard/",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -951,8 +951,7 @@
   "refresh": "auto",
   "schemaVersion": 42,
   "tags": [
-    "podman",
-    "prometheus-podman-exporter"
+    "podman"
   ],
   "templating": {
     "list": [

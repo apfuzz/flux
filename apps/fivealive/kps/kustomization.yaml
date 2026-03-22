@@ -5,9 +5,23 @@ namespace: monitoring
 resources:
   - recording-rules.yaml
 configMapGenerator:
+  - name: node-exporter-dashboard
+    files:
+      - dashboards/node-exporter.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+        kustomize.toolkit.fluxcd.io/substitute: disabled
+  - name: nvidia-dcgm-exporter-dashboard
+    files:
+      - dashboards/nvidia-dcgm-exporter.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+        kustomize.toolkit.fluxcd.io/substitute: disabled
   - name: podman-exporter-dashboard
     files:
-      - podman-exporter.json
+      - dashboards/podman-exporter.json
     options:
       labels:
         grafana_dashboard: "1"

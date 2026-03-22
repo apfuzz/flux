@@ -70,11 +70,6 @@ spec:
             redirectURIs:
             - https://flux.gangsterkitties.com/oauth2/callback
             - https://poptart-flux.gangsterkitties.com/oauth2/callback
-          - id: gitea
-            name: Gitea
-            secret: gitea
-            redirectURIs:
-            - https://gitea.gangsterkitties.com/user/oauth2/dex/callback
           connectors:
           - type: ldap
             name: OpenLDAP

@@ -6,7 +6,6 @@ set -e
 # set -xv
 
 # eso.sh
-# Aaron Patrick <apatrick@crunchtime.com>
 # v0.1 - 02/04/2026 - initial script
 
 # This script will set up External Secrets Operator (ESO) in a specified Kubernetes cluster to sync secrets from Vault.

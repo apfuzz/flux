@@ -1,8 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: REPO_NAME
-spec:
-  interval: 24h
-  url: REPO_URL

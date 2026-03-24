@@ -1,8 +1,6 @@
 # Flux CD
 
-This repository contains Flux CD resources that automate the deployment and configuration of nearly everything in my home lab Kubernetes cluster. It works for multiple clusters, too, and I have a sandbox cluster I use for vetting new apps or configurations without worrying about breaking my primary cluster.
-
-It follows the monorepo design as described on [fluxcd.io](https://fluxcd.io/flux/guides/repository-structure/#monorepo) and looks something like this:
+This repository contains Flux CD resources that automate the deployment and configuration of nearly everything in my home lab Kubernetes cluster. It is based on the monorepo structure as described on [fluxcd.io](https://fluxcd.io/flux/guides/repository-structure/#monorepo) and looks something like this:
 
 ```sh
 ├── apps                  depends on infrastructure, no interdependencies

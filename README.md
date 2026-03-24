@@ -44,7 +44,7 @@ It's a chicken/egg problem when building the cluster for the first time since th
 
 ### Deploy Flux Operator
 
-We could install a specific version with `--version` but in general we want the latest available.
+A specific version can be installed by using `--version` but the latest available is generally preferred.
 
 ```bash
 helm install flux-operator oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator \

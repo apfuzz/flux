@@ -1,8 +1,8 @@
 # Flux CD
 
-This repository is dedicated to Flux CD.
+This repository contains Flux CD resources that automate the deployment and configuration of nearly everything in my home lab Kubernetes cluster. It works for multiple clusters, too, and I have a sandbox cluster I use for vetting new apps or configurations without worrying about breaking my primary cluster.
 
-It follows the monorepo design as described on [fluxcd.io](https://fluxcd.io/flux/guides/repository-structure/#monorepo).
+It follows the monorepo design as described on [fluxcd.io](https://fluxcd.io/flux/guides/repository-structure/#monorepo) and looks something like this:
 
 ```sh
 ├── apps                  depends on infrastructure, no interdependencies
@@ -25,8 +25,7 @@ It follows the monorepo design as described on [fluxcd.io](https://fluxcd.io/flu
 │       ├── infra-stage1
 │       ├── infra-stage2
 │       └── infra-stage3
-├── scripts               various utility scripts
-└── templates             flux resource templates
+└── scripts               various utility scripts
 ```
 
 ## Flux Operator
@@ -37,11 +36,17 @@ There is a 1:1 relationship with the Flux Operator and FluxInstance resource. Th
 
 ### Install External Secrets Operator
 
+A secret is needed for authentication to the git repo. There are lots of other secrets required by this codebase as well so might as well install External Secrets Operator now so the secrets can be synched from Vault as needed. More about this in [external-secrets-operator](scripts/external-secrets-operator/README.md).
+
+It's a chicken/egg problem when building the cluster for the first time since there are no secrets to synchronize. In that case, the Kubernetes secrets can just be created from literal as needed until Vault is up and running.
+
 ```bash
 ./scripts/external-secrets-operator/eso.sh poptart vault.gangsterkitties.com
 ```
 
 ### Deploy Flux Operator
+
+We could install a specific version with `--version` but in general we want the latest available.
 
 ```bash
 helm install flux-operator oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator \
@@ -58,6 +63,8 @@ kubectl wait -n flux-system externalsecret/fluxcd-gitlab --for=condition=Ready
 ```
 
 ### Create FluxInstance resoruce (aka "bootstrap" cluster)
+
+This will install Flux components and sync with the git repo then Flux will deploy everything else.
 
 ```sh
 K8S_CLUSTER=poptart

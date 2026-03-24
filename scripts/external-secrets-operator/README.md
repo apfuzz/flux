@@ -1,11 +1,14 @@
 # External Secrets Operator
 
-Reference
+External Secrets Operater (ESO) synchronizes secrets from a provider, such as HashiCorp Vault to a Kubernetes cluster. There are several steps required on the Kubernetes side and Vault side to get this working, and the `eso.sh` script will do all this for me.
 
-[Using Kubernetes auth with Vault for external secrets](https://git.crunchtime.it/opsmgmt/platform/k8s/k8s-config/-/tree/main/config/external-secrets?ref_type=heads)
+## Reference
 
-Deploy ESO on test cluster
+[HashiCorp Vault - Kubernetes auth method](https://developer.hashicorp.com/vault/docs/auth/kubernetes)
+[ESO provider - HashiCorp Vault](https://external-secrets.io/latest/provider/hashicorp-vault/)
+
+## Deploy ESO on test cluster
 
 ```sh
-./eso.sh <K8s cluster name> <Vault address> <Environment>
+./eso.sh <K8s cluster name> <Vault address>
 ```

@@ -36,11 +36,11 @@ There is a 1:1 relationship with the Flux Operator and FluxInstance resource. Th
 
 A secret is needed for authentication to the git repo. There are lots of other secrets required by this codebase as well so might as well install External Secrets Operator now so the secrets can be synched from Vault as needed. More about this in [external-secrets-operator](scripts/external-secrets-operator/README.md).
 
-It's a chicken/egg problem when building the cluster for the first time since there are no secrets to synchronize. In that case, the Kubernetes secrets can just be created from literal as needed until Vault is up and running.
-
 ```bash
 ./scripts/external-secrets-operator/eso.sh poptart vault.gangsterkitties.com
 ```
+
+It's a chicken/egg problem when building the cluster for the first time since there are no secrets to synchronize. In that case, the Kubernetes secrets can just be created from literal as needed until Vault is up and running.
 
 ### Deploy Flux Operator
 

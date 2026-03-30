@@ -23,8 +23,8 @@ spec:
         issuerURL: https://dex.gangsterkitties.com/dex
         scopes: groups
       watchPlugins: true
-      # Bypasses: https://github.com/kubernetes-sigs/headlamp/issues/4883
-      sessionTTL: null
+      # # Bypasses: https://github.com/kubernetes-sigs/headlamp/issues/4883
+      # sessionTTL: null
     ingress:
       enabled: true
     resources:

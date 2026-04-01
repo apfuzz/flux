@@ -62,12 +62,6 @@ spec:
             secret: open-webui-secret
             redirectURIs:
             - https://genai.gangsterkitties.com/oauth/oidc/callback
-          - id: flux
-            name: Flux CD
-            secret: flux
-            redirectURIs:
-            - https://flux.gangsterkitties.com/oauth2/callback
-            - https://poptart-flux.gangsterkitties.com/oauth2/callback
           - id: keycloak
             name: Keycloak
             secret: keycloak

@@ -64,6 +64,11 @@ patches:
       kind: HelmRelease
       name: kps
       namespace: monitoring
+  - path: reloader.yaml
+    target:
+      kind: HelmRelease
+      name: reloader
+      namespace: reloader
   - path: valkey.yaml
     target:
       kind: HelmRelease

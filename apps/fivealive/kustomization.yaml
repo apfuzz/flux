@@ -10,6 +10,7 @@ resources:
   - ../base/harbor
   - ../base/headlamp
   - ../base/kps
+  - ../base/reloader
   - ../base/valkey
   - ../base/vault
   - ./dex

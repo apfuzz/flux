@@ -167,9 +167,9 @@ spec:
                   - jarvis.gangsterkitties.com:9100
                   - pihole.gangsterkitties.com:9100
                   - shakenbake.gangsterkitties.com:9100
-              # - targets: ['54.161.174.188:9100']
-              #   labels:
-              #     instance: 'www.gangsterkitties.com'
+              - targets: ['54.161.174.188:9100']
+                labels:
+                  instance: 'www.gangsterkitties.com'
           - job_name: network
             scheme: https
             static_configs:

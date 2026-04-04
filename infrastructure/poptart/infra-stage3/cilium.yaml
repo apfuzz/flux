@@ -22,39 +22,41 @@ spec:
           external-dns.alpha.kubernetes.io/hostname: poptart-ingress.gangsterkitties.com
           metallb.io/loadBalancerIPs: 10.0.102.252
     kubeProxyReplacement: true
-    hubble:
-      metrics:
-        enabled:
-          - dns:query;ignoreAAAA
-          - drop
-          - tcp
-          - flow
-          - icmp
-          - http
-        serviceMonitor:
-          enabled: true
-          labels:
-            release: kps
-        dashboards:
-          enabled: true
-          annotations:
-            grafana_folder: Cilium
-      relay:
-        enabled: true
-        prometheus:
-          enabled: true
-          serviceMonitor:
-            enabled: true
-            labels:
-              release: kps
-      ui:
-        enabled: true
-        ingress:
-          enabled: true
-          annotations:
-            external-dns.alpha.kubernetes.io/target: poptart-ingress.gangsterkitties.com
-          hosts:
-            - poptart-hubble.gangsterkitties.com
-          tls:
-            - hosts:
-                - poptart-hubble.gangsterkitties.com
+    # hubble:
+    #   metrics:
+    #     enabled:
+    #       - dns:query;ignoreAAAA
+    #       - drop
+    #       - tcp
+    #       - flow
+    #       - icmp
+    #       - http
+    #     serviceMonitor:
+    #       enabled: true
+    #       labels:
+    #         release: kps
+    #     dashboards:
+    #       enabled: true
+    #       annotations:
+    #         grafana_folder: Cilium
+    #   relay:
+    #     enabled: true
+    #     prometheus:
+    #       enabled: true
+    #       serviceMonitor:
+    #         enabled: true
+    #         labels:
+    #           release: kps
+    #   ui:
+    #     enabled: true
+    #     ingress:
+    #       enabled: true
+    #       annotations:
+    #         external-dns.alpha.kubernetes.io/target: poptart-ingress.gangsterkitties.com
+    #       hosts:
+    #         - poptart-hubble.gangsterkitties.com
+    #       tls:
+    #         - hosts:
+    #             - poptart-hubble.gangsterkitties.com
+    # nodePort:
+    #   enabled: true

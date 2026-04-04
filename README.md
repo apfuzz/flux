@@ -49,8 +49,8 @@ A specific version can be installed by using `--version` but the latest availabl
 ```bash
 helm install flux-operator oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator \
   --namespace flux-system \
-  --create-namespace && \
-kubectl wait -n flux-system deploy/flux-operator --for=condition=Available --timeout=120s
+  --create-namespace \
+  --wait
 ```
 
 ### Apply external secret with git credentials

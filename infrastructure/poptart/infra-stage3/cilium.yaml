@@ -60,3 +60,4 @@ spec:
     #             - poptart-hubble.gangsterkitties.com
     # nodePort:
     #   enabled: true
+    defaultLBServiceIPAM: none

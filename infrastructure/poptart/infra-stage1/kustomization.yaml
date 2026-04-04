@@ -23,3 +23,16 @@ patches:
       kind: HelmRelease
       name: metallb
       namespace: metallb-system
+
+  ### json patches
+
+  # Gateway API
+
+  - patch: |
+      - op: replace
+        path: /spec/ref/tag
+        value: "v1.4.1"
+    target:
+      kind: GitRepository
+      name: gateway-api
+      namespace: flux-system

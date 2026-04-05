@@ -10,4 +10,5 @@ spec:
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: poptart-ingress2.gangsterkitties.com
-          metallb.io/loadBalancerIPs: 10.0.102.251
+          lbipam.cilium.io/ips: 10.0.102.251
+        loadBalancerClass: io.cilium/l2-announcer

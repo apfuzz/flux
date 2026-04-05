@@ -16,12 +16,17 @@ spec:
   values:
     k8sServiceHost: localhost
     k8sServicePort: 7445
+    kubeProxyReplacement: true
+    l2announcements:
+      enabled: true
+    externalIPs:
+      enabled: true
     ingressController:
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: poptart-ingress.gangsterkitties.com
           metallb.io/loadBalancerIPs: 10.0.102.252
-    kubeProxyReplacement: true
+          lbipam.cilium.io/ips: 10.0.102.252
     # hubble:
     #   metrics:
     #     enabled:
@@ -60,4 +65,3 @@ spec:
     #             - poptart-hubble.gangsterkitties.com
     # nodePort:
     #   enabled: true
-    defaultLBServiceIPAM: none

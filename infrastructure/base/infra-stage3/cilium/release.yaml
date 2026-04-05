@@ -24,6 +24,7 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    rollOutCiliumPods: true
     ingressController:
       enabled: true
       default: true

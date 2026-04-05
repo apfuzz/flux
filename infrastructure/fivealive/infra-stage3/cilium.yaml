@@ -14,11 +14,6 @@ spec:
         kind: HelmRepository
         name: cilium
   values:
-    k8sServiceHost: localhost
-    k8sServicePort: 7445
-    kubeProxyReplacement: true
-    l2announcements:
-      enabled: true
     resources:
       limits:
         memory: 384Mi

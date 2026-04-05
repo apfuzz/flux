@@ -4,10 +4,6 @@ kind: CiliumL2AnnouncementPolicy
 metadata:
   name: default-l2-announcement-policy
 spec:
-  nodeSelector:
-    matchExpressions:
-      - key: node-role.kubernetes.io/control-plane
-        operator: DoesNotExist
   interfaces:
     - enp1s0
   loadBalancerIPs: true

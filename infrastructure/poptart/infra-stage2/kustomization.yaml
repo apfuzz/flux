@@ -5,7 +5,7 @@ resources:
   - ../../base/infra-stage2/cert-manager
   - ../../base/infra-stage2/k8s-admins.yaml
   - ./kps
-  - ./metallb
+  # - ./metallb
 patches:
   - patch: |
       - op: replace

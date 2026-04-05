@@ -5,6 +5,8 @@ metadata:
 spec:
   interval: 15m
   values:
+    deploymentAnnotations:
+      secret.reloader.stakater.com/reload: dex-config
     ingress:
       className: nginx
       annotations:

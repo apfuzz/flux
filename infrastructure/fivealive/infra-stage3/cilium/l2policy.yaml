@@ -5,5 +5,5 @@ metadata:
   name: default-l2-announcement-policy
 spec:
   interfaces:
-    - enp1s0
+    - end0
   loadBalancerIPs: true

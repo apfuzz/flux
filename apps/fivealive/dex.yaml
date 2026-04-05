@@ -6,9 +6,9 @@ spec:
   interval: 15m
   values:
     ingress:
-      className: cilium
+      className: nginx
       annotations:
-        external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
+        external-dns.alpha.kubernetes.io/target: fivealive-ingress2.gangsterkitties.com
       hosts:
         - host: dex.gangsterkitties.com
           paths:

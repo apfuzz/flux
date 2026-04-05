@@ -9,9 +9,9 @@ spec:
   values:
     expose:
       ingress:
-        className: cilium
+        className: nginx
         annotations:
-          external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
+          external-dns.alpha.kubernetes.io/target: fivealive-ingress2.gangsterkitties.com
         hosts:
           core: registry.gangsterkitties.com
     externalURL: https://registry.gangsterkitties.com

@@ -8,8 +8,7 @@ resources:
   - ../../base/infra-stage1/gateway-api
   - ../../base/infra-stage1/kps-crds
   - ../../base/infra-stage1/longhorn
-  - ../../base/infra-stage1/metallb
-  - ./kps
+  # - ../../base/infra-stage1/metallb
 patches:
   - path: cert-manager.yaml
     target:
@@ -36,3 +35,16 @@ patches:
       kind: HelmRelease
       name: metallb
       namespace: metallb-system
+
+  ### json patches
+
+  # Gateway API
+
+  - patch: |
+      - op: replace
+        path: /spec/ref/tag
+        value: "v1.4.1"
+    target:
+      kind: GitRepository
+      name: gateway-api
+      namespace: flux-system

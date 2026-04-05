@@ -6,7 +6,19 @@ metadata:
   namespace: cilium
 spec:
   interval: 15m
+  chart:
+    spec:
+      chart: cilium
+      version: "1.19.x"
+      sourceRef:
+        kind: HelmRepository
+        name: cilium
   values:
+    k8sServiceHost: localhost
+    k8sServicePort: 7445
+    kubeProxyReplacement: true
+    l2announcements:
+      enabled: true
     resources:
       limits:
         memory: 384Mi
@@ -16,15 +28,13 @@ spec:
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: fivealive-ingress.gangsterkitties.com
-          metallb.io/loadBalancerIPs: 10.0.101.254
+          lbipam.cilium.io/ips: 10.0.101.254
     envoy:
       resources:
         limits:
           memory: 128Mi
         requests:
           memory: 128Mi
-    nodePort:
-      enabled: true
     operator:
       resources:
         limits:

@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - ../../base/infra-stage2/cert-manager
   - ../../base/infra-stage2/k8s-admins.yaml
-  - ./metallb
+  - ./kps
+  # - ./metallb

@@ -7,4 +7,5 @@ resources:
   - grafana-admin.yaml
   - grafana-ldap.yaml
   - slack-token.yaml
+  - recording-rules.yaml
   - release.yaml

@@ -8,7 +8,6 @@ resources:
   - ../base/kps
   - ./external-secrets
   - ./flux
-  - ./kps
 patches:
   - path: external-secrets.yaml
     target:

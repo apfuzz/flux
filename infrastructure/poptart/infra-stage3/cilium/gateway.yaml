@@ -22,4 +22,5 @@ spec:
             namespace: cert-manager
   infrastructure:
     annotations:
-      metallb.io/loadBalancerIPs: 10.0.102.253
+      lbipam.cilium.io/ips: 10.0.102.253
+    loadBalancerClass: io.cilium/l2-announcer

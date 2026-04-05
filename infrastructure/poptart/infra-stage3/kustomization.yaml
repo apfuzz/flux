@@ -16,3 +16,16 @@ patches:
       kind: HelmRelease
       name: ingress-nginx
       namespace: ingress-nginx
+
+  ### json patches
+
+  # Cilium gateway service
+
+  - patch: |
+      - op: add
+        path: /spec/loadBalancerClass
+        value: "io.cilium/l2-announcer"
+    target:
+      kind: Service
+      name: cilium-gateway-cilium-gateway
+      namespace: cilium

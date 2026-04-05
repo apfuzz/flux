@@ -90,7 +90,7 @@ eso_install() {
   helm repo update
 
   # install eso
-  helm upgrade --install external-secrets external-secrets/external-secrets --version $ES_VERSION -n external-secrets --create-namespace
+  helm upgrade --install external-secrets external-secrets/external-secrets --version $ES_VERSION -n external-secrets --create-namespace --wait
 
   # create vault service account and token
   kubectl apply -f $SCRIPT_DIR/vault-sa.yaml

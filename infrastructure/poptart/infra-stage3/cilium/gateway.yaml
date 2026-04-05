@@ -23,4 +23,4 @@ spec:
   infrastructure:
     annotations:
       lbipam.cilium.io/ips: 10.0.102.253
-    loadBalancerClass: io.cilium/l2-announcer
+    # loadBalancerClass: io.cilium/l2-announcer

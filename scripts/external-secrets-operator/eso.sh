@@ -65,7 +65,7 @@ EOF
 
 # log into vault
 vault_login() {
-  echo -e "${BLUE}Logging into Vault at $VAULT_ADDR...${NC}"
+  echo -e "${BLUE}Logging into Vault at $VAULT_FQDN...${NC}"
   read -s -p "Enter root token: " VAULT_ROOT_TOKEN
   echo
 
@@ -90,7 +90,7 @@ eso_install() {
 
   # add helm repo
   helm repo add external-secrets https://charts.external-secrets.io
-  helm repo update
+  helm repo update > /dev/null
 
   # install eso
   helm upgrade --install external-secrets external-secrets/external-secrets --version $ES_VERSION -n external-secrets --create-namespace --wait

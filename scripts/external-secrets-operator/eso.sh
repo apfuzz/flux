@@ -22,7 +22,7 @@ set -e
 
 # set variables from input
 K8S_CLUSTER=$1
-VAULT_ADDR="https://$2"
+VAULT_FQDN=$2
 
 # set variables
 ES_VERSION=2.0.1  # latest as of Feb 2026
@@ -69,7 +69,7 @@ vault_login() {
   read -s -p "Enter root token: " VAULT_ROOT_TOKEN
   echo
 
-  export VAULT_ADDR=$VAULT_ADDR
+  export VAULT_ADDR=https://$VAULT_FQDN
   echo $VAULT_ROOT_TOKEN | vault login - > /dev/null
 }
 

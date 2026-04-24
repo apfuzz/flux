@@ -73,7 +73,7 @@ vault_login() {
 # enable the kubernetes authentication method in vault
 vault_auth() {
   echo -e "\n${BLUE}Enabling Vault Kubernetes auth method...${NC}"
-  VAULT_AUTH_EXISTS=$(vault auth list | grep -c eso-poptart)
+  VAULT_AUTH_EXISTS=$(vault auth list | grep -c eso-poptart || true)
   if [ $VAULT_AUTH_EXISTS -eq 0 ] ; then
     vault auth enable -path=$VAULT_AUTH_NAME -description="External Secrets Operator for K8s cluster $K8S_CLUSTER" kubernetes
   else
@@ -115,9 +115,10 @@ vault_auth_config() {
   # create Vault role for Kubernetes
   vault write auth/$VAULT_AUTH_NAME/role/kubernetes \
     bound_service_account_names=vault \
-    bound_service_account_namespaces="*" \
-    policies=$VAULT_POLICY \
-    ttl=24h
+    bound_service_account_namespaces=external-secrets \
+    token_policies=$VAULT_POLICY \
+    audience=vault \
+    ttl=1h
 }
 
 # create cluster secret store

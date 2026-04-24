@@ -3,6 +3,7 @@
 # exit on error
 set -e
 
+# enable debug
 # set -xv
 
 # eso.sh
@@ -40,13 +41,15 @@ YELLOW='\033[0;93m'
 BLUE='\033[0;96m'
 NC='\033[0m' # No Color
 
-# check sed version
-SED_VERSION_CHECK=`sed --version > /dev/null 2>&1`
-if [ $? -eq 0 ] ; then
+# set sed command
+if [ "$OS" = "Linux" ] ; then
   SED_CMD="sed -i"
-else
-  test ! -f /opt/homebrew/bin/gsed && echo -e "${YELLOW}GNU sed not present. Please install with 'brew install gnu-sed'. Exiting.${NC}\n" && cleanup && exit 1
+elif [ "$OS" = "Darwin" ] ; then
+  test ! -f /opt/homebrew/bin/gsed && echo -e "${YELLOW}GNU sed not present. Please install with 'brew install gnu-sed'. Exiting.${NC}\n" && exit 1
   SED_CMD="/opt/homebrew/bin/gsed -i"
+else
+  echo -e "${RED}Unsupported operating system. Exiting...${NC}"
+  exit 1
 fi
 
 ### functions
@@ -67,7 +70,7 @@ vault_login() {
   echo
 
   export VAULT_ADDR=$VAULT_ADDR
-  echo $VAULT_ROOT_TOKEN | vault login -
+  echo $VAULT_ROOT_TOKEN | vault login - > /dev/null
 }
 
 # enable the kubernetes authentication method in vault
@@ -165,7 +168,7 @@ vault_auth
 # check for existing external secrets operator installation
 ESO_STATUS=$(helm get metadata -n external-secrets external-secrets | grep STATUS | awk '{print $NF}' 2> /dev/null)
 if [ "$ESO_STATUS" = "deployed" ] ; then
-  echo -e "\n${GREEN}External Secrets Operator already installed...${NC}"
+  echo -e "\n${YELLOW}External Secrets Operator already installed...${NC}"
 else
   eso_install
 fi

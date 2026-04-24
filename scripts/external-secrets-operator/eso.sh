@@ -73,7 +73,7 @@ vault_login() {
 # enable the kubernetes authentication method in vault
 vault_auth() {
   echo -e "\n${BLUE}Enabling Vault Kubernetes auth method...${NC}"
-  VAULT_AUTH_EXISTS=$(vault auth list | grep -c eso-poptart || true)
+  VAULT_AUTH_EXISTS=$(vault auth list | grep -c $VAULT_AUTH_NAME || true)
   if [ $VAULT_AUTH_EXISTS -eq 0 ] ; then
     vault auth enable -path=$VAULT_AUTH_NAME -description="External Secrets Operator for K8s cluster $K8S_CLUSTER" kubernetes
   else
@@ -114,10 +114,10 @@ vault_auth_config() {
 
   # create Vault role for Kubernetes
   vault write auth/$VAULT_AUTH_NAME/role/kubernetes \
+    audience=vault \
     bound_service_account_names=vault \
     bound_service_account_namespaces=external-secrets \
     token_policies=$VAULT_POLICY \
-    audience=vault \
     ttl=1h
 }
 
@@ -158,9 +158,18 @@ fi
 echo -e "\n${BLUE}This script will use the Kubernetes cluster context: $(kubectl config current-context). Press enter to continue or ctrl+c to cancel.${NC}"
 read CONTINUE
 
-# execute functions
+# configure vault auth
 vault_login
 vault_auth
-eso_install
+
+# check for existing external secrets operator installation
+ESO_STATUS=$(helm get metadata -n external-secrets external-secrets | grep STATUS | awk '{print $NF}' 2> /dev/null)
+if [ "$ESO_STATUS" = "deployed" ] ; then
+  echo -e "\n${GREEN}External Secrets Operator already installed...${NC}"
+else
+  eso_install
+fi
+
+# complete setup
 vault_auth_config
 cluster_secret_store

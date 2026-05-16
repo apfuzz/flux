@@ -1,0 +1,21 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: traefik
+spec:
+  interval: 15m
+  values:
+    ingressRoute:
+      dashboard:
+        annotations:
+          external-dns.alpha.kubernetes.io/target: poptart-ingress3.gangsterkitties.com
+        matchRule: Host(`poptart-traefik.gangsterkitties.com`)
+    logs:
+      access:
+        enabled: false  # disabled by default - set this to true to enable
+    service:
+      annotations:
+        external-dns.alpha.kubernetes.io/hostname: poptart-ingress3.gangsterkitties.com
+        metallb.io/loadBalancerIPs: 10.0.102.250

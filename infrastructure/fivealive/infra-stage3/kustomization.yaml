@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../../base/infra-stage3/cilium
   - ../../base/infra-stage3/ingress-nginx
+  - ../../base/infra-stage3/traefik
   - ./cilium
 patches:
   - path: cilium.yaml
@@ -16,3 +17,8 @@ patches:
       kind: HelmRelease
       name: ingress-nginx
       namespace: ingress-nginx
+  - path: traefik.yaml
+    target:
+      kind: HelmRelease
+      name: traefik
+      namespace: traefik

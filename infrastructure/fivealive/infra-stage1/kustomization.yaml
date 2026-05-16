@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - ../../base/infra-stage1/cert-manager
   - ../../base/infra-stage1/cloudnative-pg
-  - ../../base/infra-stage1/external-dns
   - ../../base/infra-stage1/gateway-api
   - ../../base/infra-stage1/kps-crds
   - ../../base/infra-stage1/longhorn
@@ -19,11 +18,6 @@ patches:
       kind: HelmRelease
       name: cloudnative-pg
       namespace: cnpg-system
-  - path: external-dns.yaml
-    target:
-      kind: HelmRelease
-      name: external-dns
-      namespace: external-dns
   - path: longhorn.yaml
     target:
       kind: HelmRelease

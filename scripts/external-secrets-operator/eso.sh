@@ -42,6 +42,7 @@ BLUE='\033[0;96m'
 NC='\033[0m' # No Color
 
 # set sed command
+OS=$(uname -s)
 if [ "$OS" = "Linux" ] ; then
   SED_CMD="sed -i"
 elif [ "$OS" = "Darwin" ] ; then

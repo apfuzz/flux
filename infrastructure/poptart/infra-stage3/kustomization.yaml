@@ -6,7 +6,7 @@ resources:
   - ../../base/infra-stage3/external-dns
   # - ../../base/infra-stage3/ingress-nginx
   - ../../base/infra-stage3/traefik
-  - ./cilium
+  # - ./cilium
 patches:
   # - path: cilium.yaml
   #   target:

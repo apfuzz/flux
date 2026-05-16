@@ -9,6 +9,7 @@ spec:
     ingress:
       annotations:
         external-dns.alpha.kubernetes.io/target: poptart-ingress.gangsterkitties.com
+        ingressClassName: traefik
       hosts:
         - host: poptart-headlamp.gangsterkitties.com
           paths:

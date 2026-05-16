@@ -11,7 +11,7 @@ spec:
       ingress:
         className: traefik
         annotations:
-          external-dns.alpha.kubernetes.io/target: fivealive-ingress2.gangsterkitties.com
+          external-dns.alpha.kubernetes.io/target: fivealive-ingress3.gangsterkitties.com
         hosts:
           core: registry.gangsterkitties.com
     externalURL: https://registry.gangsterkitties.com

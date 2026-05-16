@@ -9,7 +9,7 @@ spec:
   values:
     expose:
       ingress:
-        className: nginx
+        className: traefik
         annotations:
           external-dns.alpha.kubernetes.io/target: fivealive-ingress2.gangsterkitties.com
         hosts:

@@ -26,6 +26,7 @@ VAULT_FQDN=$2
 
 # set variables
 ES_VERSION=2.0.1  # latest as of Feb 2026
+OS=$(uname -s)
 VAULT_AUTH_NAME=eso-$K8S_CLUSTER
 VAULT_POLICY=gangsterkitties-readonly
 
@@ -42,7 +43,6 @@ BLUE='\033[0;96m'
 NC='\033[0m' # No Color
 
 # set sed command
-OS=$(uname -s)
 if [ "$OS" = "Linux" ] ; then
   SED_CMD="sed -i"
 elif [ "$OS" = "Darwin" ] ; then

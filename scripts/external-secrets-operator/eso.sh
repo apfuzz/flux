@@ -25,7 +25,6 @@ K8S_CLUSTER=$1
 VAULT_FQDN=$2
 
 # set variables
-ES_VERSION=2.0.1  # latest as of Feb 2026
 OS=$(uname -s)
 VAULT_AUTH_NAME=eso-$K8S_CLUSTER
 VAULT_POLICY=gangsterkitties-readonly
@@ -94,7 +93,7 @@ eso_install() {
   helm repo update > /dev/null
 
   # install eso
-  helm upgrade --install external-secrets external-secrets/external-secrets --version $ES_VERSION -n external-secrets --create-namespace --wait
+  helm upgrade --install external-secrets external-secrets/external-secrets -n external-secrets --create-namespace --wait
 
   # create vault service account and token
   kubectl apply -f $SCRIPT_DIR/vault-sa.yaml

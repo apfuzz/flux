@@ -8,3 +8,9 @@ spec:
   values:
     # logLevel: debug
     txtOwnerId: poptart
+    sources:
+      - gateway-grpcroute
+      - gateway-httproute
+      - ingress
+      - service
+      - traefik-proxy

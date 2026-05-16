@@ -6,6 +6,7 @@ resources:
   - ../base/flux
   - ../base/headlamp
   - ../base/kps
+  - ../base/reflector
   - ./external-secrets
   - ./flux
 patches:

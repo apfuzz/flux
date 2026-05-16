@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: reflector
+  namespace: reflector
+spec:
+  interval: 15m
+  timeout: 5m
+  chart:
+    spec:
+      chart: reflector
+      version: ">= 1.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: reflector
+  driftDetection:
+    mode: enabled
+  values: {}

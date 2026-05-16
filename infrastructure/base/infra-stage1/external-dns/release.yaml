@@ -36,6 +36,7 @@ spec:
       - gateway-httproute
       - ingress
       - service
+      - traefik-proxy
     extraArgs:
       - --rfc2136-host=10.0.100.2
       - --rfc2136-port=53

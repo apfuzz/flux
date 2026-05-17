@@ -18,10 +18,15 @@ spec:
     mode: enabled
   values:
     expose:
-      type: ingress
+      type: route
       tls:
         enabled: true
         certSource: none
+      route:
+        parentRefs:
+          - name: cilium-gateway
+            namespace: cilium
+            sectionName: https
     harborAdminPassword: "Harbor12345"
     updateStrategy:
       type: Recreate

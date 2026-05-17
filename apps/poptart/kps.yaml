@@ -94,15 +94,16 @@ spec:
         #   - hosts:
         #       - poptart-alertmanager.gangsterkitties.com
       route:
-        enabled: true
-        annotations:
-          external-dns.alpha.kubernetes.io/target: poptart-gateway.gangsterkitties.com
-        hostnames:
-          - poptart-alertmanager.gangsterkitties.com
-        parentRefs:
-          - name: cilium-gateway
-            namespace: cilium
-            sectionName: https
+        main:
+          enabled: true
+          annotations:
+            external-dns.alpha.kubernetes.io/target: poptart-gateway.gangsterkitties.com
+          hostnames:
+            - poptart-alertmanager.gangsterkitties.com
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+              sectionName: https
     grafana:
       ingress:
         enabled: false
@@ -115,15 +116,16 @@ spec:
         #   - hosts:
         #       - poptart-grafana.gangsterkitties.com
       route:
-        enabled: true
-        annotations:
-          external-dns.alpha.kubernetes.io/target: poptart-gateway.gangsterkitties.com
-        hostnames:
-          - poptart-grafana.gangsterkitties.com
-        parentRefs:
-          - name: cilium-gateway
-            namespace: cilium
-            sectionName: https
+        main:
+          enabled: true
+          annotations:
+            external-dns.alpha.kubernetes.io/target: poptart-gateway.gangsterkitties.com
+          hostnames:
+            - poptart-grafana.gangsterkitties.com
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+              sectionName: https
       initChownData:
         enabled: false
       persistence:
@@ -151,15 +153,16 @@ spec:
         #   - hosts:
         #       - poptart-prometheus.gangsterkitties.com
       route:
-        enabled: true
-        annotations:
-          external-dns.alpha.kubernetes.io/target: poptart-gateway.gangsterkitties.com
-        hostnames:
-          - poptart-prometheus.gangsterkitties.com
-        parentRefs:
-          - name: cilium-gateway
-            namespace: cilium
-            sectionName: https
+        main:
+          enabled: true
+          annotations:
+            external-dns.alpha.kubernetes.io/target: poptart-gateway.gangsterkitties.com
+          hostnames:
+            - poptart-prometheus.gangsterkitties.com
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+              sectionName: https
       prometheusSpec:
         storageSpec:
           volumeClaimTemplate:

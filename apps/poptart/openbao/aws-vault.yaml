@@ -1,13 +1,13 @@
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: aws-openbao
+  name: aws-vault
 spec:
   secretStoreRef:
     name: vault-backend
     kind: ClusterSecretStore
   target:
-    name: aws-openbao
+    name: aws-vault
     creationPolicy: Owner
   data:
   - secretKey: AWS_ACCESS_KEY_ID

@@ -23,10 +23,12 @@ spec:
         issuerURL: https://dex.gangsterkitties.com/dex
         scopes: groups
       watchPlugins: true
-      # # Bypasses: https://github.com/kubernetes-sigs/headlamp/issues/4883
-      # sessionTTL: null
-    ingress:
+    httpRoute:
       enabled: true
+      parentRefs:
+        - name: cilium-gateway
+          namespace: cilium
+          sectionName: https
     resources:
       requests:
         memory: 128Mi

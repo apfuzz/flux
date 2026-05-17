@@ -6,14 +6,8 @@ metadata:
 spec:
   interval: 15m
   values:
-    ingress:
+    httpRoute:
       annotations:
         external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
-      hosts:
+      hostnames:
         - host: headlamp.gangsterkitties.com
-          paths:
-            - path: /
-              type: Prefix
-      tls:
-        - hosts:
-            - headlamp.gangsterkitties.com

@@ -6,15 +6,8 @@ metadata:
 spec:
   interval: 15m
   values:
-    ingress:
+    httpRoute:
       annotations:
         external-dns.alpha.kubernetes.io/target: poptart-ingress.gangsterkitties.com
-      ingressClassName: cilium
-      hosts:
+      hostnames:
         - host: poptart-headlamp.gangsterkitties.com
-          paths:
-            - path: /
-              type: Prefix
-      tls:
-        - hosts:
-            - poptart-headlamp.gangsterkitties.com

@@ -2,17 +2,17 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  # - ../../base/infra-stage3/cilium
+  - ../../base/infra-stage3/cilium
   - ../../base/infra-stage3/external-dns
   # - ../../base/infra-stage3/ingress-nginx
-  - ../../base/infra-stage3/traefik
-  # - ./cilium
+  # - ../../base/infra-stage3/traefik
+  - ./cilium
 patches:
-  # - path: cilium.yaml
-  #   target:
-  #     kind: HelmRelease
-  #     name: cilium
-  #     namespace: cilium
+  - path: cilium.yaml
+    target:
+      kind: HelmRelease
+      name: cilium
+      namespace: cilium
   - path: external-dns.yaml
     target:
       kind: HelmRelease
@@ -23,8 +23,8 @@ patches:
   #     kind: HelmRelease
   #     name: ingress-nginx
   #     namespace: ingress-nginx
-  - path: traefik.yaml
-    target:
-      kind: HelmRelease
-      name: traefik
-      namespace: traefik
+  # - path: traefik.yaml
+  #   target:
+  #     kind: HelmRelease
+  #     name: traefik
+  #     namespace: traefik

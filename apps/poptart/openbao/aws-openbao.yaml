@@ -18,7 +18,7 @@ spec:
     remoteRef:
       key: aws/vault
       property: AWS_SECRET_ACCESS_KEY
-  - secretKey: OPENBAO_AWSKMS_SEAL_KEY_ID
+  - secretKey: VAULT_AWSKMS_SEAL_KEY_ID
     remoteRef:
       key: aws/vault
-      property: OPENBAO_AWSKMS_SEAL_KEY_ID
+      property: VAULT_AWSKMS_SEAL_KEY_ID

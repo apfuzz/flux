@@ -9,6 +9,7 @@ resources:
   - ../base/reflector
   - ./external-secrets
   - ./flux
+  - ./openbao
 patches:
   - path: external-secrets.yaml
     target:

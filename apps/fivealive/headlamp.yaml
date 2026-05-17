@@ -10,4 +10,4 @@ spec:
       annotations:
         external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
       hostnames:
-        - host: headlamp.gangsterkitties.com
+        - headlamp.gangsterkitties.com

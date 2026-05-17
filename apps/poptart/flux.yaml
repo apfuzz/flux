@@ -15,4 +15,4 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: poptart-gateway.gangsterkitties.com
         hostnames:
-          - host: poptart-flux.gangsterkitties.com
+          - poptart-flux.gangsterkitties.com

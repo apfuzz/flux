@@ -4,8 +4,7 @@ kind: Kustomization
 resources:
   - ../../base/infra-stage3/cilium
   - ../../base/infra-stage3/external-dns
-  # - ../../base/infra-stage3/ingress-nginx
-  # - ../../base/infra-stage3/traefik
+  - ../../base/infra-stage3/traefik
   - ./cilium
 patches:
   - path: cilium.yaml
@@ -18,13 +17,8 @@ patches:
       kind: HelmRelease
       name: external-dns
       namespace: external-dns
-  # - path: ingress-nginx.yaml
-  #   target:
-  #     kind: HelmRelease
-  #     name: ingress-nginx
-  #     namespace: ingress-nginx
-  # - path: traefik.yaml
-  #   target:
-  #     kind: HelmRelease
-  #     name: traefik
-  #     namespace: traefik
+  - path: traefik.yaml
+    target:
+      kind: HelmRelease
+      name: traefik
+      namespace: traefik

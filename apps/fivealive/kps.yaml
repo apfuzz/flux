@@ -83,15 +83,12 @@ spec:
               {{- end }}
             {{- end }}
           {{- end }}
-      ingress:
-        annotations:
-          external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
-        ingressClassName: cilium
-        hosts:
-          - alertmanager.gangsterkitties.com
-        tls:
-          - hosts:
-              - alertmanager.gangsterkitties.com
+      route:
+        main:
+          annotations:
+            external-dns.alpha.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
+          hostnames:
+            - fivealive-alertmanager.gangsterkitties.com
       alertmanagerSpec:
         resources:
           limits:
@@ -99,15 +96,12 @@ spec:
           requests:
             memory: 128Mi
     grafana:
-      ingress:
-        annotations:
-          external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
-        ingressClassName: cilium
-        hosts:
-          - grafana.gangsterkitties.com
-        tls:
-          - hosts:
-              - grafana.gangsterkitties.com
+      route:
+        main:
+          annotations:
+            external-dns.alpha.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
+          hostnames:
+            - fivealive-alertmanager.gangsterkitties.com
       resources:
         limits:
           memory: 384Mi
@@ -133,15 +127,12 @@ spec:
         - 10.0.101.102
         - 10.0.101.103
     prometheus:
-      ingress:
-        annotations:
-          external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
-        ingressClassName: cilium
-        hosts:
-          - prometheus.gangsterkitties.com
-        tls:
-          - hosts:
-              - prometheus.gangsterkitties.com
+      route:
+        main:
+          annotations:
+            external-dns.alpha.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
+          hostnames:
+            - fivealive-alertmanager.gangsterkitties.com
       prometheusSpec:
         retention: 30d
         resources:

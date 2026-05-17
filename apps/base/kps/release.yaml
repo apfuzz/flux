@@ -64,11 +64,13 @@ spec:
                   - type: button
                     text: 'Silence :no_bell:'
                     url: '{{ template "__alert_silence_link" . }}'
-      ingress:
-        enabled: true
-        paths:
-          - /
-        pathType: Prefix
+      route:
+        main:
+          enabled: true
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+              sectionName: https
       alertmanagerSpec:
         secrets:
           - slack-token
@@ -80,9 +82,13 @@ spec:
         userKey: admin-user
         passwordKey: admin-password
       defaultDashboardsEnabled: false
-      ingress:
-        enabled: true
-        path: /
+      route:
+        main:
+          enabled: true
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+              sectionName: https
       grafana.ini:
         auth.anonymous:
           enabled: true
@@ -130,8 +136,10 @@ spec:
     kubeProxy:
       enabled: false
     prometheus:
-      ingress:
-        enabled: true
-        paths:
-          - /
-        pathType: Prefix
+      route:
+        main:
+          enabled: true
+          parentRefs:
+            - name: cilium-gateway
+              namespace: cilium
+              sectionName: https

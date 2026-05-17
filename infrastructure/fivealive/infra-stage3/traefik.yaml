@@ -18,4 +18,3 @@ spec:
     service:
       annotations:
         external-dns.alpha.kubernetes.io/hostname: fivealive-ingress3.gangsterkitties.com
-        metallb.io/loadBalancerIPs: 10.0.101.251

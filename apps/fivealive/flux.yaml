@@ -12,7 +12,5 @@ spec:
       networkPolicy:
         create: false
       httpRoute:
-        annotations:
-          external-dns.alpha.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
         hostnames:
           - flux.gangsterkitties.com

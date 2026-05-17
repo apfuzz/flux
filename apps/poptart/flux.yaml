@@ -12,7 +12,5 @@ spec:
       networkPolicy:
         create: false
       httpRoute:
-        annotations:
-          external-dns.alpha.kubernetes.io/target: poptart-gateway.gangsterkitties.com
         hostnames:
           - poptart-flux.gangsterkitties.com

@@ -85,15 +85,11 @@ spec:
           {{- end }}
       route:
         main:
-          annotations:
-            external-dns.alpha.kubernetes.io/target: poptart-gateway.gangsterkitties.com
           hostnames:
             - poptart-alertmanager.gangsterkitties.com
     grafana:
       route:
         main:
-          annotations:
-            external-dns.alpha.kubernetes.io/target: poptart-gateway.gangsterkitties.com
           hostnames:
             - poptart-grafana.gangsterkitties.com
       initChownData:
@@ -114,8 +110,6 @@ spec:
     prometheus:
       route:
         main:
-          annotations:
-            external-dns.alpha.kubernetes.io/target: poptart-gateway.gangsterkitties.com
           hostnames:
             - poptart-prometheus.gangsterkitties.com
       prometheusSpec:

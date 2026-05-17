@@ -85,8 +85,6 @@ spec:
           {{- end }}
       route:
         main:
-          annotations:
-            external-dns.alpha.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
           hostnames:
             - alertmanager.gangsterkitties.com
       alertmanagerSpec:
@@ -98,8 +96,6 @@ spec:
     grafana:
       route:
         main:
-          annotations:
-            external-dns.alpha.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
           hostnames:
             - grafana.gangsterkitties.com
       resources:
@@ -129,8 +125,6 @@ spec:
     prometheus:
       route:
         main:
-          annotations:
-            external-dns.alpha.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
           hostnames:
             - prometheus.gangsterkitties.com
       prometheusSpec:

@@ -9,8 +9,6 @@ spec:
   values:
     expose:
       route:
-        annotations:
-          external-dns.alpha.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
         hosts:
           - registry.gangsterkitties.com
     externalURL: https://registry.gangsterkitties.com

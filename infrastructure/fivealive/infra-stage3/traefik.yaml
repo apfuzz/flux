@@ -18,3 +18,4 @@ spec:
     service:
       annotations:
         external-dns.alpha.kubernetes.io/hostname: fivealive-ingress3.gangsterkitties.com
+        lbipam.cilium.io/ips: 10.0.101.251

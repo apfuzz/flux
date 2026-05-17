@@ -10,16 +10,12 @@ spec:
     name: flux-operator
   values:
     web:
-      # config:
-      #   authentication:
-      #     type: OAuth2
-      #     oauth2:
-      #       provider: OIDC
-      #       clientID: flux
-      #       clientSecret: flux
-      #       issuerURL: https://dex.gangsterkitties.com/dex
-      ingress:
+      httpRoute:
         enabled: true
+        parentRefs:
+          - name: cilium-gateway
+            namespace: cilium
+            sectionName: https
     resources:
       limits:
         memory: 256Mi

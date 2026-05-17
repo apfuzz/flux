@@ -4,5 +4,6 @@ kind: Kustomization
 namespace: cilium
 resources:
   - gateway.yaml
+  - httproute-redirect.yaml
   - l2policy.yaml
   - lbippool.yaml

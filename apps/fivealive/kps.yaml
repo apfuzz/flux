@@ -88,7 +88,7 @@ spec:
           annotations:
             external-dns.alpha.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
           hostnames:
-            - fivealive-alertmanager.gangsterkitties.com
+            - alertmanager.gangsterkitties.com
       alertmanagerSpec:
         resources:
           limits:
@@ -101,7 +101,7 @@ spec:
           annotations:
             external-dns.alpha.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
           hostnames:
-            - fivealive-alertmanager.gangsterkitties.com
+            - grafana.gangsterkitties.com
       resources:
         limits:
           memory: 384Mi
@@ -132,7 +132,7 @@ spec:
           annotations:
             external-dns.alpha.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
           hostnames:
-            - fivealive-alertmanager.gangsterkitties.com
+            - prometheus.gangsterkitties.com
       prometheusSpec:
         retention: 30d
         resources:

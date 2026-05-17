@@ -9,7 +9,7 @@ spec:
     ingress:
       annotations:
         external-dns.alpha.kubernetes.io/target: poptart-ingress.gangsterkitties.com
-      ingressClassName: cillium
+      ingressClassName: cilium
       hosts:
         - host: poptart-headlamp.gangsterkitties.com
           paths:

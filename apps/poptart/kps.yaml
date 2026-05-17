@@ -86,7 +86,7 @@ spec:
       ingress:
         annotations:
           external-dns.alpha.kubernetes.io/target: poptart-ingress.gangsterkitties.com
-        ingressClassName: cillium
+        ingressClassName: cilium
         hosts:
           - poptart-alertmanager.gangsterkitties.com
         tls:
@@ -96,7 +96,7 @@ spec:
       ingress:
         annotations:
           external-dns.alpha.kubernetes.io/target: poptart-ingress.gangsterkitties.com
-        ingressClassName: cillium
+        ingressClassName: cilium
         hosts:
           - poptart-grafana.gangsterkitties.com
         tls:
@@ -119,7 +119,7 @@ spec:
       ingress:
         annotations:
           external-dns.alpha.kubernetes.io/target: poptart-ingress.gangsterkitties.com
-        ingressClassName: cillium
+        ingressClassName: cilium
         hosts:
           - poptart-prometheus.gangsterkitties.com
         tls:

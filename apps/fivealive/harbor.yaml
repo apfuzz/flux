@@ -8,9 +8,12 @@ spec:
   interval: 15m
   values:
     expose:
-      route:
+      ingress:
+        className: traefik
+        annotations:
+          external-dns.alpha.kubernetes.io/target: fivealive-ingress3.gangsterkitties.com
         hosts:
-          - registry.gangsterkitties.com
+          core: registry.gangsterkitties.com
     externalURL: https://registry.gangsterkitties.com
     persistence:
       imageChartStorage:

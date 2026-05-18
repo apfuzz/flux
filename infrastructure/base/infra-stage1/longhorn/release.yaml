@@ -36,6 +36,7 @@ spec:
     defaultSettings:
       createDefaultDiskLabeledNodes: true
       storageReservedPercentageForDefaultDisk: 0
+      storageMinimalAvailablePercentage: 10
     longhornUI:
       replicas: 1
     metrics:

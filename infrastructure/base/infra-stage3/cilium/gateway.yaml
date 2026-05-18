@@ -3,8 +3,9 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: cilium-gateway
+  namespace: cilium
   annotations:
-    external-dns.alpha.kubernetes.io/target: poptart-gateway.gangsterkitties.com
+    external-dns.alpha.kubernetes.io/target: json-patch-will-replace-this
 spec:
   gatewayClassName: cilium
   listeners:
@@ -28,4 +29,4 @@ spec:
             namespace: cert-manager
   infrastructure:
     annotations:
-      lbipam.cilium.io/ips: 10.0.102.253
+      lbipam.cilium.io/ips: json-patch-will-replace-this

@@ -7,6 +7,9 @@ resources:
   - ../../base/infra-stage3/traefik
   - ./cilium
 patches:
+
+  ### helm release overrides
+
   - path: cilium.yaml
     target:
       kind: HelmRelease
@@ -22,3 +25,27 @@ patches:
       kind: HelmRelease
       name: traefik
       namespace: traefik
+
+  ### json patches
+
+  # Cilium gateway hostname annotation
+
+  - patch: |
+      - op: replace
+        path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
+        value: "poptart-gateway.gangsterkitties.com"
+    target:
+      kind: Gateway
+      name: cilium-gateway
+      namespace: cilium
+
+  # Cilium gateway IP address
+
+  - patch: |
+      - op: replace
+        path: /spec/infrastructure/annotations/lbipam.cilium.io~1ips
+        value: "10.0.102.253"
+    target:
+      kind: Gateway
+      name: cilium-gateway
+      namespace: cilium

@@ -34,9 +34,10 @@ spec:
     preUpgradeChecker:
       jobEnabled: false
     defaultSettings:
+      concurrentAutomaticEngineUpgradePerNodeLimit: 1
       createDefaultDiskLabeledNodes: true
-      storageReservedPercentageForDefaultDisk: 0
       storageMinimalAvailablePercentage: 10
+      storageReservedPercentageForDefaultDisk: 0
     longhornUI:
       replicas: 1
     metrics:
@@ -44,3 +45,13 @@ spec:
         enabled: true
         additionalLabels:
           release: kps
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: StorageClass
+              name: longhorn
+            patch: |
+              - op: replace
+                path: /parameters/numberOfReplicas
+                value: 2

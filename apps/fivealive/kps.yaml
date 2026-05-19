@@ -88,6 +88,7 @@ spec:
           hostnames:
             - alertmanager.gangsterkitties.com
       alertmanagerSpec:
+        externalUrl: https://alertmanager.gangsterkitties.com
         resources:
           limits:
             memory: 128Mi
@@ -98,6 +99,8 @@ spec:
         main:
           hostnames:
             - grafana.gangsterkitties.com
+      grafana.ini:
+        root_url: https://grafana.gangsterkitties.com
       resources:
         limits:
           memory: 384Mi
@@ -128,6 +131,7 @@ spec:
           hostnames:
             - prometheus.gangsterkitties.com
       prometheusSpec:
+        externalUrl: https://prometheus.gangsterkitties.com
         retention: 30d
         resources:
           limits:

@@ -1,0 +1,24 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: aws-vault
+spec:
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    name: aws-vault
+    creationPolicy: Owner
+  data:
+  - secretKey: AWS_ACCESS_KEY_ID
+    remoteRef:
+      key: aws/vault
+      property: AWS_ACCESS_KEY_ID
+  - secretKey: AWS_SECRET_ACCESS_KEY
+    remoteRef:
+      key: aws/vault
+      property: AWS_SECRET_ACCESS_KEY
+  - secretKey: VAULT_AWSKMS_SEAL_KEY_ID
+    remoteRef:
+      key: aws/vault
+      property: VAULT_AWSKMS_SEAL_KEY_ID

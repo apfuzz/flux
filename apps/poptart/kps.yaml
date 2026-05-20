@@ -87,11 +87,15 @@ spec:
         main:
           hostnames:
             - poptart-alertmanager.gangsterkitties.com
+      alertmanagerSpec:
+        externalUrl: https://poptart-alertmanager.gangsterkitties.com
     grafana:
       route:
         main:
           hostnames:
             - poptart-grafana.gangsterkitties.com
+      grafana.ini:
+        root_url: https://poptart-grafana.gangsterkitties.com
       initChownData:
         enabled: false
       persistence:
@@ -113,6 +117,7 @@ spec:
           hostnames:
             - poptart-prometheus.gangsterkitties.com
       prometheusSpec:
+        externalUrl: https://poptart-prometheus.gangsterkitties.com
         storageSpec:
           volumeClaimTemplate:
             spec:

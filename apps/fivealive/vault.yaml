@@ -13,11 +13,11 @@ spec:
           memory: 256Mi
         limits:
           memory: 256Mi
-      ingress:
-        annotations:
-          external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
-        hosts:
-          - host: vault.gangsterkitties.com
-        tls:
-          - hosts:
-              - vault.gangsterkitties.com
+      # ingress:
+      #   annotations:
+      #     external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
+      #   hosts:
+      #     - host: vault.gangsterkitties.com
+      #   tls:
+      #     - hosts:
+      #         - vault.gangsterkitties.com

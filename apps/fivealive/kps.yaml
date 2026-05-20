@@ -9,6 +9,9 @@ spec:
   install:
     crds: Skip
   values:
+    defaultRules:
+      rules:
+        kubeApiserverBurnrate: false
     alertmanager:
       config:
         route:

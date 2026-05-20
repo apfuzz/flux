@@ -14,7 +14,6 @@ resources:
   - ../base/reflector
   - ../base/reloader
   - ../base/valkey
-  - ../base/vault
   - ./dex
   - ./external-secrets
   - ./flux
@@ -22,7 +21,6 @@ resources:
   - ./openbao
   - ./postgres
   - ./talos-etcd
-  - ./vault
 patches:
 
   ### helm release overrides
@@ -82,11 +80,6 @@ patches:
       kind: HelmRelease
       name: valkey
       namespace: valkey
-  - path: vault.yaml
-    target:
-      kind: HelmRelease
-      name: vault
-      namespace: vault
 
   ### json patches
 

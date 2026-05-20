@@ -111,6 +111,8 @@ spec:
     kubeEtcd:
       endpoints:
         - 10.0.102.100
+    nodeExporter:
+      enabled: false
     prometheus:
       route:
         main:

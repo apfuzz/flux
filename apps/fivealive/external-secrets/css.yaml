@@ -13,10 +13,10 @@ spec:
           mountPath: eso-fivealive
           role: kubernetes
           serviceAccountRef:
-            name: vault
-            namespace: vault
+            name: openbao
+            namespace: openbao
             audiences:
-              - vault
+              - openbao
           secretRef:
-            name: eso-vault
+            name: openbao-token
             key: token

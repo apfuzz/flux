@@ -18,5 +18,5 @@ spec:
             audiences:
               - openbao
           secretRef:
-            name: openbao-token
+            name: openbao
             key: token

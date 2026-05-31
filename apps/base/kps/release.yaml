@@ -38,6 +38,9 @@ spec:
             - matchers:
                 - alertname = "Watchdog"
               receiver: 'null'
+            - matchers:
+                - env = genai
+              receiver: "null"
         receivers:
           - name: 'null'
           - name: 'slack'

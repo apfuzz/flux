@@ -16,10 +16,10 @@ spec:
       config:
         route:
           receiver: slack
-        routes:
-          - matchers:
-              env = genai
-            receiver: "null"
+          routes:
+            - matchers:
+                env = genai
+              receiver: "null"
       templateFiles:
         slack.tmpl: |-
           {{ define "__alertmanager" }}fivealive{{ end }}

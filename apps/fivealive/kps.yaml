@@ -16,6 +16,9 @@ spec:
       config:
         route:
           receiver: 'slack'
+        routes:
+          - labels: env=genai
+            receiver: 'null'
       templateFiles:
         slack.tmpl: |-
           {{ define "__alertmanager" }}fivealive{{ end }}
@@ -159,9 +162,12 @@ spec:
           - job_name: node
             static_configs:
               - targets:
-                  - jarvis.gangsterkitties.com:9100
                   - pihole.gangsterkitties.com:9100
                   - shakenbake.gangsterkitties.com:9100
+              - targets:
+                  - jarvis.gangsterkitties.com:9100
+                labels:
+                  env: genai
               - targets: ['54.161.174.188:9100']
                 labels:
                   instance: 'www.gangsterkitties.com'
@@ -192,3 +198,5 @@ spec:
             static_configs:
               - targets:
                   - jarvis.gangsterkitties.com:9400
+                labels:
+                  env: genai

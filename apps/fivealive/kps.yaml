@@ -106,9 +106,9 @@ spec:
         root_url: https://grafana.gangsterkitties.com
       resources:
         limits:
-          memory: 512Mi
+          memory: 768Mi
         requests:
-          memory: 512Mi
+          memory: 768Mi
       persistence:
         enabled: true
         existingClaim: kps-grafana

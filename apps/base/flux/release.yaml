@@ -8,6 +8,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: flux-operator
+  driftDetection:
+    mode: enabled
   values:
     web:
       httpRoute:

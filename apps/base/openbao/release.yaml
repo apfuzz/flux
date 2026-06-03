@@ -74,6 +74,7 @@ spec:
             }
 
             service_registration "kubernetes" {}
+            unsafe_allow_api_audit_creation = true
     ui:
       enabled: true
     serverTelemetry:

@@ -88,9 +88,7 @@ spec:
           hostnames:
             - poptart-alertmanager.gangsterkitties.com
       alertmanagerSpec:
-        replicas: 2
         externalUrl: https://poptart-alertmanager.gangsterkitties.com
-        clusterLabel: poptart
     grafana:
       route:
         main:

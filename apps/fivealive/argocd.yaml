@@ -24,13 +24,13 @@ spec:
         limits:
           memory: 768Mi
         requests:
-          memory: 768Mi
+          memory: 256Mi
     server:
       resources:
         limits:
           memory: 128Mi
         requests:
-          memory: 128Mi
+          memory: 64Mi
       httproute:
         enabled: true
         parentRefs:
@@ -56,6 +56,6 @@ spec:
     repoServer:
       resources:
         limits:
-          memory: 128Mi
+          memory: 256Mi
         requests:
-          memory: 128Mi
+          memory: 64Mi

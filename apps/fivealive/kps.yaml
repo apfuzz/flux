@@ -96,7 +96,7 @@ spec:
           limits:
             memory: 128Mi
           requests:
-            memory: 128Mi
+            memory: 32Mi
     grafana:
       route:
         main:
@@ -106,18 +106,18 @@ spec:
         root_url: https://grafana.gangsterkitties.com
       resources:
         limits:
-          memory: 1Gi
+          memory: 512Mi
         requests:
-          memory: 1Gi
+          memory: 150Mi
       persistence:
         enabled: true
         existingClaim: kps-grafana
       sidecar:
         resources:
           limits:
-            memory: 384Mi
+            memory: 128Mi
           requests:
-            memory: 384Mi
+            memory: 64Mi
         dashboards:
           enabled: true
           folderAnnotation: grafana_folder
@@ -135,12 +135,12 @@ spec:
             - prometheus.gangsterkitties.com
       prometheusSpec:
         externalUrl: https://prometheus.gangsterkitties.com
-        retention: 30d
+        retention: 24h
         resources:
           limits:
             memory: 2Gi
           requests:
-            memory: 2Gi
+            memory: 512Mi
         storageSpec:
           volumeClaimTemplate:
             metadata:

@@ -72,6 +72,12 @@ spec:
             secret: omni-dex-secret
             redirectURIs:
             - https://omni.gangsterkitties.com/oidc/consume
+          - id: technitium
+            name: Technitium DNS
+            secret: technitium
+            redirectURIs:
+            # - https://dns.gangsterkitties.com/sso/callback
+            - http://192.168.0.249:5380/sso/callback
           connectors:
           - type: ldap
             name: OpenLDAP

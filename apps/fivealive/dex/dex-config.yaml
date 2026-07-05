@@ -80,20 +80,20 @@ spec:
               host: ldap.gangsterkitties.com
               insecureNoSSL: false
               insecureSkipVerify: false
-              bindDN: uid=readonly,cn=users,dc=gangsterkitties,dc=com
+              bindDN: cn=readonly,ou=services,dc=gangsterkitties,dc=com
               bindPW: "{{ .BIND_PASS }}"
               usernamePrompt: Username
               userSearch:
-                baseDN: cn=users,dc=gangsterkitties,dc=com
+                baseDN: ou=people,dc=gangsterkitties,dc=com
                 filter: "(objectClass=posixAccount)"
                 username: uid
                 idAttr: DN
                 emailAttr: mail
-                nameAttr: gecos
+                nameAttr: displayName
               groupSearch:
-                baseDN: cn=groups,dc=gangsterkitties,dc=com
+                baseDN: ou=groups,dc=gangsterkitties,dc=com
                 filter: "(objectClass=posixGroup)"
                 userMatchers:
                 - userAttr: uid
-                  groupAttr: memberUid
+                  groupAttr: member
                 nameAttr: cn

@@ -190,10 +190,15 @@ spec:
           - job_name: traefik
             scheme: https
             static_configs:
-              - targets: ['traefik.gangsterkitties.com']
+              - targets:
+                  - traefik.gangsterkitties.com
           - job_name: nvidia
             static_configs:
               - targets:
                   - jarvis.gangsterkitties.com:9400
                 labels:
                   env: genai
+          - job_name: ugos-bridge
+            static_configs:
+              - targets:
+                  - dxp2800.gangsterkitties.com:9877

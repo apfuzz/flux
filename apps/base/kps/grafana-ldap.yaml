@@ -23,19 +23,19 @@ spec:
           use_ssl = true
           start_tls = false
           ssl_skip_verify = false
-          bind_dn = "uid=readonly,cn=users,dc=gangsterkitties,dc=com"
+          bind_dn = "cn=readonly,ou=services,dc=gangsterkitties,dc=com"
           bind_password = "{{ .BIND_PASS }}"
           search_filter = "(uid=%s)"
-          search_base_dns = ["cn=users,dc=gangsterkitties,dc=com"]
-          #group_search_filter = "(&(objectClass=posixGroup)(memberUid=%s))"
-          #group_search_base_dns = ["cn=groups,dc=gangsterkitties,dc=com"]
-          #group_search_filter_user_attribute = "uid"
+          search_base_dns = ["ou=people,dc=gangsterkitties,dc=com"]
+          group_search_filter = "(&(objectClass=posixGroup)(member=%s))"
+          group_search_base_dns = ["ou=groups,dc=gangsterkitties,dc=com"]
+          group_search_filter_user_attribute = "dn"
 
           [servers.attributes]
-          member_of = "memberOf"
+          # member_of = "memberOf"
           email =  "mail"
 
           [[servers.group_mappings]]
-          group_dn = "cn=admins,cn=groups,dc=gangsterkitties,dc=com"
+          group_dn = "cn=admins,ou=groups,dc=gangsterkitties,dc=com"
           org_role = "Admin"
           grafana_admin = true

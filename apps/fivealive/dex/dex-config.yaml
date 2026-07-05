@@ -94,6 +94,6 @@ spec:
                 baseDN: ou=groups,dc=gangsterkitties,dc=com
                 filter: "(objectClass=posixGroup)"
                 userMatchers:
-                - userAttr: uid
+                - userAttr: DN
                   groupAttr: member
                 nameAttr: cn

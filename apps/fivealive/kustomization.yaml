@@ -17,6 +17,7 @@ resources:
   - ./dex
   - ./external-secrets
   - ./flux
+  - ./gitlab-runner
   - ./kps
   - ./openbao
   - ./postgres

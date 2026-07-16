@@ -20,6 +20,7 @@ spec:
             helper_memory_limit = "256Mi"
             helper_cpu_request = "100m"
             helper_cpu_limit = "500m"
+      secret: gitlab-runner
     resources:
       requests:
         memory: 256Mi

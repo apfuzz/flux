@@ -17,5 +17,5 @@ spec:
   data:
     - secretKey: rfc2136TsigSecret
       remoteRef:
-        key: synology
+        key: technitium
         property: external_dns_key

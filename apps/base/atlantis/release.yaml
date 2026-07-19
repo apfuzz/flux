@@ -1,0 +1,24 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: atlantis
+  namespace: atlantis
+spec:
+  interval: 15m
+  timeout: 5m
+  chart:
+    spec:
+      chart: atlantis
+      version: "6.x"
+      sourceRef:
+        kind: HelmRepository
+        name: atlantis
+  values:
+    service:
+      type: ClusterIP
+    ingress:
+      enabled: false
+    servicemonitor:
+      enabled: true
+      additionalLabels:
+        release: kps

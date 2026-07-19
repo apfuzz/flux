@@ -1,0 +1,20 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: atlantis-vcs
+spec:
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    name: atlantis-vcs
+  data:
+    - secretKey: gitea_secret
+      remoteRef:
+        key: atlantis
+        property: webhook_secret
+    - secretKey: gitea_token
+      remoteRef:
+        key: atlantis
+        property: git_token

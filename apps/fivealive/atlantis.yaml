@@ -1,0 +1,44 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: atlantis
+  namespace: atlantis
+spec:
+  interval: 15m
+  values:
+    atlantisUrl: https://atlantis.gangsterkitties.com
+    orgAllowlist: git.gangsterkitties.com/aaron/terraform
+    gitea:
+      user: atlantis
+      baseUrl: https://git.gangsterkitties.com
+    vcsSecretName: atlantis-vcs
+    repoConfig: |
+      ---
+      repos:
+      - id: git.gangsterkitties.com/aaron/terraform
+        apply_requirements: [approved, mergeable]
+        workflow: default
+        allowed_overrides: []
+        allow_custom_workflows: false
+      workflows:
+        default:
+          plan:
+            steps: [init, plan]
+          apply:
+            steps: [apply]
+      metrics:
+        prometheus:
+          endpoint: /metrics
+    route:
+      main:
+        enabled: true
+        annotations:
+          external-dns.alpha.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
+        hostnames:
+          - atlantis.gangsterkitties.com
+        parentRefs:
+          - name: cilium-gateway
+            namespace: cilium
+            sectionName: https
+    loadEnvFromSecrets:
+      - aws-credentials

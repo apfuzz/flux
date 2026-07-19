@@ -33,11 +33,11 @@ patches:
       kind: HelmRelease
       name: argocd
       namespace: argocd
-  - path: atlantis.yaml
-    target:
-      kind: HelmRelease
-      name: atlantis
-      namespace: atlantis
+  # - path: atlantis.yaml
+  #   target:
+  #     kind: HelmRelease
+  #     name: atlantis
+  #     namespace: atlantis
   - path: dex.yaml
     target:
       kind: HelmRelease

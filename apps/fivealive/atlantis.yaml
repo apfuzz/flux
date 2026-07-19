@@ -32,8 +32,6 @@ spec:
     route:
       main:
         enabled: true
-        annotations:
-          external-dns.alpha.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
         hostnames:
           - atlantis.gangsterkitties.com
         parentRefs:

@@ -74,7 +74,7 @@ metadata:
   namespace: flux-system
 spec:
   distribution:
-    version: "2.8.x"
+    version: "2.9.x"
     registry: "ghcr.io/fluxcd"
     artifact: "oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests"
   components:
@@ -89,9 +89,9 @@ spec:
   sync:
     kind: GitRepository
     path: clusters/$K8S_CLUSTER
-    pullSecret: fluxcd-gitlab
+    pullSecret: flux-forgejo
     ref: refs/heads/main
-    url: ssh://git@gitlab.com/gangsterkitties/flux
+    url: ssh://git@git.gangsterkitties.com:1022/aaron/flux.git
 EOF
 kubectl wait -n flux-system fluxinstance/flux --for=condition=Ready --timeout=120s
 ```

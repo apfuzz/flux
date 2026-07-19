@@ -1,0 +1,20 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: flux-forgejo
+spec:
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    name: flux-forgejo
+  data:
+    - secretKey: identity
+      remoteRef:
+        key: flux/forgejo
+        property: fluxcd_private_key
+    - secretKey: known_hosts
+      remoteRef:
+        key: flux/forgejo
+        property: known_hosts

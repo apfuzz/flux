@@ -40,5 +40,7 @@ spec:
           - name: cilium-gateway
             namespace: cilium
             sectionName: https
+    volumeClaim:
+      storageClassName: longhorn
     loadEnvFromSecrets:
       - aws-credentials

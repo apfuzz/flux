@@ -14,11 +14,19 @@ spec:
         kind: HelmRepository
         name: atlantis
   values:
+    defaultTFDistribution: opentofu
     service:
       type: ClusterIP
     ingress:
       enabled: false
-    # servicemonitor:
-    #   enabled: true
-    #   additionalLabels:
-    #     release: kps
+    environment:
+      TOFU_PLUGIN_CACHE_DIR: "/atlantis-data/tofu-plugin-cache"
+    initContainers:
+      - name: init-plugin-cache
+        image: alpine:latest
+        command: ["mkdir", "-p", "/atlantis-data/tofu-plugin-cache"]
+        volumeMounts:
+          - name: atlantis-data
+            mountPath: /atlantis-data
+    servicemonitor:
+      enabled: true

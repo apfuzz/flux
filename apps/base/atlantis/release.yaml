@@ -24,7 +24,10 @@ spec:
     initContainers:
       - name: init-plugin-cache
         image: alpine:latest
-        command: ["sh", "-c", "mkdir -p /atlantis-data/tofu-plugin-cache && chown -R 100:100 /atlantis-data/tofu-plugin-cache"]
+        command: ["mkdir", "-p", "/atlantis-data/tofu-plugin-cache"]
+        securityContext:
+          runAsUser: 100
+          runAsGroup: 1000
         volumeMounts:
           - name: atlantis-data
             mountPath: /atlantis-data

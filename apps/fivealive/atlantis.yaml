@@ -16,7 +16,7 @@ spec:
       ---
       repos:
       - id: git.gangsterkitties.com/aaron/terraform
-        apply_requirements: [approved, mergeable]
+        apply_requirements: [mergeable]
         workflow: default
         allowed_overrides: []
         allow_custom_workflows: false

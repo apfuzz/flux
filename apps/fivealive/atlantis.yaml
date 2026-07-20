@@ -42,3 +42,14 @@ spec:
       storageClassName: longhorn
     loadEnvFromSecrets:
       - aws-credentials
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: monitoring.coreos.com/v1
+              kind: ServiceMonitor
+              name: atlantis
+            patch: |
+              - op: replace
+                path: /metadata/labels/release
+                value: kps

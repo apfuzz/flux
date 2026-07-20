@@ -4,3 +4,4 @@ kind: Kustomization
 namespace: atlantis
 resources:
   - atlantis-vcs.yaml
+  - aws-credentials.yaml

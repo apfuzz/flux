@@ -19,17 +19,17 @@ spec:
       type: ClusterIP
     ingress:
       enabled: false
-    environment:
-      TOFU_PLUGIN_CACHE_DIR: "/atlantis-data/tofu-plugin-cache"
-    initContainers:
-      - name: init-plugin-cache
-        image: alpine:latest
-        command: ["mkdir", "-p", "/atlantis-data/tofu-plugin-cache"]
-        securityContext:
-          runAsUser: 100
-          runAsGroup: 1000
-        volumeMounts:
-          - name: atlantis-data
-            mountPath: /atlantis-data
+    # environment:
+    #   TOFU_PLUGIN_CACHE_DIR: "/atlantis-data/plugin-cache"
+    # initContainers:
+    #   - name: init-plugin-cache
+    #     image: alpine:latest
+    #     command: ["mkdir", "-p", "/atlantis-data/plugin-cache"]
+    #     securityContext:
+    #       runAsUser: 100
+    #       runAsGroup: 1000
+    #     volumeMounts:
+    #       - name: atlantis-data
+    #         mountPath: /atlantis-data
     servicemonitor:
       enabled: true

@@ -33,5 +33,3 @@ spec:
     #         mountPath: /atlantis-data
     servicemonitor:
       enabled: true
-      additionalLabels:
-        release: kps

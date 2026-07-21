@@ -7,7 +7,7 @@ spec:
   interval: 15m
   values:
     atlantisUrl: https://atlantis.gangsterkitties.com
-    orgAllowlist: git.gangsterkitties.com/aaron/terraform
+    orgAllowlist: git.gangsterkitties.com/gangsterkitties/terraform
     gitea:
       user: atlantis
       baseUrl: https://git.gangsterkitties.com
@@ -15,7 +15,7 @@ spec:
     repoConfig: |
       ---
       repos:
-      - id: git.gangsterkitties.com/aaron/terraform
+      - id: git.gangsterkitties.com/gangsterkitties/terraform
         apply_requirements: [mergeable]
         workflow: default
         allowed_overrides: []

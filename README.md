@@ -91,7 +91,7 @@ spec:
     path: clusters/$K8S_CLUSTER
     pullSecret: flux-forgejo
     ref: refs/heads/main
-    url: ssh://git@git.gangsterkitties.com:1022/aaron/flux.git
+    url: ssh://git@git.gangsterkitties.com:1022/gangsterkitties/flux.git
 EOF
 kubectl wait -n flux-system fluxinstance/flux --for=condition=Ready --timeout=120s
 ```

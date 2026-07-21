@@ -21,7 +21,7 @@ spec:
   sync:
     kind: GitRepository
     interval: 1m
-    url: "ssh://git@git.gangsterkitties.com:1022/aaron/flux.git"
+    url: "ssh://git@git.gangsterkitties.com:1022/gangsterkitties/flux.git"
     ref: "refs/heads/main"
     path: json-patch-will-replace-this
     pullSecret: "flux-forgejo"

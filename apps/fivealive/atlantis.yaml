@@ -42,6 +42,7 @@ spec:
       storageClassName: longhorn
     loadEnvFromSecrets:
       - aws-credentials
+      - oci-config
   postRenderers:
     - kustomize:
         patches:

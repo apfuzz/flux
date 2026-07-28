@@ -9,6 +9,6 @@ spec:
   layerSelector:
     mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
     operation: copy
-  url: oci://code.forgejo.org/forgejo-helm/forgejo/forgejo-runner
-  # ref:
-  #   semver: "0.7.5"
+  url: oci://code.forgejo.org/forgejo-helm/forgejo-runner
+  ref:
+    semver: "0.7.5"

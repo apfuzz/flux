@@ -18,7 +18,3 @@ spec:
       config:
         create: false
         existingSecret: forgejo-runner
-        file:
-          runner:
-            labels:
-              - kubernetes:docker://docker.io/library/node:lts

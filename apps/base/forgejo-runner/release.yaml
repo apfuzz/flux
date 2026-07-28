@@ -13,6 +13,7 @@ spec:
   driftDetection:
     mode: enabled
   values:
+    knownLastVersion: true
     runner:
       config:
         create: false

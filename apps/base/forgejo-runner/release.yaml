@@ -7,13 +7,9 @@ metadata:
 spec:
   interval: 15m
   timeout: 5m
-  chart:
-    spec:
-      chart: forgejo-runner
-      version: ">= 0.1.0"
-      sourceRef:
-        kind: HelmRepository
-        name: forgejo-runner
+  chartRef:
+    kind: OCIRepository
+    name: forgejo-runner
   driftDetection:
     mode: enabled
   values:

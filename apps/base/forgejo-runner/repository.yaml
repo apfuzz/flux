@@ -1,9 +1,14 @@
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
+kind: OCIRepository
 metadata:
   name: forgejo-runner
   namespace: forgejo
 spec:
   interval: 24h
-  url: https://code.forgejo.org/forgejo-helm
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: copy
+  url: oci://code.forgejo.org/forgejo-helm/forgejo/forgejo-runner
+  ref:
+    semver: ">= 0.1.0"

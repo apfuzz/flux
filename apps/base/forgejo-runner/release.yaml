@@ -16,7 +16,6 @@ spec:
     knownLastVersion: true
     runner:
       config:
-        create: true
         existingInitSecret: forgejo-runner-init
         file:
           runner:

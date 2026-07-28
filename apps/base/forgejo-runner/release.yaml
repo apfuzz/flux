@@ -17,7 +17,7 @@ spec:
     runner:
       config:
         create: true
-        existingSecret: forgejo-runner-init
+        existingInitSecret: forgejo-runner-init
         file:
           runner:
             labels:

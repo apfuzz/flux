@@ -7,6 +7,7 @@ resources:
   - ../base/dex
   - ../base/external-secrets
   - ../base/flux
+  - ../base/forgejo-runner
   - ../base/gitlab-runner
   - ../base/harbor
   - ../base/headlamp
@@ -19,6 +20,7 @@ resources:
   - ./dex
   - ./external-secrets
   - ./flux
+  - ./forgejo-runner
   - ./gitlab-runner
   - ./kps
   - ./openbao

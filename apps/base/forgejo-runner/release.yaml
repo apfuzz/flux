@@ -20,7 +20,6 @@ spec:
         file:
           runner:
             labels:
-              # - kubernetes:docker://docker.io/library/node:lts
               - kubernetes:docker://docker.io/library/docker:29-cli
             envs:
               A_TEST_ENV_NAME_1: null

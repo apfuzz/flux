@@ -1,5 +1,7 @@
 # forgejo-runner
 
+none of this works - get a registration token and add that to vault instead of a runner token
+
 create 40 character hex value
 
 ```bash

@@ -72,15 +72,15 @@ data:
 
     # get token
     echo -e "getting vault token...\n"
-    VAULT_TOKEN=`vault write auth/approle/login role_id=$VAULT_APPROLE_ROLE_ID secret_id=$VAULT_APPROLE_SECRET_ID | grep -w token | awk '{print $2}'`
+    VAULT_TOKEN=`bao write auth/approle/login role_id=$VAULT_APPROLE_ROLE_ID secret_id=$VAULT_APPROLE_SECRET_ID | grep -w token | awk '{print $2}'`
 
     # log in using token
     echo -e "logging into vault...\n"
-    vault login $VAULT_TOKEN 2>&1 > /dev/null
+    bao login $VAULT_TOKEN 2>&1 > /dev/null
 
     # take snapshot
     echo -e "taking raft snapshot...\n"
-    vault operator raft snapshot save $FILENAME
+    bao operator raft snapshot save $FILENAME
 
     # exit if previous command fails
     if [ $? -ne 0 ] ; then

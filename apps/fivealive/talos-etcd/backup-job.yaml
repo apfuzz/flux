@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
           - name: fedora-tools
-            image: git.gangsterkitties.com/gangsterkitties/images/fedora-tools:v2026.07.29
+            image: git.gangsterkitties.com/gangsterkitties/images/fedora-tools:v2026.07.30
             imagePullPolicy: IfNotPresent
             env:
               - name: AWS_ACCESS_KEY_ID

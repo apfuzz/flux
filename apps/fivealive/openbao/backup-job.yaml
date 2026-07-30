@@ -9,8 +9,8 @@ spec:
       template:
         spec:
           containers:
-          - name: debian-tools
-            image: registry.gangsterkitties.com/images/debian-tools:2026.03.21-272
+          - name: fedora-tools
+            image: git.gangsterkitties.com/gangsterkitties/images/fedora-tools:v2026.07.29
             imagePullPolicy: IfNotPresent
             env:
               - name: AWS_ACCESS_KEY_ID

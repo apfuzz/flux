@@ -9,7 +9,6 @@ resources:
   - ../base/flux
   - ../base/forgejo-runner
   - ../base/gitlab-runner
-  - ../base/harbor
   - ../base/headlamp
   - ../base/kps
   - ../base/openbao
@@ -60,11 +59,6 @@ patches:
       kind: HelmRelease
       name: gitlab-runner
       namespace: gitlab
-  - path: harbor.yaml
-    target:
-      kind: HelmRelease
-      name: harbor
-      namespace: harbor
   - path: headlamp.yaml
     target:
       kind: HelmRelease

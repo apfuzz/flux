@@ -46,12 +46,6 @@ spec:
             - https://headlamp.gangsterkitties.com/oidc-callback
             - https://cka-headlamp.gangsterkitties.com/oidc-callback
             - https://poptart-headlamp.gangsterkitties.com/oidc-callback
-          - id: argocd
-            name: Argo CD
-            public: true
-            redirectURIs:
-            - https://argocd.gangsterkitties.com/auth/callback
-            - http://localhost:8085/auth/callback
           - id: open-webui
             name: Open WebUI
             secret: open-webui-secret

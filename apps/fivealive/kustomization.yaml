@@ -2,7 +2,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../base/argocd
   - ../base/atlantis
   - ../base/dex
   - ../base/external-secrets
@@ -29,11 +28,6 @@ patches:
 
   ### helm release overrides
 
-  - path: argocd.yaml
-    target:
-      kind: HelmRelease
-      name: argocd
-      namespace: argocd
   - path: atlantis.yaml
     target:
       kind: HelmRelease

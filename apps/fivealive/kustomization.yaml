@@ -13,7 +13,6 @@ resources:
   - ../base/openbao
   - ../base/reflector
   - ../base/reloader
-  - ../base/valkey
   - ./atlantis
   - ./dex
   - ./external-secrets
@@ -73,11 +72,6 @@ patches:
       kind: HelmRelease
       name: reloader
       namespace: reloader
-  - path: valkey.yaml
-    target:
-      kind: HelmRelease
-      name: valkey
-      namespace: valkey
 
   ### json patches
 

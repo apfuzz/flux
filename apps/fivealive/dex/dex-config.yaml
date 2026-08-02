@@ -51,11 +51,6 @@ spec:
             secret: open-webui-secret
             redirectURIs:
             - https://genai.gangsterkitties.com/oauth/oidc/callback
-          - id: keycloak
-            name: Keycloak
-            secret: keycloak
-            redirectURIs:
-            - https://sso.gangsterkitties.com/realms/master/broker/oidc/endpoint
           - id: omni
             name: Omni
             secret: omni-dex-secret

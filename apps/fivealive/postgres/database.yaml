@@ -9,14 +9,3 @@ spec:
   owner: dex
   cluster:
     name: fivealive
----
-apiVersion: postgresql.cnpg.io/v1
-kind: Database
-metadata:
-  name: fivealive-keycloak
-  namespace: postgres
-spec:
-  name: keycloak
-  owner: keycloak
-  cluster:
-    name: fivealive

@@ -23,10 +23,5 @@ spec:
         login: true
         passwordSecret:
           name: fivealive-dex
-      - name: keycloak
-        comment: Keycloak DB User
-        login: true
-        passwordSecret:
-          name: fivealive-keycloak
   monitoring:
     enablePodMonitor: false  # deprecated - use custom pod monitor instead

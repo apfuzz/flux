@@ -52,11 +52,6 @@ spec:
             redirectURIs:
             - https://argocd.gangsterkitties.com/auth/callback
             - http://localhost:8085/auth/callback
-          - id: harbor
-            name: Harbor Registry
-            secret: harbor
-            redirectURIs:
-            - https://registry.gangsterkitties.com/c/oidc/callback
           - id: open-webui
             name: Open WebUI
             secret: open-webui-secret

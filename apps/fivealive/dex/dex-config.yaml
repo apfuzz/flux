@@ -51,11 +51,6 @@ spec:
             secret: open-webui-secret
             redirectURIs:
             - https://genai.gangsterkitties.com/oauth/oidc/callback
-          - id: omni
-            name: Omni
-            secret: omni-dex-secret
-            redirectURIs:
-            - https://omni.gangsterkitties.com/oidc/consume
           connectors:
           - type: ldap
             name: OpenLDAP

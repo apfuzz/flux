@@ -34,3 +34,4 @@ spec:
         user: roundcube
         existingSecret: roundcube-postgres
         existingSecretPasswordKey: password
+        existingSecretUserKey: username

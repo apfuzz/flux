@@ -8,8 +8,14 @@ spec:
     kind: ClusterSecretStore
   target:
     name: roundcube-postgres
+    template:
+      engineVersion: v2
+      type: kubernetes.io/basic-auth
+      data:
+        username: "roundcube"
+        password: "{{ .password | toString }}"
   data:
-  - secretKey: password
-    remoteRef:
-      key: cnpg
-      property: roundcube
+    - secretKey: password
+      remoteRef:
+        key: cnpg
+        property: roundcube

@@ -10,7 +10,6 @@ spec:
     name: roundcube-postgres
     template:
       engineVersion: v2
-      type: kubernetes.io/basic-auth
       data:
         username: "roundcube"
         password: "{{ .password | toString }}"

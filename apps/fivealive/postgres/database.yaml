@@ -9,3 +9,14 @@ spec:
   owner: dex
   cluster:
     name: fivealive
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: fivealive-roundcube
+  namespace: postgres
+spec:
+  name: roundcube
+  owner: roundcube
+  cluster:
+    name: fivealive

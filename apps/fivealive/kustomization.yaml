@@ -13,6 +13,7 @@ resources:
   - ../base/openbao
   - ../base/reflector
   - ../base/reloader
+  - ../base/roundcube
   - ./atlantis
   - ./dex
   - ./external-secrets
@@ -22,6 +23,7 @@ resources:
   - ./kps
   - ./openbao
   - ./postgres
+  - ./roundcube
   - ./talos-etcd
 patches:
 
@@ -72,6 +74,11 @@ patches:
       kind: HelmRelease
       name: reloader
       namespace: reloader
+  - path: roundcube.yaml
+    target:
+      kind: HelmRelease
+      name: roundcube
+      namespace: roundcube
 
   ### json patches
 

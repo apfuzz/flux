@@ -23,5 +23,10 @@ spec:
         login: true
         passwordSecret:
           name: fivealive-dex
+      - name: roundcube
+        comment: Roundcube DB User
+        login: true
+        passwordSecret:
+          name: fivealive-roundcube
   monitoring:
     enablePodMonitor: false  # deprecated - use custom pod monitor instead

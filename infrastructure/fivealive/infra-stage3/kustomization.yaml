@@ -32,7 +32,7 @@ patches:
 
   - patch: |
       - op: replace
-        path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
+        path: /metadata/annotations/external-dns.alpha.kubernetes.io~1hostname
         value: "fivealive-gateway.gangsterkitties.com"
     target:
       kind: Gateway

@@ -81,7 +81,7 @@ spec:
             plugin_auto_download = true
             plugin_auto_register = true
 
-            plugin "auth" "aws" {
+            plugin "kms" "aws" {
               image       = "ghcr.io/openbao/openbao-plugin-kms-aws"
               version     = "v0.1.0"
               binary_name = "openbao-plugin-kms-aws"

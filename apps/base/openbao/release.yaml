@@ -85,7 +85,7 @@ spec:
               image       = "ghcr.io/openbao/openbao-plugin-kms-aws"
               version     = "v0.1.0"
               binary_name = "openbao-plugin-kms-aws"
-              sha256sum   = "fe9fb94872048c9474156c044ea8852bb5c2e968fc9304a3725e4d434b488541"
+              sha256sum   = "9925bd77bb644fbf8a3a479deb39768e5a230e9b2b4eafad18971b54b3b580e2"
             }
     ui:
       enabled: true

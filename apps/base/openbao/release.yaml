@@ -31,7 +31,7 @@ spec:
               namespace: cilium
               sectionName: https
       extraEnvironmentVars:
-        VAULT_SEAL_TYPE: kms-aws
+        VAULT_SEAL_TYPE: awskms
         AWS_REGION: us-east-1
       extraSecretEnvironmentVars:
         - envName: AWS_ACCESS_KEY_ID

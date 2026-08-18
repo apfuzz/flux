@@ -31,7 +31,6 @@ spec:
               namespace: cilium
               sectionName: https
       extraEnvironmentVars:
-        VAULT_SEAL_TYPE: awskms
         AWS_REGION: us-east-1
       extraSecretEnvironmentVars:
         - envName: AWS_ACCESS_KEY_ID
@@ -86,6 +85,10 @@ spec:
               version     = "v0.1.0"
               binary_name = "openbao-plugin-kms-aws"
               sha256sum   = "9925bd77bb644fbf8a3a479deb39768e5a230e9b2b4eafad18971b54b3b580e2"
+            }
+
+            seal "plugin" {
+              plugin_name = "kms-aws"
             }
     ui:
       enabled: true

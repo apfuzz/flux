@@ -115,3 +115,10 @@ spec:
               severity: critical
       grafanaDashboard:
         enabled: true
+    initContainers:
+      - name: fix-permissions
+        image: busybox
+        command: ['sh', '-c', 'chmod 600 /vault/data/vault.db']
+        volumeMounts:
+          - name: data
+            mountPath: /vault/data

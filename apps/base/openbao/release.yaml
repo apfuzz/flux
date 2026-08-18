@@ -23,6 +23,14 @@ spec:
     injector:
       enabled: false
     server:
+      extraInitContainers:
+        - name: fix-permissions
+          image: busybox
+          command: ['sh', '-c', 'chmod 600 /vault/data/vault.db && mkdir -p /opt/openbao/plugins && chown openbao:openbao /opt/openbao/plugins']
+          # command: ['sh', '-c', 'ls -laR /opt/openbao']
+          volumeMounts:
+            - name: data
+              mountPath: /vault/data
       gateway:
         httpRoute:
           enabled: true
@@ -115,11 +123,3 @@ spec:
               severity: critical
       grafanaDashboard:
         enabled: true
-    initContainers:
-      - name: fix-permissions
-        image: busybox
-        # command: ['sh', '-c', 'chmod 600 /vault/data/vault.db && mkdir -p /opt/openbao/plugins && chown openbao:openbao /opt/openbao/plugins']
-        command: ['sh', '-c', 'ls -laR /opt/openbao']
-        volumeMounts:
-          - name: data
-            mountPath: /vault/data

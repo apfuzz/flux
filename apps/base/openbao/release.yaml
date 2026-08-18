@@ -118,7 +118,7 @@ spec:
     initContainers:
       - name: fix-permissions
         image: busybox
-        command: ['sh', '-c', 'chmod 600 /vault/data/vault.db']
+        command: ['sh', '-c', 'chmod 600 /vault/data/vault.db && mkdir -p /opt/openbao/plugins && chown openbao:openbao /opt/openbao/plugins']
         volumeMounts:
           - name: data
             mountPath: /vault/data

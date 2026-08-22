@@ -94,7 +94,7 @@ spec:
         externalUrl: https://alertmanager.gangsterkitties.com
         resources:
           limits:
-            memory: 128Mi
+            memory: 64Mi
           requests:
             memory: 32Mi
     grafana:
@@ -106,18 +106,18 @@ spec:
         root_url: https://grafana.gangsterkitties.com
       resources:
         limits:
-          memory: 768Mi
+          memory: 1Gi
         requests:
-          memory: 256Mi
+          memory: 512Mi
       persistence:
         enabled: true
         existingClaim: kps-grafana
       sidecar:
         resources:
           limits:
-            memory: 128Mi
+            memory: 256Mi
           requests:
-            memory: 64Mi
+            memory: 128Mi
         dashboards:
           enabled: true
           folderAnnotation: grafana_folder
@@ -140,7 +140,7 @@ spec:
           limits:
             memory: 2Gi
           requests:
-            memory: 512Mi
+            memory: 1Gi
         storageSpec:
           volumeClaimTemplate:
             metadata:

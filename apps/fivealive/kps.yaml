@@ -151,6 +151,8 @@ spec:
               resources:
                 requests:
                   storage: 100Gi
+        secrets:
+          - llama
         additionalScrapeConfigs:
           - job_name: podman-exporter
             scheme: https
@@ -204,6 +206,8 @@ spec:
                   - dxp2800.gangsterkitties.com:9877
           - job_name: llama
             scheme: https
+            authorization:
+              credentials_file: /etc/prometheus/secrets/llama/api-key
             static_configs:
               - targets:
                   - coder.gangsterkitties.com

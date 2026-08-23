@@ -158,7 +158,7 @@ spec:
             scheme: https
             static_configs:
               - targets: ['podman-exporter.gangsterkitties.com']
-          - job_name: node
+          - job_name: linux
             static_configs:
               - targets:
                   - pihole.gangsterkitties.com:9100

@@ -202,3 +202,8 @@ spec:
             static_configs:
               - targets:
                   - dxp2800.gangsterkitties.com:9877
+          - job_name: llama
+            scheme: https
+            static_configs:
+              - targets:
+                  - coder.gangsterkitties.com

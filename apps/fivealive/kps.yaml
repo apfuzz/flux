@@ -135,7 +135,7 @@ spec:
             - prometheus.gangsterkitties.com
       prometheusSpec:
         externalUrl: https://prometheus.gangsterkitties.com
-        retention: 24h
+        retention: 7d
         resources:
           limits:
             memory: 2Gi

@@ -115,4 +115,4 @@ spec:
             labels:
               severity: critical
       grafanaDashboard:
-        enabled: true
+        enabled: false

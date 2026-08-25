@@ -69,7 +69,7 @@ spec:
         labels:
           release: kps
     dashboards:
-      enabled: true
+      enabled: false
       annotations:
         grafana_folder: Cilium
     envoy:
@@ -86,7 +86,7 @@ spec:
           labels:
             release: kps
       dashboards:
-        enabled: true
+        enabled: false
         annotations:
           grafana_folder: Cilium
     cgroup:

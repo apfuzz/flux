@@ -69,7 +69,7 @@ spec:
         labels:
           release: kps
     dashboards:
-      enabled: false
+      enabled: true
       annotations:
         grafana_folder: Cilium
     envoy:
@@ -91,5 +91,5 @@ spec:
           grafana_folder: Cilium
     cgroup:
       autoMount:
-        enabled: false
+        enabled: true
       hostRoot: /sys/fs/cgroup

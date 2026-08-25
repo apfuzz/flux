@@ -125,6 +125,8 @@ spec:
           folderAnnotation: grafana_folder
           provider:
             foldersFromFilesStructure: true
+          env:
+            LOG_LEVEL: "DEBUG"
     kubeEtcd:
       endpoints:
         - 10.0.101.101

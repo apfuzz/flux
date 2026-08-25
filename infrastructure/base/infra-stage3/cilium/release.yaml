@@ -86,10 +86,10 @@ spec:
           labels:
             release: kps
       dashboards:
-        enabled: false
+        enabled: true
         annotations:
           grafana_folder: Cilium
     cgroup:
       autoMount:
-        enabled: true
+        enabled: false
       hostRoot: /sys/fs/cgroup

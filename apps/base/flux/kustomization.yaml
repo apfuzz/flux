@@ -10,17 +10,17 @@ resources:
   - release.yaml
   - repository.yaml
   - slack-bot-token.yaml
-# configMapGenerator:
-#   - name: flux-cluster-stats-dashboard
-#     files:
-#       - dashboards/cluster.json
-#       - dashboards/control-plane.json
-#       # - dashboards/logs.json
-#     options:
-#       labels:
-#         grafana_dashboard: "1"
-#         app.kubernetes.io/part-of: flux
-#         app.kubernetes.io/component: monitoring
-#         kustomize.toolkit.fluxcd.io/substitute: disabled
-#       annotations:
-#         grafana_folder: Flux
+configMapGenerator:
+  - name: flux-cluster-stats-dashboard
+    files:
+      - dashboards/cluster.json
+      - dashboards/control-plane.json
+      # - dashboards/logs.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+        app.kubernetes.io/part-of: flux
+        app.kubernetes.io/component: monitoring
+        kustomize.toolkit.fluxcd.io/substitute: disabled
+      annotations:
+        grafana_folder: Flux

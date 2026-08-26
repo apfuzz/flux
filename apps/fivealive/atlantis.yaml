@@ -38,6 +38,11 @@ spec:
           - name: cilium-gateway
             namespace: cilium
             sectionName: https
+    resources:
+      requests:
+        memory: 32Mi
+      limits:
+        memory: 32Mi
     volumeClaim:
       storageClassName: longhorn
     loadEnvFromSecrets:

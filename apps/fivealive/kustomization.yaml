@@ -49,6 +49,11 @@ patches:
       kind: HelmRelease
       name: flux-operator
       namespace: flux-system
+  - path: forgejo-runner.yaml
+    target:
+      kind: HelmRelease
+      name: forgejo-runner
+      namespace: forgejo
   - path: gitlab-runner.yaml
     target:
       kind: HelmRelease
@@ -69,6 +74,11 @@ patches:
       kind: HelmRelease
       name: openbao
       namespace: openbao
+  - path: reflector.yaml
+    target:
+      kind: HelmRelease
+      name: reflector
+      namespace: reflector
   - path: reloader.yaml
     target:
       kind: HelmRelease

@@ -10,6 +10,7 @@ resources:
   - ../base/gitlab-runner
   - ../base/headlamp
   - ../base/kps
+  - ../base/loki
   - ../base/openbao
   - ../base/reflector
   - ../base/reloader
@@ -21,6 +22,7 @@ resources:
   - ./forgejo-runner
   - ./gitlab-runner
   - ./kps
+  - ./loki
   - ./openbao
   - ./postgres
   - ./roundcube
@@ -69,6 +71,11 @@ patches:
       kind: HelmRelease
       name: kps
       namespace: monitoring
+  - path: loki.yaml
+    target:
+      kind: HelmRelease
+      name: loki
+      namespace: logging
   - path: openbao.yaml
     target:
       kind: HelmRelease

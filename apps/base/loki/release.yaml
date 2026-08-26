@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: logging
+spec:
+  interval: 15m
+  timeout: 5m
+  chart:
+    spec:
+      chart: loki
+      version: "18.11.x"
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-community
+  driftDetection:
+    mode: enabled
+  values: {}

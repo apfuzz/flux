@@ -7,7 +7,7 @@ spec:
   interval: 15m
   timeout: 5m
   dependsOn:
-    -name: loki
+    - name: loki
   chart:
     spec:
       chart: fluent-bit

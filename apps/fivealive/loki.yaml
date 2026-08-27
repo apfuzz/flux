@@ -49,7 +49,8 @@ spec:
       allocatedMemory: 1024
     monitoring:
       dashboards:
-        enabled: true
+        # enabled: true
+        enabled: false
       serviceMonitor:
         enabled: true
         labels:

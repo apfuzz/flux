@@ -7,9 +7,6 @@ metadata:
 spec:
   interval: 15m
   values:
-    global:
-      extraArgs:
-        - "-config.expand-env=true"
     deploymentMode: SingleBinary
     loki:
       commonConfig:
@@ -34,6 +31,8 @@ spec:
           accessKeyId: "${AWS_ACCESS_KEY_ID}"
           secretAccessKey: "${AWS_SECRET_ACCESS_KEY}"
     singleBinary:
+      extraArgs:
+        - "-config.expand-env=true"
       extraEnvFrom:
         - secretRef:
             name: loki-oci-credentials

@@ -5,6 +5,7 @@ resources:
   - ../base/atlantis
   - ../base/dex
   - ../base/external-secrets
+  - ../base/fluent-bit
   - ../base/flux
   - ../base/forgejo-runner
   - ../base/gitlab-runner
@@ -46,6 +47,11 @@ patches:
       kind: HelmRelease
       name: external-secrets
       namespace: external-secrets
+  - path: fluent-bit.yaml
+    target:
+      kind: HelmRelease
+      name: fluent-bit
+      namespace: logging
   - path: flux.yaml
     target:
       kind: HelmRelease

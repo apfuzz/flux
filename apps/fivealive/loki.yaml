@@ -30,8 +30,8 @@ spec:
       storage:
         type: s3
         bucketNames:
-          chunks: loki-chunks
-          ruler: loki-ruler
+          chunks: loki-chunks-87836769
+          ruler: loki-ruler-87836769
         s3:
           endpoint: https://vhcompat.objectstorage.us-ashburn-1.oci.customer-oci.com
           region: us-ashburn-1

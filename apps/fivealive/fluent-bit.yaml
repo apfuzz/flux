@@ -69,8 +69,7 @@ spec:
             Port 80
             tenant_id 1
             Labels job=fluent-bit
-            Label_keys $kubernetes['namespace_name'],$kubernetes['pod_name'],$kubernetes['container_name']
-            Remove_Keys kubernetes,stream
+            Auto_Kubernetes_Labels on
 
       ## https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/classic-mode/upstream-servers
       ## This configuration is deprecated, please use `extraFiles` instead.

@@ -42,7 +42,7 @@ spec:
       requests:
         memory: 32Mi
       limits:
-        memory: 32Mi
+        memory: 64Mi
     volumeClaim:
       storageClassName: longhorn
     loadEnvFromSecrets:

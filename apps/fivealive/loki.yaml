@@ -10,9 +10,6 @@ spec:
     global:
       extraArgs:
         - "-config.expand-env=true"
-      extraEnvFrom:
-        - secretRef:
-            name: loki-oci-credentials
     deploymentMode: SingleBinary
     loki:
       commonConfig:
@@ -37,6 +34,9 @@ spec:
           accessKeyId: "${AWS_ACCESS_KEY_ID}"
           secretAccessKey: "${AWS_SECRET_ACCESS_KEY}"
     singleBinary:
+      extraEnvFrom:
+        - secretRef:
+            name: loki-oci-credentials
       persistence:
         storageClass: longhorn
     write:

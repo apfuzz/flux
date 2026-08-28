@@ -6,6 +6,8 @@ metadata:
 spec:
   interval: 15m
   values:
+    podAnnotations:
+      fluentbit.io/parser: apache
     ingress:
       enabled: true
       className: cilium

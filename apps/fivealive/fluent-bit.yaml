@@ -72,6 +72,12 @@ spec:
             K8S-Logging.Parser   On
             K8S-Logging.Exclude  On
 
+        [FILTER]
+            Name    modify
+            Match   talos.*
+            Rename  talos-service  talos_service
+            Rename  talos-level    talos_level
+
       ## https://docs.fluentbit.io/manual/pipeline/outputs
       outputs: |
         [OUTPUT]
@@ -89,7 +95,7 @@ spec:
             Host        loki-gateway
             Port        80
             tenant_id   1
-            Labels      job=talos, server=$server, talos_service=$['talos-service'], talos_level=$['talos-level']
+            Labels      job=talos,server=$server,talos_service=$talos_service,talos_level=$talos_level
 
       ## https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/classic-mode/upstream-servers
       ## This configuration is deprecated, please use `extraFiles` instead.

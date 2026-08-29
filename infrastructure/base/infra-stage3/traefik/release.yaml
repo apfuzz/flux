@@ -29,6 +29,9 @@ spec:
       dashboard:
         enabled: true
         entryPoints: ["websecure"]
+    providers:
+      kubernetesCRD:
+        safeNaming: false
     metrics:
       prometheus:
         serviceMonitor:

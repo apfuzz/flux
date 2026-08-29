@@ -76,12 +76,20 @@ spec:
       outputs: |
         [OUTPUT]
             Name                    loki
-            Match                   *
+            Match                   kube.*
             Host                    loki-gateway
             Port                    80
             tenant_id               1
             Labels                  job=fluent-bit
             Auto_Kubernetes_Labels  on
+
+        [OUTPUT]
+            Name        loki
+            Match       talos.*
+            Host        loki-gateway
+            Port        80
+            tenant_id   1
+            Labels      job=talos, server=$server, talos_service=$[talos-service], talos_level=$[talos-level]
 
       ## https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/classic-mode/upstream-servers
       ## This configuration is deprecated, please use `extraFiles` instead.

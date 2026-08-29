@@ -76,7 +76,7 @@ spec:
       outputs: |
         [OUTPUT]
             Name                    loki
-            Match                   kube.*
+            Match                   *
             Host                    loki-gateway
             Port                    80
             tenant_id               1

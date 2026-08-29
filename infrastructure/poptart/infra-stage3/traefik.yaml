@@ -12,9 +12,8 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: poptart-ingress3.gangsterkitties.com
         matchRule: Host(`poptart-traefik.gangsterkitties.com`)
-    logs:
-      access:
-        enabled: false  # disabled by default - set this to true to enable
+    accessLog:
+      enabled: false  # disabled by default - set this to true to enable
     service:
       annotations:
         external-dns.alpha.kubernetes.io/hostname: poptart-ingress3.gangsterkitties.com

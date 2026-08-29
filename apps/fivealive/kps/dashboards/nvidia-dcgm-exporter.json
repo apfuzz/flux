@@ -1308,7 +1308,9 @@
     "links": [],
     "liveNow": false,
     "preload": false,
-    "tags": [],
+    "tags": [
+      "nvidia"
+    ],
     "timeSettings": {
       "autoRefresh": "",
       "autoRefreshIntervals": [

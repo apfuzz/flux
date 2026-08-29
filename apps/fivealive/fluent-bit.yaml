@@ -26,50 +26,62 @@ spec:
         release: kps
     dashboards:
       enabled: true
+    extraPorts:
+      - port: 5170
+        containerPort: 5170
+        protocol: TCP
+        name: tcp
     ## https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/classic-mode/configuration-file
     config:
       service: |
         [SERVICE]
-            Daemon Off
-            Flush {{ .Values.flush }}
-            Log_Level {{ .Values.logLevel }}
-            Parsers_File /fluent-bit/etc/parsers.conf
-            Parsers_File /fluent-bit/etc/conf/custom_parsers.conf
-            HTTP_Server On
-            HTTP_Listen 0.0.0.0
-            HTTP_Port {{ .Values.metricsPort }}
-            Health_Check On
+            Daemon        Off
+            Flush         {{ .Values.flush }}
+            Log_Level     {{ .Values.logLevel }}
+            Parsers_File  /fluent-bit/etc/parsers.conf
+            Parsers_File  /fluent-bit/etc/conf/custom_parsers.conf
+            HTTP_Server   On
+            HTTP_Listen   0.0.0.0
+            HTTP_Port     {{ .Values.metricsPort }}
+            Health_Check  On
 
       ## https://docs.fluentbit.io/manual/pipeline/inputs
       inputs: |
         [INPUT]
-            Name tail
-            Path /var/log/containers/*.log
-            multiline.parser docker, cri
-            Tag kube.*
-            Mem_Buf_Limit 5MB
-            Skip_Long_Lines On
+            Name              tail
+            Path              /var/log/containers/*.log
+            multiline.parser  docker, cri
+            Tag               kube.*
+            Mem_Buf_Limit     5MB
+            Skip_Long_Lines   On
+
+        [INPUT]
+            Name    tcp
+            Listen  0.0.0.0
+            Port    5170
+            Format  json
+            Tag     talos.*
 
       ## https://docs.fluentbit.io/manual/pipeline/filters
       filters: |
         [FILTER]
-            Name kubernetes
-            Match kube.*
-            Merge_Log On
-            Keep_Log Off
-            K8S-Logging.Parser On
-            K8S-Logging.Exclude On
+            Name                 kubernetes
+            Match                kube.*
+            Merge_Log            On
+            Keep_Log             Off
+            K8S-Logging.Parser   On
+            K8S-Logging.Exclude  On
 
       ## https://docs.fluentbit.io/manual/pipeline/outputs
       outputs: |
         [OUTPUT]
-            Name loki
-            Match kube.*
-            Host loki-gateway
-            Port 80
-            tenant_id 1
-            Labels job=fluent-bit
-            Auto_Kubernetes_Labels on
+            Name                    loki
+            Match                   kube.*
+            Host                    loki-gateway
+            Port                    80
+            tenant_id               1
+            Labels                  job=fluent-bit
+            Auto_Kubernetes_Labels  on
 
       ## https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/classic-mode/upstream-servers
       ## This configuration is deprecated, please use `extraFiles` instead.

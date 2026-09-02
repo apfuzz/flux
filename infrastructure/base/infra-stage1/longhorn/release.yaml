@@ -19,10 +19,6 @@ spec:
         name: longhorn
   driftDetection:
     mode: enabled
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     networkPolicies:
       restrictInternalTraffic: false

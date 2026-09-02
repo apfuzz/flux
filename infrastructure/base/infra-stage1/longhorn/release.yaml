@@ -13,7 +13,7 @@ spec:
   chart:
     spec:
       chart: longhorn
-      version: "1.11.x"
+      version: "1.12.x"
       sourceRef:
         kind: HelmRepository
         name: longhorn
@@ -24,6 +24,8 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    networkPolicies:
+      restrictInternalTraffic: false
     persistence:
       defaultDiskSelector:
         enable: true

@@ -30,6 +30,16 @@ spec:
           region: us-ashburn-1
           accessKeyId: "${AWS_ACCESS_KEY_ID}"
           secretAccessKey: "${AWS_SECRET_ACCESS_KEY}"
+    ingress:
+      enabled: true
+      ingressClassName: cilium
+      annotations:
+        external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
+      hosts:
+        - loki.gangsterkitties.com
+      tls:
+        - hosts:
+            - loki.gangsterkitties.com
     singleBinary:
       extraArgs:
         - "-config.expand-env=true"

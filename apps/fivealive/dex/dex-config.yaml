@@ -8,14 +8,14 @@ spec:
     name: vault-backend
     kind: ClusterSecretStore
   data:
-  - remoteRef:
-      key: ldap
-      property: readonly
-    secretKey: BIND_PASS
-  - remoteRef:
-      key: cnpg
-      property: dex
-    secretKey: postgres_talos_dex
+    - remoteRef:
+        key: ldap
+        property: readonly
+      secretKey: BIND_PASS
+    - remoteRef:
+        key: cnpg
+        property: dex
+      secretKey: postgres_talos_dex
   target:
     name: dex-config
     template:
@@ -51,6 +51,12 @@ spec:
             secret: open-webui-secret
             redirectURIs:
             - https://genai.gangsterkitties.com/oauth/oidc/callback
+          - id: flux
+            name: Flux Operator
+            secret: flux
+            redirectURIs:
+            - https://flux.gangsterkitties.com/oauth2/callback
+            - https://poptart-flux.gangsterkitties.com/oauth2/callback
           connectors:
           - type: ldap
             name: OpenLDAP

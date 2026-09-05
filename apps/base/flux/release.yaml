@@ -11,6 +11,14 @@ spec:
   driftDetection:
     mode: enabled
   values:
+    config:
+      authentication:
+        type: OAuth2
+        oauth2:
+          provider: OIDC
+          clientID: flux
+          clientSecret: flux
+          issuerURL: https://dex.gangsterkitties.com/dex
     web:
       httpRoute:
         enabled: true

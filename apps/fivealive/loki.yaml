@@ -75,13 +75,14 @@ spec:
                 interval: 1m
                 rules:
                   - alert: LokiRulerTest
-                    expr: vector(1)
+                    expr: |
+                      sum(count_over_time({job="talos"}[5m])) > 0
                     labels:
                       severity: warning
                       test: "true"
                     annotations:
                       summary: "Loki ruler test alert"
-                      description: "This is a temporary test alert confirming Loki ruler to Alertmanager delivery."
+                      description: "Temporary alert confirming Loki rule evaluation and Alertmanager delivery."
 
                   - alert: TalosNVMeControllerFailure
                     expr: |

@@ -59,8 +59,8 @@ spec:
     chunksCache:
       allocatedMemory: 1024
     monitoring:
-      # dashboards:
-      #   enabled: true
+      dashboards:
+        enabled: false
       serviceMonitor:
         enabled: true
         labels:

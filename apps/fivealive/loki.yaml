@@ -60,41 +60,37 @@ spec:
       allocatedMemory: 1024
     monitoring:
       dashboards:
-        # enabled: true
-        enabled: false
+        enabled: true
       serviceMonitor:
         enabled: true
         labels:
           release: kps
-    ruler:
-      directories:
-        fake:
-          app-alerts.yaml: |
-            groups:
-              - name: talos-nvme
-                interval: 1m
-                rules:
-                  - alert: LokiRulerTest
-                    expr: |
-                      sum(count_over_time({job="talos"}[5m])) > 0
-                    labels:
-                      severity: warning
-                      test: "true"
-                    annotations:
-                      summary: "Loki ruler test alert"
-                      description: "Temporary alert confirming Loki rule evaluation and Alertmanager delivery."
+      rules:
+        additionalGroups:
+          - name: talos-nvme
+            interval: 1m
+            rules:
+              - alert: LokiRulerTest
+                expr: |
+                  sum(count_over_time({job="talos"}[5m])) > 0
+                labels:
+                  severity: warning
+                  test: "true"
+                annotations:
+                  summary: "Loki ruler test alert"
+                  description: "Temporary alert confirming Loki rule evaluation and Alertmanager delivery."
 
-                  - alert: TalosNVMeControllerFailure
-                    expr: |
-                      sum by (talos_server) (
-                        count_over_time(
-                          {job="talos", talos_service="kernel"}
-                            |~ "(?i)nvme.*(timeout|reset controller|device not ready|aborting reset|not ready .* after FLR)"
-                          [2m]
-                        )
-                      ) > 0
-                    labels:
-                      severity: critical
-                    annotations:
-                      summary: "NVMe controller failure on {{ $labels.talos_server }}"
-                      description: "Talos kernel logs indicate an NVMe controller timeout/reset or failed recovery on {{ $labels.talos_server }}."
+              - alert: TalosNVMeControllerFailure
+                expr: |
+                  sum by (talos_server) (
+                    count_over_time(
+                      {job="talos", talos_service="kernel"}
+                        |~ "(?i)nvme.*(timeout|reset controller|device not ready|aborting reset|not ready .* after FLR)"
+                      [2m]
+                    )
+                  ) > 0
+                labels:
+                  severity: critical
+                annotations:
+                  summary: "NVMe controller failure on {{ $labels.talos_server }}"
+                  description: "Talos kernel logs indicate an NVMe controller timeout/reset or failed recovery on {{ $labels.talos_server }}."

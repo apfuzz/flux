@@ -9,17 +9,32 @@ metadata:
   annotations:
     loki_rule_folder: "1"
 data:
-  test.yaml: |
+  talos.yaml: |
     groups:
-      - name: loki-test
-        interval: 30s
+      - name: talos-nvme
+        interval: 1m
         rules:
-          - alert: LokiTestAlert
+          - alert: LokiRulerTest
             expr: |
-              sum(count_over_time({job="fluent-bit"}[5m])) > 0
-            for: 0m
+              sum(count_over_time({job="talos"}[5m])) > 0
             labels:
               severity: warning
+              test: "true"
             annotations:
               summary: "Loki ruler test alert"
-              description: "Loki has seen at least one fluent-bit log line in the last five minutes."
+              description: "Temporary alert confirming Loki rule evaluation and Alertmanager delivery."
+
+          - alert: TalosNVMeControllerFailure
+            expr: |
+              sum by (talos_server) (
+                count_over_time(
+                  {job="talos", talos_service="kernel"}
+                    |~ "(?i)nvme.*(timeout|reset controller|device not ready|aborting reset|not ready .* after FLR)"
+                  [2m]
+                )
+              ) > 0
+            labels:
+              severity: critical
+            annotations:
+              summary: "NVMe controller failure on {{ $labels.talos_server }}"
+              description: "Talos kernel logs indicate an NVMe controller timeout/reset or failed recovery on {{ $labels.talos_server }}."

@@ -16,6 +16,7 @@ resources:
   - ../base/reflector
   - ../base/reloader
   - ../base/roundcube
+  - ./api-health-monitor
   - ./atlantis
   - ./dex
   - ./external-secrets

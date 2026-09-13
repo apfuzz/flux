@@ -1,0 +1,41 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: api-health-monitor
+  namespace: kube-system
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: api-health-monitor
+rules:
+  - nonResourceURLs:
+      - /readyz
+    verbs:
+      - get
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: api-health-monitor
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: api-health-monitor
+subjects:
+  - kind: ServiceAccount
+    name: api-health-monitor
+    namespace: kube-system
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: api-health-monitor-token
+  namespace: kube-system
+  annotations:
+    kubernetes.io/service-account.name: api-health-monitor
+type: kubernetes.io/service-account-token

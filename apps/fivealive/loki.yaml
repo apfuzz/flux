@@ -52,6 +52,8 @@ spec:
     monitoring:
       dashboards:
         enabled: true
+        grafanaOperator:
+          folder: Loki
       serviceMonitor:
         enabled: true
         labels:

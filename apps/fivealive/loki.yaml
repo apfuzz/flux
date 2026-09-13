@@ -53,7 +53,7 @@ spec:
       dashboards:
         enabled: true
         annotations:
-          grafana_folder: /tmp/dashboards/Loki
+          grafana_folder: Loki
       serviceMonitor:
         enabled: true
         labels:

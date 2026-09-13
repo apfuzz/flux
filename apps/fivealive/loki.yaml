@@ -70,6 +70,7 @@ spec:
         labels:
           release: kps
     ruler:
+      sidecar: true
       directories:
         "1":
           app-alerts.yaml: |

@@ -14,16 +14,6 @@ data:
       - name: talos-nvme
         interval: 1m
         rules:
-          - alert: LokiRulerTest
-            expr: |
-              sum(count_over_time({job="talos"}[5m])) > 0
-            labels:
-              severity: warning
-              test: "true"
-            annotations:
-              summary: "Loki ruler test alert"
-              description: "Temporary alert confirming Loki rule evaluation and Alertmanager delivery."
-
           - alert: TalosNVMeControllerFailure
             expr: |
               sum by (talos_server) (

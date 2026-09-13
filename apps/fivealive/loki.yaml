@@ -15,7 +15,6 @@ spec:
         type: s3
         bucketNames:
           chunks: loki-chunks-87836769
-          ruler: loki-ruler-87836769
         s3:
           endpoint: https://vhcompat.objectstorage.us-ashburn-1.oci.customer-oci.com
           region: us-ashburn-1
@@ -32,6 +31,11 @@ spec:
               period: 24h
       rulerConfig:
         alertmanager_url: http://kps-alertmanager.monitoring.svc.cluster.local:9093
+        storage:
+          type: local
+          local:
+            directory: /rules
+        rule_path: /tmp/rules
     ingress:
       enabled: true
       ingressClassName: cilium

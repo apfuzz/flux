@@ -74,6 +74,15 @@ spec:
               - name: talos-nvme
                 interval: 1m
                 rules:
+                  - alert: LokiRulerTest
+                    expr: vector(1)
+                    labels:
+                      severity: warning
+                      test: "true"
+                    annotations:
+                      summary: "Loki ruler test alert"
+                      description: "This is a temporary test alert confirming Loki ruler to Alertmanager delivery."
+
                   - alert: TalosNVMeControllerFailure
                     expr: |
                       sum by (talos_server) (

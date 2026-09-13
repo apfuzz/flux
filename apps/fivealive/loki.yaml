@@ -37,6 +37,12 @@ spec:
           region: us-ashburn-1
           accessKeyId: "${AWS_ACCESS_KEY_ID}"
           secretAccessKey: "${AWS_SECRET_ACCESS_KEY}"
+      rulerConfig:
+        alertmanager_url: http://kps-alertmanager.monitoring.svc.cluster.local:9093
+        storage:
+          type: local
+          local:
+            directory: /rules
     gateway:
       route:
         main:
@@ -49,6 +55,9 @@ spec:
               sectionName: https
     chunksCache:
       allocatedMemory: 1024
+    sidecar:
+      rules:
+        folderAnnotation: loki_rule_folder
     monitoring:
       dashboards:
         enabled: true

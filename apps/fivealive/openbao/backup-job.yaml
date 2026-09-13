@@ -56,19 +56,24 @@ data:
     # debug
     # set -xv
 
+    # exit on error
+    set -euo pipelfail
+
     # set variables
-    BUCKET_NAME=backups
+    BUCKET_NAME=backups-87836769
     BUCKET_PATH=vault
-    VAULT_NAME=vault
     DATE=`date +%Y-%m-%d-%H-%M`
+
+    # set job-specific variables
+    VAULT_NAME=vault
     FILENAME=${VAULT_NAME}-${DATE}.snapshot
 
     # set more variables
-    export VAULT_ADDR=https://vault.gangsterkitties.com
     export AWS_DEFAULT_REGION=us-east-1
-    export AWS_ENDPOINT_URL_S3=https://idopqt7hl3bt.compat.objectstorage.us-ashburn-1.oraclecloud.com
+    export AWS_ENDPOINT_URL_S3=https://vhcompat.objectstorage.us-ashburn-1.oci.customer-oci.com
     export AWS_REQUEST_CHECKSUM_CALCULATION=when_required
     export AWS_RESPONSE_CHECKSUM_VALIDATION=when_required
+    export VAULT_ADDR=https://vault.gangsterkitties.com
 
     # get token
     echo -e "getting vault token...\n"

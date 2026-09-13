@@ -51,12 +51,15 @@ data:
     # debug
     # set -xv
 
+    # exit on error
+    set -euo pipelfail
+
     # set variables
-    BUCKET_NAME=backups
+    BUCKET_NAME=backups-87836769
+    BUCKET_PATH=talos
     DATE=`date +%Y-%m-%d-%H-%M`
 
     # set job-specific variables
-    BUCKET_PATH=talos
     CLUSTER_NAME=fivealive
     CP01_IP=10.0.101.101
     CP01_NAME=$CLUSTER_NAME-01
@@ -64,7 +67,7 @@ data:
 
     # set more variables
     export AWS_DEFAULT_REGION=us-east-1
-    export AWS_ENDPOINT_URL_S3=https://idopqt7hl3bt.compat.objectstorage.us-ashburn-1.oraclecloud.com
+    export AWS_ENDPOINT_URL_S3=https://vhcompat.objectstorage.us-ashburn-1.oci.customer-oci.com
     export AWS_REQUEST_CHECKSUM_CALCULATION=when_required
     export AWS_RESPONSE_CHECKSUM_VALIDATION=when_required
 
@@ -73,12 +76,6 @@ data:
 
     # back up etcd cluster
     talosctl -n $CP01_IP etcd snapshot $FILENAME
-
-    # exit if previous command fails
-    if [ $? -ne 0 ] ; then
-      echo -e "previous command failed - exiting...\n"
-      exit 1
-    fi
 
     # compress database backup file
     gzip $FILENAME

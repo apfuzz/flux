@@ -5,3 +5,4 @@ resources:
   - ../../base/infra-stage2/cert-manager
   - ../../base/infra-stage2/k8s-admins.yaml
   - ./kps
+  - ./postgres

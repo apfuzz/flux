@@ -26,7 +26,6 @@ resources:
   - ./kps
   - ./loki
   - ./openbao
-  - ./postgres
   - ./roundcube
   - ./talos-etcd
 patches:

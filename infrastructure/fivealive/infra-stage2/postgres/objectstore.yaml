@@ -14,7 +14,7 @@ spec:
         key: AWS_ACCESS_KEY_ID
       secretAccessKey:
         name: backup-secret
-        key: AWS_ACCESS_SECRET_KEY
+        key: AWS_SECRET_ACCESS_KEY
     wal:
       compression: gzip
   retentionPolicy: 21d

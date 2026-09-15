@@ -14,7 +14,7 @@ spec:
   timeout: 5m
   chart:
     spec:
-      chart: cloudnative-pg
+      chart: plugin-barman-cloud
       version: "0.8.0"
       sourceRef:
         kind: HelmRepository

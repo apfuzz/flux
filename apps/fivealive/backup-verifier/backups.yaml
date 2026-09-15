@@ -1,0 +1,79 @@
+---
+backups:
+  - name: 389ds
+    backend: nfs
+    path: /backups/389ds
+    pattern: "389ds-backup-*.tar.gz"
+    timestamp_format: "389ds-backup-%Y%m%d%H%M.tar.gz"
+    max_age: 30h
+    min_size: 10KiB
+
+  - name: forgejo
+    backend: nfs
+    path: /backups/forgejo
+    pattern: "forgejo-dump-*.zip"
+    timestamp_format: "forgejo-dump-%Y-%m-%d.zip"
+    max_age: 30h
+    min_size: 10MiB
+
+  - name: forgejo-db
+    backend: nfs
+    path: /backups/forgejo-db
+    pattern: "forgejo-db-*.dump"
+    timestamp_format: "forgejo-db-%Y-%m-%d.dump"
+    max_age: 30h
+    min_size: 100KiB
+
+  - name: komodo
+    backend: nfs
+    path: /backups/komodo
+    timestamp_source: directory
+    pattern: "????-??-??_??-??-??"
+    timestamp_format: "%Y-%m-%d_%H-%M-%S"
+    max_age: 30h
+    min_size: 5KiB
+    contents:
+      pattern: "*.gz"
+      min_count: 20
+
+  - name: phpipam-db
+    backend: nfs
+    path: /backups/phpipam
+    pattern: "phpipam-*.sql.gz"
+    timestamp_format: "phpipam-%Y-%m-%d.sql.gz"
+    max_age: 30h
+    min_size: 10KiB
+
+  - name: openbao
+    backend: oci
+    bucket: backups
+    prefix: "vault/"
+    pattern: "vault-*.snapshot.gz"
+    timestamp_format: "vault-%Y-%m-%d-%H-%M.snapshot.gz"
+    max_age: 30h
+    min_size: 100KiB
+
+  - name: technitium
+    backend: nfs
+    path: /backups/technitium
+    pattern: "technitium-backup-*.zip"
+    timestamp_format: "technitium-backup-%Y%m%d%H%M.zip"
+    max_age: 30h
+    min_size: 20MiB
+
+  - name: talos-etcd
+    backend: oci
+    bucket: backups
+    prefix: "talos/"
+    pattern: "fivealive-01-etcd-*.snapshot.gz"
+    timestamp_format: "fivealive-01-etcd-%Y-%m-%d-%H-%M.snapshot.gz"
+    max_age: 30h
+    min_size: 10MiB
+
+  - name: traefik
+    backend: nfs
+    path: /backups/traefik
+    pattern: "traefik-backup-*.tar.gz"
+    timestamp_format: "traefik-backup-%Y-%m-%d.tar.gz"
+    max_age: 30h
+    min_size: 10KiB

@@ -1,0 +1,20 @@
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: backups-postgres-fivealive
+  namespace: postgres
+spec:
+  configuration:
+    destinationPath: s3://backups-87836769/postgres/fivealive
+    endpointURL: https://vhcompat.objectstorage.us-ashburn-1.oci.customer-oci.com
+    s3Credentials:
+      accessKeyId:
+        name: backup-secret
+        key: AWS_ACCESS_KEY_ID
+      secretAccessKey:
+        name: backup-secret
+        key: AWS_ACCESS_SECRET_KEY
+    wal:
+      compression: gzip
+  retentionPolicy: 30d

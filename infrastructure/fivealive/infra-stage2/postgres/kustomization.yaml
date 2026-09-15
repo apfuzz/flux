@@ -2,6 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - backup-schedule.yaml
   - backup-secret.yaml
   - database.yaml
   - namespace.yaml

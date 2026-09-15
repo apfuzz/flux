@@ -6,6 +6,11 @@ metadata:
   namespace: postgres
 spec:
   instances: 3
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: backups-postgres-fivealive
   storage:
     size: 1Gi
   resources:

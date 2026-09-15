@@ -57,7 +57,7 @@ data:
     # set -xv
 
     # exit on error
-    set -euo pipelfail
+    set -euo pipefail
 
     # set variables
     BUCKET_NAME=backups-87836769

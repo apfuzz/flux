@@ -15,3 +15,42 @@ spec:
           sectionName: https
       hostnames:
         - longhorn.gangsterkitties.com
+      defaultSettings:
+        systemManagedCSIComponentsResourceLimits: |
+          {
+            "csi-attacher": {
+              "requests": {
+                "memory": "48Mi"
+              }
+            },
+            "csi-provisioner": {
+              "requests": {
+                "memory": "48Mi"
+              }
+            },
+            "csi-resizer": {
+              "requests": {
+                "memory": "48Mi"
+              }
+            },
+            "csi-snapshotter": {
+              "requests": {
+                "memory": "48Mi"
+              }
+            },
+            "longhorn-csi-plugin": {
+              "requests": {
+                "memory": "32Mi"
+              }
+            },
+            "node-driver-registrar": {
+              "requests": {
+                "memory": "32Mi"
+              }
+            },
+            "longhorn-liveness-probe": {
+              "requests": {
+                "memory": "32Mi"
+              }
+            }
+          }

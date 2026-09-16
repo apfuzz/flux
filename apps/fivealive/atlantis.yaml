@@ -40,9 +40,9 @@ spec:
             sectionName: https
     resources:
       requests:
-        memory: 128Mi
+        memory: 64Mi
       limits:
-        memory: 256Mi
+        memory: 384Mi
     volumeClaim:
       storageClassName: longhorn
     loadEnvFromSecrets:

@@ -53,7 +53,9 @@ spec:
               namespace: cilium
               sectionName: https
     chunksCache:
-      allocatedMemory: 1024
+      allocatedMemory: 384
+    resultsCache:
+      allocatedMemory: 64
     sidecar:
       rules:
         folderAnnotation: loki_rule_folder

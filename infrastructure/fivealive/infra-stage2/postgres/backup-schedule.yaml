@@ -5,7 +5,7 @@ metadata:
   name: fivealive
   namespace: postgres
 spec:
-  schedule: "0 0 11 * * *"
+  schedule: "0 30 5 * * 0"
   backupOwnerReference: self
   cluster:
     name: fivealive

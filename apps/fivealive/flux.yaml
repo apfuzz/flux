@@ -14,3 +14,8 @@ spec:
       httpRoute:
         hostnames:
           - flux.gangsterkitties.com
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        memory: 256Mi

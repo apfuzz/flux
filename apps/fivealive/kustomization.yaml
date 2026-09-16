@@ -106,7 +106,6 @@ patches:
   ### json patches
 
   # FluxInstance sync path
-
   - patch: |
       - op: replace
         path: /spec/sync/path
@@ -125,3 +124,6 @@ patches:
       kind: Provider
       name: slack-bot
       namespace: flux-system
+
+  # FluxInstance resources
+  - path: ./patches/flux-instance.yaml

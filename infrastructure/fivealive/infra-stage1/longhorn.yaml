@@ -54,3 +54,7 @@ spec:
             }
           }
         }
+    longhornManager:
+      resources:
+        requests:
+          memory: 288Mi

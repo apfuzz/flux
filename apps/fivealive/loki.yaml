@@ -43,6 +43,9 @@ spec:
           local:
             directory: /rules
     gateway:
+      resources:
+        requests:
+          memory: 32Mi
       route:
         main:
           enabled: true
@@ -60,6 +63,10 @@ spec:
       allocatedMemory: 384
     resultsCache:
       allocatedMemory: 64
+    lokiCanary:
+      resources:
+        requests:
+          memory: 64Mi
     memcachedExporter:
       resources:
         requests:

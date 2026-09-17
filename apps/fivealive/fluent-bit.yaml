@@ -31,6 +31,10 @@ spec:
         containerPort: 5170
         protocol: TCP
         name: tcp
+    resources:
+      requests:
+        memory: 48Mi
+
     ## https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/classic-mode/configuration-file
     config:
       service: |

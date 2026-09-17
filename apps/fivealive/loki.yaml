@@ -52,6 +52,10 @@ spec:
             - name: cilium-gateway
               namespace: cilium
               sectionName: https
+    singleBinary:
+      resources:
+        requests:
+          memory: 512Mi
     chunksCache:
       allocatedMemory: 384
     resultsCache:

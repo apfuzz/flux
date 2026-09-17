@@ -60,7 +60,14 @@ spec:
       allocatedMemory: 384
     resultsCache:
       allocatedMemory: 64
+    memcachedExporter:
+      resources:
+        requests:
+          memory: 32Mi
     sidecar:
+      resources:
+        requests:
+          memory: 128Mi
       rules:
         folderAnnotation: loki_rule_folder
     monitoring:

@@ -6,8 +6,6 @@ metadata:
   namespace: monitoring
 spec:
   interval: 15m
-  install:
-    crds: Skip
   values:
     alertmanager:
       config:

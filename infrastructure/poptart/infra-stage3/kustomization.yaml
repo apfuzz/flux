@@ -28,24 +28,19 @@ patches:
 
   ### json patches
 
-  # Cilium gateway hostname annotation
+  # Cilium gateway annotations
 
-  - patch: |
-      - op: replace
-        path: /metadata/annotations/external-dns.alpha.kubernetes.io~1hostname
-        value: "poptart-gateway.gangsterkitties.com"
-    target:
+  - target:
       kind: Gateway
       name: cilium-gateway
       namespace: cilium
-
-  # Cilium gateway IP address
-
-  - patch: |
+    patch: |
+      - op: replace
+        path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
+        value: "poptart-gateway.gangsterkitties.com"
+      - op: replace
+        path: /spec/infrastructure/annotations/external-dns.alpha.kubernetes.io~1hostname
+        value: "poptart-gateway.gangsterkitties.com"
       - op: replace
         path: /spec/infrastructure/annotations/lbipam.cilium.io~1ips
         value: "10.0.102.253"
-    target:
-      kind: Gateway
-      name: cilium-gateway
-      namespace: cilium

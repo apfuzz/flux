@@ -70,15 +70,15 @@ vault_login() {
   echo
 
   export VAULT_ADDR=https://$VAULT_FQDN
-  echo $VAULT_ROOT_TOKEN | vault login - > /dev/null
+  echo $VAULT_ROOT_TOKEN | bao login - > /dev/null
 }
 
 # enable the kubernetes authentication method in vault
 vault_auth() {
   echo -e "\n${BLUE}Enabling Vault Kubernetes auth method...${NC}"
-  VAULT_AUTH_EXISTS=$(vault auth list | grep -c $VAULT_AUTH_NAME || true)
+  VAULT_AUTH_EXISTS=$(bao auth list | grep -c $VAULT_AUTH_NAME || true)
   if [ $VAULT_AUTH_EXISTS -eq 0 ] ; then
-    vault auth enable -path=$VAULT_AUTH_NAME -description="External Secrets Operator for K8s cluster $K8S_CLUSTER" kubernetes
+    bao auth enable -path=$VAULT_AUTH_NAME -description="External Secrets Operator for K8s cluster $K8S_CLUSTER" kubernetes
   else
     echo -e "\n${YELLOW}Vault Kubernetes auth method already enabled. Skipping...${NC}"
   fi
@@ -110,13 +110,13 @@ vault_auth_config() {
   KUBE_HOST=$(kubectl config view --raw --minify --flatten --output='jsonpath={.clusters[].cluster.server}')
 
   # configure the Kubernetes auth method in Vault
-  vault write auth/$VAULT_AUTH_NAME/config \
+  bao write auth/$VAULT_AUTH_NAME/config \
     token_reviewer_jwt="$TOKEN_REVIEW_JWT" \
     kubernetes_host="$KUBE_HOST" \
     kubernetes_ca_cert="$KUBE_CA_CERT"
 
   # create Vault role for Kubernetes
-  vault write auth/$VAULT_AUTH_NAME/role/kubernetes \
+  bao write auth/$VAULT_AUTH_NAME/role/kubernetes \
     audience=vault \
     bound_service_account_names=vault \
     bound_service_account_namespaces=external-secrets \

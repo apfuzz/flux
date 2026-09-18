@@ -4,7 +4,7 @@ External Secrets Operater (ESO) synchronizes secrets from a provider, such as Ha
 
 ## Reference
 
-- [HashiCorp Vault - Kubernetes auth method](https://developer.hashicorp.com/vault/docs/auth/kubernetes)
+- [OpenBao - Kubernetes auth method](https://openbao.org/docs/auth/kubernetes/)
 - [ESO provider - HashiCorp Vault](https://external-secrets.io/latest/provider/hashicorp-vault/)
 
 ## Deploy ESO

@@ -56,8 +56,8 @@ helm install flux-operator oci://ghcr.io/controlplaneio-fluxcd/charts/flux-opera
 ### Apply external secret with git credentials
 
 ```bash
-kubectl apply -f apps/base/flux/flux-gitlab.yaml -n flux-system && \
-kubectl wait -n flux-system externalsecret/fluxcd-gitlab --for=condition=Ready
+kubectl apply -f apps/base/flux/flux-forgejo.yaml -n flux-system && \
+kubectl wait -n flux-system externalsecret/flux-forgejo --for=condition=Ready
 ```
 
 ### Create FluxInstance resoruce (aka "bootstrap" cluster)

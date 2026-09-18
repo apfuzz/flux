@@ -19,10 +19,6 @@ spec:
         name: external-dns
   driftDetection:
     mode: enabled
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     serviceMonitor:
       enabled: true

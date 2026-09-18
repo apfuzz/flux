@@ -5,7 +5,7 @@ metadata:
   name: cilium-gateway
   namespace: cilium
   annotations:
-    external-dns.alpha.kubernetes.io/target: json-patch-will-replace-this
+    external-dns.kubernetes.io/target: json-patch-will-replace-this
 spec:
   gatewayClassName: cilium
   listeners:
@@ -29,5 +29,5 @@ spec:
             namespace: cert-manager
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: json-patch-will-replace-this
+      external-dns.kubernetes.io/hostname: json-patch-will-replace-this
       lbipam.cilium.io/ips: json-patch-will-replace-this

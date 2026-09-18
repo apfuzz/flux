@@ -36,10 +36,10 @@ patches:
       namespace: cilium
     patch: |
       - op: replace
-        path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
+        path: /metadata/annotations/external-dns.kubernetes.io~1target
         value: "fivealive-gateway.gangsterkitties.com"
       - op: replace
-        path: /spec/infrastructure/annotations/external-dns.alpha.kubernetes.io~1hostname
+        path: /spec/infrastructure/annotations/external-dns.kubernetes.io~1hostname
         value: "fivealive-gateway.gangsterkitties.com"
       - op: replace
         path: /spec/infrastructure/annotations/lbipam.cilium.io~1ips

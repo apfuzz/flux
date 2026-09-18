@@ -8,6 +8,7 @@ resources:
   - ../../base/infra-stage1/kps-crds
   - ../../base/infra-stage1/longhorn
   - ../../base/infra-stage1/plugin-barman-cloud
+  - ../../base/infra-stage1/rbac
 patches:
   - path: cert-manager.yaml
     target:

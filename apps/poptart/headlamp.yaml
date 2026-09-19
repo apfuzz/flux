@@ -7,7 +7,5 @@ spec:
   interval: 15m
   values:
     httpRoute:
-      annotations:
-        external-dns.kubernetes.io/target: poptart-ingress.gangsterkitties.com
       hostnames:
         - poptart-headlamp.gangsterkitties.com

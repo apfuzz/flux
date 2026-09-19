@@ -15,7 +15,5 @@ spec:
           memory: 128Mi
       gateway:
         httpRoute:
-          annotations:
-            external-dns.kubernetes.io/target: fivealive-gateway.gangsterkitties.com
           hosts:
             - vault.gangsterkitties.com

@@ -10,11 +10,11 @@ spec:
     ingressRoute:
       dashboard:
         annotations:
-          external-dns.alpha.kubernetes.io/target: poptart-traefik.gangsterkitties.com
+          external-dns.kubernetes.io/target: poptart-traefik.gangsterkitties.com
         matchRule: Host(`poptart-traefik.gangsterkitties.com`)
     accessLog:
       enabled: false  # disabled by default - set this to true to enable
     service:
       annotations:
-        external-dns.alpha.kubernetes.io/hostname: poptart-traefik.gangsterkitties.com
+        external-dns.kubernetes.io/hostname: poptart-traefik.gangsterkitties.com
         lbipam.cilium.io/ips: 10.0.102.251

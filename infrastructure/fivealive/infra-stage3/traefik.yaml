@@ -10,13 +10,13 @@ spec:
     ingressRoute:
       dashboard:
         annotations:
-          external-dns.alpha.kubernetes.io/target: fivealive-ingress3.gangsterkitties.com
+          external-dns.kubernetes.io/target: fivealive-ingress3.gangsterkitties.com
         matchRule: Host(`fivealive-traefik.gangsterkitties.com`)
     accessLog:
       enabled: false  # disabled by default - set this to true to enable
     service:
       annotations:
-        external-dns.alpha.kubernetes.io/hostname: fivealive-ingress3.gangsterkitties.com
+        external-dns.kubernetes.io/hostname: fivealive-ingress3.gangsterkitties.com
         lbipam.cilium.io/ips: 10.0.101.251
     resources:
       requests:

@@ -8,7 +8,7 @@ spec:
   values:
     httpRoute:
       annotations:
-        external-dns.alpha.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
+        external-dns.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
       hostnames:
         - headlamp.gangsterkitties.com
     resources:

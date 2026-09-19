@@ -10,7 +10,7 @@ spec:
     ingressController:
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: poptart-ingress.gangsterkitties.com
+          external-dns.kubernetes.io/hostname: poptart-ingress.gangsterkitties.com
           lbipam.cilium.io/ips: 10.0.102.254
     # hubble:
     #   metrics:
@@ -42,7 +42,7 @@ spec:
     #     ingress:
     #       enabled: true
     #       annotations:
-    #         external-dns.alpha.kubernetes.io/target: poptart-ingress.gangsterkitties.com
+    #         external-dns.kubernetes.io/target: poptart-ingress.gangsterkitties.com
     #       hosts:
     #         - poptart-hubble.gangsterkitties.com
     #       tls:

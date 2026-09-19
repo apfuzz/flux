@@ -15,7 +15,7 @@ spec:
     ingressController:
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: fivealive-ingress.gangsterkitties.com
+          external-dns.kubernetes.io/hostname: fivealive-ingress.gangsterkitties.com
           lbipam.cilium.io/ips: 10.0.101.254
     envoy:
       resources:

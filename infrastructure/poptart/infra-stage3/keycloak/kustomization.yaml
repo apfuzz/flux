@@ -6,3 +6,16 @@ resources:
   - httproute.yaml
   - ingress.yaml
   - keycloak.yaml
+configMapGenerator:
+  - name: keycloak-dashboards
+    files:
+      - dashboards/keycloak-capacity-planning-dashboard.json
+      - dashboards/keycloak-troubleshooting-dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+        app.kubernetes.io/part-of: keycloak
+        app.kubernetes.io/component: monitoring
+        kustomize.toolkit.fluxcd.io/substitute: disabled
+      annotations:
+        grafana_folder: Keycloak

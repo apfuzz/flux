@@ -13,16 +13,12 @@ spec:
   chart:
     spec:
       chart: cilium
-      version: "1.19.x"
+      version: "1.20.x"
       sourceRef:
         kind: HelmRepository
         name: cilium
   driftDetection:
     mode: enabled
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     k8sServiceHost: localhost
     k8sServicePort: 7445

@@ -19,10 +19,6 @@ spec:
         name: cloudnative-pg
   driftDetection:
     mode: enabled
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     monitoring:
       podMonitorEnabled: true

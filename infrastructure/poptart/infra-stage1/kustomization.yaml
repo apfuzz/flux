@@ -8,6 +8,7 @@ resources:
   - ../../base/infra-stage1/kps-crds
   - ../../base/infra-stage1/local-path-provisioner
   - ../../base/infra-stage1/rbac
+  - ./keycloak-operator
 patches:
   - path: cert-manager.yaml
     target:

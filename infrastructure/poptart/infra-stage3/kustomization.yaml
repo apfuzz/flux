@@ -6,6 +6,7 @@ resources:
   - ../../base/infra-stage3/external-dns
   - ../../base/infra-stage3/traefik
   - ./cilium
+  - ./keycloak
 patches:
 
   ### helm release overrides

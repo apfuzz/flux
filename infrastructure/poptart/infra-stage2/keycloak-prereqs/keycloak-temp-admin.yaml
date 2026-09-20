@@ -1,0 +1,23 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: keycloak-temp-admin
+spec:
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    name: keycloak-temp-admin
+    template:
+      engineVersion: v2
+      type: kubernetes.io/basic-auth
+      data:
+        username: "temp-admin"
+        password: "{{ .password | toString }}"
+  data:
+  - secretKey: password
+    remoteRef:
+      conversionStrategy: Default
+      key: keycloak
+      property: temp_admin_password

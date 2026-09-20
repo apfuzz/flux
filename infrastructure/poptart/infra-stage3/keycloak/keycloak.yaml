@@ -1,0 +1,41 @@
+---
+apiVersion: k8s.keycloak.org/v2beta1
+kind: Keycloak
+metadata:
+  name: keycloak
+spec:
+  instances: 1
+  db:
+    vendor: postgres
+    host: postgres-rw.keycloak.svc.cluster.local
+    database: keycloak
+    usernameSecret:
+      name: postgres-keycloak
+      key: username
+    passwordSecret:
+      name: postgres-keycloak
+      key: password
+  bootstrapAdmin:
+    user:
+      secret: keycloak-temp-admin
+  hostname:
+    hostname: https://keycloak.gangsterkitties.com
+    admin: https://keycloak-admin.gangsterkitties.com
+  ingress:
+    enabled: false
+  http:
+    httpEnabled: true
+  proxy:
+    headers: xforwarded
+  additionalOptions:
+    - name: health-enabled
+      value: "true"
+    - name: metrics-enabled
+      value: "true"
+    - name: db-url-properties
+      value: "?sslmode=require"
+  serviceMonitor:
+    labels:
+      release: kps
+  networkPolicy:
+    enabled: false

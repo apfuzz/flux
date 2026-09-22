@@ -17,4 +17,10 @@ spec:
         name: fluent
   driftDetection:
     mode: enabled
-  values: {}
+  values:
+    serviceMonitor:
+      enabled: true
+      selector:
+        release: kps
+    dashboards:
+      enabled: true

@@ -18,6 +18,7 @@ spec:
       memory: 256Mi
     requests:
       memory: 256Mi
+  smartShutdownTimeout: 30
   enableSuperuserAccess: true
   superuserSecret:
     name: fivealive-postgres

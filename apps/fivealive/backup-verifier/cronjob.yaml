@@ -42,6 +42,7 @@ spec:
                 - name: backups
                   mountPath: /backups
                   readOnly: true
+          restartPolicy: Never
           volumes:
             - name: backup-config
               configMap:

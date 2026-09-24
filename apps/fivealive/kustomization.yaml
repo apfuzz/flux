@@ -18,6 +18,7 @@ resources:
   - ../base/roundcube
   - ./api-health-monitor
   - ./atlantis
+  - ./backup-verifier
   - ./dex
   - ./external-secrets
   - ./flux

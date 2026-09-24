@@ -5,6 +5,7 @@ metadata:
   name: backup-verifier
 spec:
   schedule: "0 12 * * *"
+  timeZone: America/New_York
   jobTemplate:
     spec:
       backoffLimit: 2

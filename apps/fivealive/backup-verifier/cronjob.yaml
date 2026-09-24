@@ -10,26 +10,33 @@ spec:
       template:
         spec:
           containers:
-          - name: backup-verifier
-            image: git.gangsterkitties.com/gangsterkitties/python/backup-verifier:v2026.09.23
-            imagePullPolicy: IfNotPresent
-            env:
-              - name: AWS_ACCESS_KEY_ID
-                valueFrom:
-                  secretKeyRef:
-                    name: oci-s3-credentials
-                    key: AWS_ACCESS_KEY_ID
-              - name: AWS_SECRET_ACCESS_KEY
-                valueFrom:
-                  secretKeyRef:
-                    name: oci-s3-credentials
-                    key: AWS_SECRET_ACCESS_KEY
-            volumeMounts:
-              - name: backup-config
-                mountPath: /etc/backup-verifier
+            - name: backup-verifier
+              image: git.gangsterkitties.com/gangsterkitties/python/backup-verifier:v2026.09.23
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: oci-s3-credentials
+                      key: AWS_ACCESS_KEY_ID
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: oci-s3-credentials
+                      key: AWS_SECRET_ACCESS_KEY
+              volumeMounts:
+                - name: backup-config
+                  mountPath: /etc/backup-verifier
+                  readOnly: true
+                - name: backups
+                  mountPath: /backups
+                  readOnly: true
           volumes:
             - name: backup-config
               configMap:
                 name: backup-config
-                defaultMode: 0777
-          restartPolicy: OnFailure
+            - name: backups
+              nfs:
+                server: 10.0.100.3
+                path: /volume1/backups
+                readOnly: true

@@ -6,6 +6,9 @@ metadata:
 spec:
   schedule: "0 12 * * *"
   timeZone: America/New_York
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
       backoffLimit: 2
@@ -48,6 +51,3 @@ spec:
                 server: 10.0.100.3
                 path: /volume1/backups
                 readOnly: true
-  concurrencyPolicy: Forbid
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 3

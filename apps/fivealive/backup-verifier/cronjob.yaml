@@ -16,7 +16,7 @@ spec:
         spec:
           containers:
             - name: backup-verifier
-              image: git.gangsterkitties.com/gangsterkitties/python/backup-verifier:v2026.09.23
+              image: git.gangsterkitties.com/gangsterkitties/python/backup-verifier:v2026.09.23a
               imagePullPolicy: IfNotPresent
               env:
                 - name: AWS_ACCESS_KEY_ID

@@ -26,6 +26,32 @@ This repository contains Flux CD resources that automate the deployment and conf
 └── scripts               various utility scripts
 ```
 
+## How manifests reach the cluster
+
+`clusters/<name>` is the only path Flux syncs directly. Everything else is flattened into two `ExternalArtifact`s by the `ArtifactGenerator` in `clusters/<name>/artifacts.yaml`:
+
+- `apps` ← `apps/base/**` + `apps/<name>/**`
+- `infrastructure` ← `infrastructure/base/**` + `infrastructure/<name>/**`
+
+Inside an artifact the layout is `base/` and `<name>/` side by side. That is why overlays reference base directories as `../base/<app>` and cluster-only directories as `./<app>`, and why nothing may reference across the repo root. It also means `clusters/<name>/` must contain only the sync target — never a base tree.
+
+Adding an app or infrastructure component takes three edits: create the directory under `base/`, add it to the `copy` list in `clusters/<name>/artifacts.yaml`, and wire it into the overlay's `kustomization.yaml`.
+
+### Overlay files
+
+A per-cluster overlay (`apps/<name>`, `infrastructure/<name>/infra-stageN`) is a `kustomization.yaml` with `resources:` and `patches:`. Two kinds of local files live alongside it:
+
+- **Patch files** — a loose `<app>.yaml` at the overlay root (e.g. `apps/poptart/flux.yaml`,
+  `infrastructure/poptart/infra-stage1/cert-manager.yaml`). These hold only the overriding spec and are
+  referenced from `patches:` with `path:` and `target:`. They are *not* resources.
+- **Resource directories** — subdirectories with their own `kustomization.yaml` holding manifests only that
+  cluster needs (e.g. `apps/fivealive/talos-etcd/`, `infrastructure/poptart/infra-stage3/keycloak/`). These
+  are referenced from `resources:`.
+
+Referencing one where the other belongs is a real bug, and the two directions fail differently. Pointing `patches:` at a resource directory fails the build (`must resolve to a file`), so `validate.sh` catches it. Listing a patch file under `resources:` builds cleanly and emits the partial manifest as an object of its own, which then collides with the full resource defined in `base/` — nothing fails, so this one has to be caught in review.
+
+Inline JSON patches in `patches:` cover fields with no natural patch file: `/spec/sync/path` on the `FluxInstance` selects `clusters/<name>`, and `/spec/username` on the Slack `Provider` names the cluster in alerts.
+
 ## Flux Operator
 
 The Flux Operator is the best way to get started with Flux. It comes with the FluxInstance CRD, which is used to bootstrap a cluster.

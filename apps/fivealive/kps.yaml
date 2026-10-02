@@ -161,13 +161,13 @@ spec:
               - targets:
                   - pihole.gangsterkitties.com:9100
                   - shakenbake.gangsterkitties.com:9100
-              - targets:
-                  - jarvis.gangsterkitties.com:9100
-                labels:
-                  env: genai
-              - targets: ['54.161.174.188:9100']
-                labels:
-                  instance: 'www.gangsterkitties.com'
+              # - targets:
+              #     - jarvis.gangsterkitties.com:9100
+              #   labels:
+              #     env: genai
+              # - targets: ['54.161.174.188:9100']
+              #   labels:
+              #     instance: 'www.gangsterkitties.com'
           - job_name: network
             scheme: https
             static_configs:
@@ -192,20 +192,20 @@ spec:
             static_configs:
               - targets:
                   - traefik.gangsterkitties.com
-          - job_name: nvidia
-            static_configs:
-              - targets:
-                  - jarvis.gangsterkitties.com:9400
-                labels:
-                  env: genai
           - job_name: ugos-bridge
             static_configs:
               - targets:
                   - dxp2800.gangsterkitties.com:9877
-          - job_name: llama
-            scheme: https
-            authorization:
-              credentials_file: /etc/prometheus/secrets/llama/api-key
-            static_configs:
-              - targets:
-                  - coder.gangsterkitties.com
+          # - job_name: nvidia
+          #   static_configs:
+          #     - targets:
+          #         - jarvis.gangsterkitties.com:9400
+          #       labels:
+          #         env: genai
+          # - job_name: llama
+          #   scheme: https
+          #   authorization:
+          #     credentials_file: /etc/prometheus/secrets/llama/api-key
+          #   static_configs:
+          #     - targets:
+          #         - coder.gangsterkitties.com

@@ -11,12 +11,12 @@ spec:
   failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
-      backoffLimit: 2
+      backoffLimit: 0
       template:
         spec:
           containers:
             - name: backup-verifier
-              image: git.gangsterkitties.com/gangsterkitties/python/backup-verifier:v2026.09.23a
+              image: git.gangsterkitties.com/gangsterkitties/python/backup-verifier:v2026.10.07
               imagePullPolicy: IfNotPresent
               env:
                 - name: AWS_ACCESS_KEY_ID

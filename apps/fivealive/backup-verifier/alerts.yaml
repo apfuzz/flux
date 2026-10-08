@@ -1,0 +1,31 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: backup-verifier
+  labels:
+    release: kps
+spec:
+  groups:
+    - name: backup-verifier
+      rules:
+        - alert: BackupVerifierStale
+          # A successful CronJob run is the only signal that every configured
+          # backup reported OK; the Job itself exits non-zero otherwise. Aging
+          # the last success also catches the CronJob not running at all.
+          expr: |-
+            time() - max by (namespace) (
+              kube_job_status_completion_time{namespace="monitoring", job_name=~"backup-verifier-.*"}
+            ) > 93600
+            or
+            absent(kube_job_status_completion_time{namespace="monitoring", job_name=~"backup-verifier-.*"})
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Backup verification has not succeeded in 26h
+            description: >-
+              No backup-verifier Job has completed successfully in over 26 hours.
+              Either a run found a backup that was not OK, or the CronJob is no
+              longer running. Check the most recent Job's pod logs for the
+              affected backup names.

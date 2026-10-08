@@ -29,7 +29,7 @@ OS=$(uname -s)
 VAULT_AUTH_NAME=eso-$K8S_CLUSTER
 VAULT_POLICY=gangsterkitties-readonly
 
-SCRIPT_DIR=$(dirname "$(readlink -f $0)")
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 CSS_MANIFEST_SRC=$SCRIPT_DIR/css.yaml
 CSS_MANIFEST=$SCRIPT_DIR/css-$K8S_CLUSTER.yaml
 TEST_SECRET_MANIFEST=$SCRIPT_DIR/test-secret.yaml
@@ -57,8 +57,8 @@ fi
 # usage function
 usage() {
   cat <<EOF
-  Usage: ./$(basename $0) <K8s cluster name> <Vault address>
-  Example: ./$(basename $0) poptart vault.gangsterkitties.com
+  Usage: ./$(basename "$0") <K8s cluster name> <Vault address>
+  Example: ./$(basename "$0") poptart vault.gangsterkitties.com
 
 EOF
 }
@@ -66,19 +66,24 @@ EOF
 # log into vault
 vault_login() {
   echo -e "${BLUE}Logging into Vault at $VAULT_FQDN...${NC}"
-  read -s -p "Enter root token: " VAULT_ROOT_TOKEN
+  read -r -s -p "Enter root token: " VAULT_ROOT_TOKEN
   echo
 
   export VAULT_ADDR=https://$VAULT_FQDN
-  echo $VAULT_ROOT_TOKEN | bao login - > /dev/null
+
+  # drop the ambient VAULT_TOKEN approle token, else it overrides the root token
+  unset BAO_TOKEN VAULT_TOKEN
+
+  BAO_TOKEN=$(echo "$VAULT_ROOT_TOKEN" | bao login -token-only -)
+  export BAO_TOKEN
 }
 
 # enable the kubernetes authentication method in vault
 vault_auth() {
   echo -e "\n${BLUE}Enabling Vault Kubernetes auth method...${NC}"
-  VAULT_AUTH_EXISTS=$(bao auth list | grep -c $VAULT_AUTH_NAME || true)
-  if [ $VAULT_AUTH_EXISTS -eq 0 ] ; then
-    bao auth enable -path=$VAULT_AUTH_NAME -description="External Secrets Operator for K8s cluster $K8S_CLUSTER" kubernetes
+  VAULT_AUTH_EXISTS=$(bao auth list | grep -c "$VAULT_AUTH_NAME" || true)
+  if [ "$VAULT_AUTH_EXISTS" -eq 0 ] ; then
+    bao auth enable -path="$VAULT_AUTH_NAME" -description="External Secrets Operator for K8s cluster $K8S_CLUSTER" kubernetes
   else
     echo -e "\n${YELLOW}Vault Kubernetes auth method already enabled. Skipping...${NC}"
   fi
@@ -96,7 +101,7 @@ eso_install() {
   helm upgrade --install external-secrets external-secrets/external-secrets -n external-secrets --create-namespace --wait
 
   # create vault service account and token
-  kubectl apply -f $SCRIPT_DIR/vault-sa.yaml
+  kubectl apply -f "$SCRIPT_DIR"/vault-sa.yaml
   sleep 2
 }
 
@@ -110,13 +115,13 @@ vault_auth_config() {
   KUBE_HOST=$(kubectl config view --raw --minify --flatten --output='jsonpath={.clusters[].cluster.server}')
 
   # configure the Kubernetes auth method in Vault
-  bao write auth/$VAULT_AUTH_NAME/config \
+  bao write auth/"$VAULT_AUTH_NAME"/config \
     token_reviewer_jwt="$TOKEN_REVIEW_JWT" \
     kubernetes_host="$KUBE_HOST" \
     kubernetes_ca_cert="$KUBE_CA_CERT"
 
   # create Vault role for Kubernetes
-  bao write auth/$VAULT_AUTH_NAME/role/kubernetes \
+  bao write auth/"$VAULT_AUTH_NAME"/role/kubernetes \
     audience=vault \
     bound_service_account_names=vault \
     bound_service_account_namespaces=external-secrets \
@@ -127,8 +132,8 @@ vault_auth_config() {
 # create cluster secret store
 cluster_secret_store() {
   # customize template
-  cp $CSS_MANIFEST_SRC $CSS_MANIFEST
-  $SED_CMD "s/mountPath.*/mountPath:\ eso-$K8S_CLUSTER/" $CSS_MANIFEST
+  cp "$CSS_MANIFEST_SRC" "$CSS_MANIFEST"
+  $SED_CMD "s/mountPath.*/mountPath:\ eso-$K8S_CLUSTER/" "$CSS_MANIFEST"
 
   # wait for external-secrets-webhook to become available
   echo -e "\n${BLUE}Waiting for external-secrets-webhook to become available...${NC}"
@@ -136,13 +141,13 @@ cluster_secret_store() {
 
   # apply manifest
   sleep 2
-  kubectl apply -f $CSS_MANIFEST
+  kubectl apply -f "$CSS_MANIFEST"
 
   # delete manifest file
-  rm -f $CSS_MANIFEST
+  rm -f "$CSS_MANIFEST"
 
   # apply test secret manifest
-  kubectl apply -f $TEST_SECRET_MANIFEST
+  kubectl apply -f "$TEST_SECRET_MANIFEST"
 
   # get test secret status
   echo -e "\n${BLUE}Waiting for test secret to be ready...${NC}"
@@ -159,7 +164,7 @@ if [ $# -ne 2 ] ; then
 fi
 
 echo -e "\n${BLUE}This script will use the Kubernetes cluster context: $(kubectl config current-context). Press enter to continue or ctrl+c to cancel.${NC}"
-read CONTINUE
+read -r _
 
 # configure vault auth
 vault_login

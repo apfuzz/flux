@@ -19,11 +19,12 @@ For anything a human also needs to read — the artifact flattening rules and th
 
 ## Validation
 
-Two scripts, together the gate before merging to `main` (no test suite, lint config, or CI workflow in this repo):
+Three scripts, together the gate before merging to `main` (no test suite, lint config, or CI workflow in this repo):
 
 ```bash
 ./scripts/validate.sh               # manifests, overlays, Helm charts
 ./scripts/check-manifest-wiring.sh  # manifests that are never wired up
+./scripts/check-shell.sh            # shellcheck over the repo's *.sh scripts
 ```
 
 `validate.sh` is **vendored from upstream** ([fluxcd/flux2-kustomize-helm-example](https://github.com/fluxcd/flux2-kustomize-helm-example/blob/main/scripts/validate.sh)) — keep it unmodified so it can be updated cleanly, and put repo-specific checks in their own script the way `check-manifest-wiring.sh` does.
@@ -34,7 +35,9 @@ Three passes: standalone `*.yaml` outside kustomize/chart directories, each `kus
 
 `check-manifest-wiring.sh` covers a gap `validate.sh` structurally cannot. A `*.yaml` inside a kustomize directory that no `kustomization.yaml` lists is skipped by the standalone pass *and* never emitted by any build, so it is neither validated nor deployed. The guard makes that an error, and reports files mentioned only in a comment as parked — the repo's convention for a deliberately disabled manifest, as in `apps/base/kps/recording-rules.yaml`. Matching is a filename heuristic, not a parse of the kustomization.
 
-Still silent after both: a patch file listed under `resources:` (see `README.md`) — it builds cleanly and stays schema-valid while colliding with the base resource.
+`check-shell.sh` needs `shellcheck` on PATH (`brew install shellcheck`) and runs it at `-S warning` over every `*.sh` under the given directory (default: repo root). `-S error` / `-S info` raise or lower the bar, `-d <dir>` scopes the run. It errors on zero matches rather than reporting a vacuous pass. Today all four scripts pass, including the vendored `validate.sh` — but that one can't be fixed here if upstream ever trips a check, so it would need excluding at that point.
+
+Still silent after all three: a patch file listed under `resources:` (see `README.md`) — it builds cleanly and stays schema-valid while colliding with the base resource.
 
 ## Constraints when editing
 

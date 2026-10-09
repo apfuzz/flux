@@ -9,7 +9,7 @@ resources:
   - ../base/reflector
   - ./external-secrets
   - ./flux
-  - ./keycloak-config
+  # - ./keycloak-config
 patches:
   - path: external-secrets.yaml
     target:

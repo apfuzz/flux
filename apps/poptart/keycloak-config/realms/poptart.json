@@ -1,0 +1,38 @@
+{
+  "realm": "poptart",
+  "enabled": true,
+  "displayName": "PopTart",
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "resetPasswordAllowed": true,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "editUsernameAllowed": false,
+  "accessTokenLifespan": 300,
+  "bruteForceProtected": true,
+  "roles": {
+    "realm": [
+      {
+        "name": "platform-admin",
+        "description": "Full administrative access"
+      },
+      {
+        "name": "developer",
+        "description": "Standard developer access"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "poptart-cli",
+      "name": "PopTart CLI",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "$(POPTART_CLI_CLIENT_SECRET)",
+      "standardFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true
+    }
+  ]
+}

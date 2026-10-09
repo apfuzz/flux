@@ -1,0 +1,77 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: keycloak-config-cli
+spec:
+  schedule: "15 * * * *"
+  timeZone: America/New_York
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 300
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 600
+      template:
+        spec:
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: keycloak-config-cli
+              image: quay.io/adorsys/keycloak-config-cli:6.5.1-26.5.5
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: KEYCLOAK_URL
+                  value: http://keycloak-service:8080
+                - name: KEYCLOAK_USER
+                  value: admin
+                - name: KEYCLOAK_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: keycloak-config-cli
+                      key: admin-password
+                # wait for Keycloak instead of failing when a run lands on a restart
+                - name: KEYCLOAK_AVAILABILITYCHECK_ENABLED
+                  value: "true"
+                - name: IMPORT_FILES_LOCATIONS
+                  value: file:/config/*.json
+                - name: IMPORT_VALIDATE
+                  value: "true"
+                # delimiters are $(NAME), not ${NAME}
+                - name: IMPORT_VARSUBSTITUTION_ENABLED
+                  value: "true"
+                # caching keys the import to a checksum of the file, which would skip every
+                # run where the realm json is unchanged -- including after a secret rotation
+                - name: IMPORT_CACHE_ENABLED
+                  value: "false"
+                # purge only resources this cli created, leave everything else alone
+                - name: IMPORT_REMOTESTATE_ENABLED
+                  value: "true"
+                - name: POPTART_CLI_CLIENT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: keycloak-config-cli
+                      key: poptart-cli-client-secret
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop:
+                    - ALL
+              volumeMounts:
+                - name: realm-config
+                  mountPath: /config
+                  readOnly: true
+                - name: tmp
+                  mountPath: /tmp
+          volumes:
+            - name: realm-config
+              configMap:
+                name: keycloak-realm-config
+            - name: tmp
+              emptyDir: {}

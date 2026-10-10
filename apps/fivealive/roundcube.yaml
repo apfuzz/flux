@@ -4,7 +4,6 @@ metadata:
   name: roundcube
   namespace: roundcube
 spec:
-  interval: 15m
   values:
     podAnnotations:
       fluentbit.io/parser: apache

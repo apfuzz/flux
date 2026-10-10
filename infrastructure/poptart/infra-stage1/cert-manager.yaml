@@ -4,5 +4,4 @@ kind: HelmRelease
 metadata:
   name: cert-manager
 spec:
-  interval: 15m
   values: {}

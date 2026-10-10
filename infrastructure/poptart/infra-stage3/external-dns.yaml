@@ -4,7 +4,6 @@ kind: HelmRelease
 metadata:
   name: external-dns
 spec:
-  interval: 15m
   values:
     # logLevel: debug
     txtOwnerId: poptart

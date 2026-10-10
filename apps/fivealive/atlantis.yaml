@@ -4,7 +4,6 @@ metadata:
   name: atlantis
   namespace: atlantis
 spec:
-  interval: 15m
   values:
     atlantisUrl: https://atlantis.gangsterkitties.com
     orgAllowlist: git.gangsterkitties.com/gangsterkitties/terraform

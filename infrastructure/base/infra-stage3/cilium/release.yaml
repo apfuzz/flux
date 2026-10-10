@@ -76,6 +76,7 @@ spec:
             release: kps
     operator:
       replicas: 1
+      rollOutPods: true
       prometheus:
         serviceMonitor:
           enabled: true

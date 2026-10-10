@@ -3,7 +3,6 @@ kind: HelmRelease
 metadata:
   name: reloader
 spec:
-  interval: 15m
   values:
     reloader:
       deployment:

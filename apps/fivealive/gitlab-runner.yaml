@@ -4,7 +4,6 @@ kind: HelmRelease
 metadata:
   name: gitlab-runner
 spec:
-  interval: 15m
   values:
     gitlabUrl: https://gitlab.com
     runners:

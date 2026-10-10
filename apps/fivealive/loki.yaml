@@ -5,7 +5,6 @@ metadata:
   name: loki
   namespace: logging
 spec:
-  interval: 15m
   values:
     global:
       extraArgs:

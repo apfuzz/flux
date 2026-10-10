@@ -5,7 +5,6 @@ metadata:
   name: cilium
   namespace: cilium
 spec:
-  interval: 15m
   values:
     ingressController:
       service:

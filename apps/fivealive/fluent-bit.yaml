@@ -5,7 +5,6 @@ metadata:
   name: fluent-bit
   namespace: logging
 spec:
-  interval: 15m
   values:
     extraPorts:
       - port: 5170

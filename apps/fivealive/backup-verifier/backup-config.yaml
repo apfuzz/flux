@@ -31,8 +31,8 @@ data:
       - name: forgejo-db
         backend: nfs
         path: /backups/forgejo-db
-        pattern: "forgejo-db-*.dump"
-        timestamp_format: "forgejo-db-%Y-%m-%d.dump"
+        pattern: "forgejo-db-*.dump.gz"
+        timestamp_format: "forgejo-db-%Y-%m-%d.dump.gz"
         timestamp_precision: date
         max_age: 30h
         min_size: 100KiB

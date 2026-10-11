@@ -5,6 +5,5 @@ metadata:
   name: default-l2-announcement-policy
 spec:
   interfaces:
-    - eth0 # talos v1.13
-    # - enp1s0 # talos v1.14
+    - ^(eth0|enp1s0)$
   loadBalancerIPs: true

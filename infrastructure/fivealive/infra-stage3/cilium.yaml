@@ -16,6 +16,17 @@ spec:
         annotations:
           external-dns.kubernetes.io/hostname: fivealive-ingress.gangsterkitties.com
           lbipam.cilium.io/ips: 10.0.101.254
+    hubble:
+      relay:
+        resources: {}
+      ui:
+        backend:
+          resources: {}
+        frontend:
+          resources: {}
+        httpRoute:
+          hostnames:
+            - hubble.gangsterkitties.com
     envoy:
       resources:
         limits:

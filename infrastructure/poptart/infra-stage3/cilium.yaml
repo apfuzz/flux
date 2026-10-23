@@ -17,7 +17,7 @@ spec:
           annotations:
             external-dns.kubernetes.io/target: poptart-ingress.gangsterkitties.com
           hosts:
-            - host: poptart-hubble.gangsterkitties.com
+            - poptart-hubble.gangsterkitties.com
           tls:
             - hosts:
                 - poptart-hubble.gangsterkitties.com

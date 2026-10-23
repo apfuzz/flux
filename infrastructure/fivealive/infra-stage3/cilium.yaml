@@ -28,7 +28,7 @@ spec:
           annotations:
             external-dns.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
           hosts:
-            - host: hubble.gangsterkitties.com
+            - hubble.gangsterkitties.com
           tls:
             - hosts:
                 - hubble.gangsterkitties.com

@@ -67,12 +67,9 @@ spec:
       ui:
         enabled: true
         rollOutPods: true
-        httpRoute:
+        ingress:
           enabled: true
-          parentRefs:
-            - name: cilium-gateway
-              namespace: cilium
-              sectionName: https
+          className: cilium
     securityContext:
       capabilities:
         ciliumAgent:

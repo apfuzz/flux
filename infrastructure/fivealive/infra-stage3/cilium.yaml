@@ -24,9 +24,14 @@ spec:
           resources: {}
         frontend:
           resources: {}
-        httpRoute:
-          hostnames:
-            - hubble.gangsterkitties.com
+        ingress:
+          annotations:
+            external-dns.kubernetes.io/target: fivealive-ingress.gangsterkitties.com
+          hosts:
+            - host: hubble.gangsterkitties.com
+          tls:
+            - hosts:
+                - hubble.gangsterkitties.com
     envoy:
       resources:
         limits:

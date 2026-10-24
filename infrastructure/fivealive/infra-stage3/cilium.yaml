@@ -44,3 +44,14 @@ spec:
           memory: 256Mi
         requests:
           memory: 256Mi
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: v1
+              kind: Service
+              name: hubble-relay
+            patch: |-
+              - op: add
+                path: /spec/ports/0/appProtocol
+                value: kubernetes.io/h2c

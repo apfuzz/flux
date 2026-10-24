@@ -6,6 +6,12 @@ metadata:
   namespace: cilium
 spec:
   values:
+    # Set explicitly: the configmap still carries envoy-xds-mode=ads from the
+    # 1.20.3 template. 1.20.4 no longer renders the key when unset, so the
+    # stale value survives the upgrade. The standalone Envoy DaemonSet speaks
+    # the split protocol.
+    envoy:
+      xdsMode: split
     ingressController:
       service:
         annotations:

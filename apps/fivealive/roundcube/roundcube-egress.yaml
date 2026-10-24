@@ -1,0 +1,43 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: roundcube-egress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: roundcube
+
+  egress:
+    # CoreDNS
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s:k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+            - port: "53"
+              protocol: TCP
+
+    # CloudNativePG
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: postgres
+            k8s:cnpg.io/cluster: fivealive
+      toPorts:
+        - ports:
+            - port: "5432"
+              protocol: TCP
+
+    # External mail server
+    - toCIDR:
+        - 10.0.100.25/32
+      toPorts:
+        - ports:
+            - port: "993"
+              protocol: TCP
+            - port: "587"
+              protocol: TCP
+            - port: "4190"
+              protocol: TCP

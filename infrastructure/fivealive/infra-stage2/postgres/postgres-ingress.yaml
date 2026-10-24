@@ -1,0 +1,63 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: fivealive-postgres-ingress
+  namespace: postgres
+spec:
+  # podRole keeps this off poolers and other non-instance pods in the cluster
+  endpointSelector:
+    matchLabels:
+      cnpg.io/cluster: fivealive
+      cnpg.io/podRole: instance
+
+  ingress:
+    # Database clients (roundcube, dex); kubectl cnpg psql uses the in-pod socket
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: roundcube
+            k8s:app.kubernetes.io/name: roundcube
+
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: dex
+            k8s:app.kubernetes.io/name: dex
+      toPorts:
+        - ports:
+            - port: "5432"
+              protocol: TCP
+
+    # Kubelet probes (/healthz, /readyz, /startupz on the status port)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "8000"
+              protocol: TCP
+
+    # API server pods/proxy (kubectl cnpg status); Cilium sees it as remote-node
+    - fromEntities:
+        - remote-node
+      toPorts:
+        - ports:
+            - port: "8000"
+              protocol: TCP
+
+    # CloudNativePG operator reading /pg/status from the instance manager.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: cnpg-system
+            k8s:app.kubernetes.io/name: cloudnative-pg
+      toPorts:
+        - ports:
+            - port: "8000"
+              protocol: TCP
+
+    # Prometheus scraping the metrics sidecar
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "9187"
+              protocol: TCP

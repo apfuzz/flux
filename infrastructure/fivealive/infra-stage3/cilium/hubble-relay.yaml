@@ -1,0 +1,15 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: GRPCRoute
+metadata:
+  name: hubble-relay
+spec:
+  parentRefs:
+    - name: cilium-gateway
+      sectionName: https
+  hostnames:
+    - hubble-relay.gangsterkitties.com
+  rules:
+    - backendRefs:
+        - name: hubble-relay
+          port: 80

@@ -8,6 +8,16 @@ spec:
       app.kubernetes.io/name: plugin-barman-cloud
 
   ingress:
+    # CNPG operator querying the plugin for its identity/capabilities
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: cnpg-system
+            k8s:app.kubernetes.io/name: cloudnative-pg
+      toPorts:
+        - ports:
+            - port: "9090"
+              protocol: TCP
+
     # Kubelet probes (tcpSocket on the health port)
     - fromEntities:
         - host

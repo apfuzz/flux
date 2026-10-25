@@ -9,6 +9,7 @@ resources:
   - ../../base/infra-stage1/longhorn
   - ../../base/infra-stage1/plugin-barman-cloud
   - ../../base/infra-stage1/rbac
+  - ./cert-manager
 patches:
   - path: cert-manager.yaml
     target:

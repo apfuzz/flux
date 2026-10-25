@@ -1,0 +1,37 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cert-manager-webhook-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: webhook
+
+  ingress:
+    # API server admission calls. The apiserver reaches the webhook through
+    # the tunnel, arriving as remote-node on the serving port.
+    - fromEntities:
+        - remote-node
+      toPorts:
+        - ports:
+            - port: "10250"
+              protocol: TCP
+
+    # Kubelet probes (/livez, /healthz on healthcheck)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "6080"
+              protocol: TCP
+
+    # Prometheus scraping (cert-manager ServiceMonitor)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "9402"
+              protocol: TCP

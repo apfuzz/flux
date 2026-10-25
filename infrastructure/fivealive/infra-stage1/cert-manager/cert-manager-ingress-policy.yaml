@@ -1,0 +1,28 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cert-manager-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: cert-manager
+
+  ingress:
+    # Kubelet probes (/livez on http-healthz)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "9403"
+              protocol: TCP
+
+    # Prometheus scraping (cert-manager ServiceMonitor)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "9402"
+              protocol: TCP

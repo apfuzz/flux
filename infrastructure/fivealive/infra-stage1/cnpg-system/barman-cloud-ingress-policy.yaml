@@ -1,0 +1,17 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: barman-cloud-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: plugin-barman-cloud
+
+  ingress:
+    # Kubelet probes (tcpSocket on the health port)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "8081"
+              protocol: TCP

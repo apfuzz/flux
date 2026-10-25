@@ -1,0 +1,37 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cloudnative-pg-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: cloudnative-pg
+
+  ingress:
+    # API server admission calls. The apiserver reaches the webhook through
+    # the tunnel, arriving as remote-node on the serving port.
+    - fromEntities:
+        - remote-node
+      toPorts:
+        - ports:
+            - port: "9443"
+              protocol: TCP
+
+    # Kubelet probes (/readyz) and local apiserver calls
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "9443"
+              protocol: TCP
+
+    # Prometheus scraping (cloudnative-pg PodMonitor)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP

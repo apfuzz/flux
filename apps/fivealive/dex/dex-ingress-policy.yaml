@@ -9,9 +9,12 @@ spec:
       app.kubernetes.io/name: dex
 
   ingress:
-    # Traefik (dex.gangsterkitties.com, legacy Ingress)
-    - fromEntities:
-        - ingress
+    # Traefik (dex.gangsterkitties.com, legacy Ingress with ingressClassName: nginx).
+    # Traefik is a normal pod, so its traffic does not match the ingress entity.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: traefik
+            k8s:app.kubernetes.io/name: traefik
       toPorts:
         - ports:
             - port: "5556"

@@ -3,6 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: atlantis
 resources:
+  - atlantis-ingress-policy.yaml
   - atlantis-vcs.yaml
   - aws-credentials.yaml
   - oci-credentials.yaml

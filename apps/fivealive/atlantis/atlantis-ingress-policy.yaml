@@ -1,0 +1,36 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: atlantis-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app: atlantis
+
+  ingress:
+    # cilium-gateway (atlantis.gangsterkitties.com, HTTPRoute to atlantis:80)
+    - fromEntities:
+        - ingress
+      toPorts:
+        - ports:
+            - port: "4141"
+              protocol: TCP
+
+    # Kubelet probes (/healthz)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "4141"
+              protocol: TCP
+
+    # Prometheus scraping (atlantis ServiceMonitor)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "4141"
+              protocol: TCP

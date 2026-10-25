@@ -8,7 +8,6 @@ resources:
   - ../base/fluent-bit
   - ../base/flux
   - ../base/forgejo-runner
-  - ../base/gitlab-runner
   - ../base/headlamp
   - ../base/kps
   - ../base/loki
@@ -24,7 +23,6 @@ resources:
   - ./fluent-bit
   - ./flux
   - ./forgejo-runner
-  - ./gitlab-runner
   - ./kps
   - ./loki
   - ./openbao
@@ -64,11 +62,6 @@ patches:
       kind: HelmRelease
       name: forgejo-runner
       namespace: forgejo
-  - path: gitlab-runner.yaml
-    target:
-      kind: HelmRelease
-      name: gitlab-runner
-      namespace: gitlab
   - path: headlamp.yaml
     target:
       kind: HelmRelease

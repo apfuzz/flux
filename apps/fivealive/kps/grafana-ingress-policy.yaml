@@ -1,0 +1,36 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: grafana-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: grafana
+
+  ingress:
+    # cilium-gateway (grafana.gangsterkitties.com, HTTPRoute to kps-grafana:80)
+    - fromEntities:
+        - ingress
+      toPorts:
+        - ports:
+            - port: "3000"
+              protocol: TCP
+
+    # Kubelet probes (/api/health on the grafana port)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "3000"
+              protocol: TCP
+
+    # Prometheus scraping (kps-grafana ServiceMonitor, http-web)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "3000"
+              protocol: TCP

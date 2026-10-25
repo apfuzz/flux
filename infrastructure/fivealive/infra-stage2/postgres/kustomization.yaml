@@ -9,5 +9,5 @@ resources:
   - objectstore.yaml
   - podmonitor.yaml
   - postgres-cluster.yaml
-  - postgres-ingress.yaml
+  - postgres-ingress-policy.yaml
   - postgres-secrets.yaml

@@ -1,0 +1,28 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: node-exporter-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus-node-exporter
+
+  ingress:
+    # Kubelet probes (/ on the http-metrics port)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "9100"
+              protocol: TCP
+
+    # Prometheus scraping (kps-prometheus-node-exporter ServiceMonitor, http-metrics)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "9100"
+              protocol: TCP

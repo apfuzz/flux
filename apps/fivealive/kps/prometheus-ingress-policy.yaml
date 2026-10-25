@@ -1,0 +1,39 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: prometheus-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus
+
+  ingress:
+    # cilium-gateway (prometheus.gangsterkitties.com, HTTPRoute to kps-prometheus:9090)
+    - fromEntities:
+        - ingress
+      toPorts:
+        - ports:
+            - port: "9090"
+              protocol: TCP
+
+    # Kubelet probes (/-/ready, /-/healthy on the http-web port)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "9090"
+              protocol: TCP
+
+    # Prometheus scraping itself (kps-prometheus ServiceMonitor:
+    # http-web on the prometheus container, reloader-web on the sidecar)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "9090"
+              protocol: TCP
+            - port: "8080"
+              protocol: TCP

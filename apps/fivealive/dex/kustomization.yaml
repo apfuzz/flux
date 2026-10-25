@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: dex
 resources:
   - dex-config.yaml
-  - dex-ingress.yaml
+  - dex-ingress-policy.yaml

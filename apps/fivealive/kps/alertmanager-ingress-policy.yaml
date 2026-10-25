@@ -1,0 +1,38 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: alertmanager-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: alertmanager
+
+  ingress:
+    # cilium-gateway (alertmanager.gangsterkitties.com, HTTPRoute to kps-alertmanager:9093)
+    - fromEntities:
+        - ingress
+      toPorts:
+        - ports:
+            - port: "9093"
+              protocol: TCP
+
+    # Kubelet probes (/-/healthy, /-/ready on the http-web port)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "9093"
+              protocol: TCP
+
+    # Prometheus scraping (kps-alertmanager ServiceMonitor: http-web, reloader-web)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "9093"
+              protocol: TCP
+            - port: "8080"
+              protocol: TCP

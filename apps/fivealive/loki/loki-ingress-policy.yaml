@@ -27,3 +27,14 @@ spec:
         - ports:
             - port: "8080"
               protocol: TCP
+
+    # Prometheus scraping (loki ServiceMonitor, http-metrics)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "3100"
+              protocol: TCP

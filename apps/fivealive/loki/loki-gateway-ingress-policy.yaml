@@ -1,0 +1,60 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: loki-gateway-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: loki
+      app.kubernetes.io/component: gateway
+
+  ingress:
+    # cilium-gateway (loki.gangsterkitties.com, HTTPRoute to loki-gateway:80)
+    - fromEntities:
+        - ingress
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+
+    # Kubelet probes
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+            - port: "4040"
+              protocol: TCP
+
+    # fluent-bit log pushes
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: logging
+            k8s:app.kubernetes.io/name: fluent-bit
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+
+    # loki-canary push/query
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: logging
+            k8s:app.kubernetes.io/name: loki
+            k8s:app.kubernetes.io/component: canary
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+
+    # Prometheus scraping the gateway exporter
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "4040"
+              protocol: TCP

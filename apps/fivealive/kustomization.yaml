@@ -21,6 +21,7 @@ resources:
   - ./backup-verifier
   - ./dex
   - ./external-secrets
+  - ./fluent-bit
   - ./flux
   - ./forgejo-runner
   - ./gitlab-runner

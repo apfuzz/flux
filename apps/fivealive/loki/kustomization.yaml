@@ -5,3 +5,7 @@ namespace: logging
 resources:
   - loki-rules.yaml
   - oci-credentials.yaml
+  - loki-canary-ingress-policy.yaml
+  - loki-caches-ingress-policy.yaml
+  - loki-gateway-ingress-policy.yaml
+  - loki-ingress-policy.yaml

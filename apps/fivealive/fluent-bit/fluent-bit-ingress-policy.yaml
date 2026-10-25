@@ -1,0 +1,39 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: fluent-bit-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: fluent-bit
+
+  ingress:
+    # Talos node log shipping to the tcp input (172.16.102.236:5170). Node
+    # traffic reaches the pod through the tunnel, so it arrives as remote-node.
+    - fromEntities:
+        - remote-node
+      toPorts:
+        - ports:
+            - port: "5170"
+              protocol: TCP
+
+    # Kubelet probes and the health/metrics endpoint
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "2020"
+              protocol: TCP
+            - port: "5170"
+              protocol: TCP
+
+    # Prometheus scraping the http_server metrics
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "2020"
+              protocol: TCP

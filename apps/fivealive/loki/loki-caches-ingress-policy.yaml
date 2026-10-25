@@ -1,0 +1,43 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: loki-caches-ingress
+spec:
+  endpointSelector:
+    matchExpressions:
+      - key: app.kubernetes.io/component
+        operator: In
+        values:
+          - memcached-chunks-cache
+          - memcached-results-cache
+
+  ingress:
+    # loki-0 memcached clients
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: logging
+            k8s:app.kubernetes.io/name: loki
+            k8s:app.kubernetes.io/component: single-binary
+      toPorts:
+        - ports:
+            - port: "11211"
+              protocol: TCP
+
+    # Kubelet probes on the exporter
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "9150"
+              protocol: TCP
+
+    # Prometheus scraping the exporter
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "9150"
+              protocol: TCP

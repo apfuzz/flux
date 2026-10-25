@@ -1,0 +1,28 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: external-dns-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: external-dns
+
+  ingress:
+    # Kubelet probes (/healthz) and Prometheus scraping (external-dns
+    # ServiceMonitor, /metrics) both use the http port.
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "7979"
+              protocol: TCP
+
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "7979"
+              protocol: TCP

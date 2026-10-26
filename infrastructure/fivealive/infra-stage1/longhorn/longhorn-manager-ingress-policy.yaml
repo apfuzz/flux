@@ -37,6 +37,17 @@ spec:
             - port: "9500"
               protocol: TCP
 
+    # Manager-to-manager API calls between nodes
+    - fromEndpoints:
+        - matchLabels:
+            k8s:app: longhorn-manager
+      toPorts:
+        - ports:
+            - port: "9500"
+              protocol: TCP
+            - port: "9502"
+              protocol: TCP
+
     # Prometheus scraping (longhorn ServiceMonitor)
     - fromEndpoints:
         - matchLabels:

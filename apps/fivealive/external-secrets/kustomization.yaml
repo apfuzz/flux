@@ -3,4 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - css.yaml
+  - external-secrets-cert-controller-ingress-policy.yaml
+  - external-secrets-ingress-policy.yaml
+  - external-secrets-webhook-ingress-policy.yaml
   - vault-token.yaml

@@ -38,3 +38,13 @@ spec:
         - ports:
             - port: "3100"
               protocol: TCP
+
+    # Grafana datasource (loki.logging.svc.cluster.local:3100)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: grafana
+      toPorts:
+        - ports:
+            - port: "3100"
+              protocol: TCP

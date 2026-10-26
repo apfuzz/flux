@@ -34,11 +34,17 @@ spec:
             - port: "8080"
               protocol: TCP
 
-    # helm-controller fetching chart artifacts from source-controller
+    # Controllers fetching artifacts and reading source state from each other
     - fromEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: flux-system
             k8s:app: helm-controller
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: flux-system
+            k8s:app: kustomize-controller
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: flux-system
+            k8s:app: source-watcher
       toPorts:
         - ports:
             - port: "9090"

@@ -1,0 +1,17 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: reloader-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: reloader
+
+  ingress:
+    # Kubelet probes (/live, /metrics)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "9090"
+              protocol: TCP

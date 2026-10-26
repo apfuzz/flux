@@ -27,6 +27,8 @@ resources:
   - ./loki
   - ./openbao
   - ./roundcube
+  - ./reflector
+  - ./reloader
   - ./talos-etcd
 patches:
 

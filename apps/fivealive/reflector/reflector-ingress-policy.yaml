@@ -1,0 +1,17 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: reflector-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: reflector
+
+  ingress:
+    # Kubelet probes (/health/live, /health/ready)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP

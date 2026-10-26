@@ -25,6 +25,17 @@ spec:
             - port: "5432"
               protocol: TCP
 
+    # Instance-to-instance streaming replication and joins (pg_basebackup)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: postgres
+            k8s:cnpg.io/cluster: fivealive
+            k8s:cnpg.io/podRole: instance
+      toPorts:
+        - ports:
+            - port: "5432"
+              protocol: TCP
+
     # Kubelet probes (/healthz, /readyz, /startupz on the status port)
     - fromEntities:
         - host

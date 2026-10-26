@@ -19,6 +19,17 @@ spec:
             - port: "8200"
               protocol: TCP
 
+    # Raft cluster peering between server pods for ha scale-out
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: openbao
+            k8s:app.kubernetes.io/name: openbao
+            k8s:component: server
+      toPorts:
+        - ports:
+            - port: "8201"
+              protocol: TCP
+
     # Kubelet probes use an exec probe, so only the API cluster traffic
     # arrives here. Prometheus scrapes /v1/sys/metrics on the http port.
     - fromEndpoints:

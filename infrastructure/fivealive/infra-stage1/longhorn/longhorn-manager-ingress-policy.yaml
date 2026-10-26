@@ -37,6 +37,15 @@ spec:
             - port: "9500"
               protocol: TCP
 
+    # longhorn-ui proxying API calls to the manager (LONGHORN_MANAGER_IP)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:app: longhorn-ui
+      toPorts:
+        - ports:
+            - port: "9500"
+              protocol: TCP
+
     # Manager-to-manager API calls between nodes
     - fromEndpoints:
         - matchLabels:

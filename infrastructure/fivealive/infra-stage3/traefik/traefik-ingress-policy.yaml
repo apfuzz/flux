@@ -1,0 +1,49 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: traefik-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: traefik
+
+  ingress:
+    # LoadBalancer traffic (10.0.101.252) on the websecure entrypoint. This
+    # policy must stay permissive: every route through Traefik depends on it.
+    - fromEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "8443"
+              protocol: TCP
+            - port: "8000"
+              protocol: TCP
+
+    # Kubelet probes (/ping on the traefik API port)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+
+    # flux-operator talking to the traefik API
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: flux-system
+            k8s:app.kubernetes.io/name: flux-operator
+      toPorts:
+        - ports:
+            - port: "8443"
+              protocol: TCP
+
+    # Prometheus scraping (traefik ServiceMonitor)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "9100"
+              protocol: TCP

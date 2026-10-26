@@ -1,0 +1,17 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: kubelet-serving-cert-approver-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: kubelet-serving-cert-approver
+
+  ingress:
+    # Kubelet probes (/healthz, /readyz on the health port)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP

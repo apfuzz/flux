@@ -1,0 +1,45 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: flux-controllers-ingress
+spec:
+  endpointSelector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - helm-controller
+          - kustomize-controller
+          - notification-controller
+          - source-controller
+          - source-watcher
+
+  ingress:
+    # Kubelet probes (/healthz, /readyz on the healthz port)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "9440"
+              protocol: TCP
+
+    # Prometheus scraping (flux-system PodMonitor, http-prom)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+
+    # helm-controller fetching chart artifacts from source-controller
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: flux-system
+            k8s:app: helm-controller
+      toPorts:
+        - ports:
+            - port: "9090"
+              protocol: TCP

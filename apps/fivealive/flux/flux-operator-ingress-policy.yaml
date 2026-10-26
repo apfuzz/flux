@@ -1,0 +1,60 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: flux-operator-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: flux-operator
+
+  ingress:
+    # cilium-gateway (flux.gangsterkitties.com, HTTPRoute to flux-operator:9080)
+    - fromEntities:
+        - ingress
+      toPorts:
+        - ports:
+            - port: "9080"
+              protocol: TCP
+
+    # Kubelet probes (/healthz, /readyz on the http port)
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "8081"
+              protocol: TCP
+
+    # Prometheus scraping (flux-operator ServiceMonitor)
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+
+    # Flux controllers reporting status back to the operator
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: flux-system
+            k8s:app: helm-controller
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: flux-system
+            k8s:app: kustomize-controller
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: flux-system
+            k8s:app: source-controller
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: flux-system
+            k8s:app: source-watcher
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: flux-system
+            k8s:app: notification-controller
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+            - port: "8081"
+              protocol: TCP

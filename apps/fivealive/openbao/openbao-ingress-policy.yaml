@@ -1,0 +1,32 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: openbao-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: openbao
+      component: server
+
+  ingress:
+    # cilium-gateway (vault.gangsterkitties.com). External Secrets reaches
+    # OpenBao through this hostname, so ESO traffic arrives as ingress rather
+    # than as the ESO pod.
+    - fromEntities:
+        - ingress
+      toPorts:
+        - ports:
+            - port: "8200"
+              protocol: TCP
+
+    # Kubelet probes use an exec probe, so only the API cluster traffic
+    # arrives here. Prometheus scrapes /v1/sys/metrics on the http port.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/instance: kps-prometheus
+      toPorts:
+        - ports:
+            - port: "8200"
+              protocol: TCP

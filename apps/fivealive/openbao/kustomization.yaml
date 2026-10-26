@@ -6,3 +6,4 @@ resources:
   - aws-vault.yaml
   - backup-job.yaml
   - backup-secret.yaml
+  - openbao-ingress-policy.yaml

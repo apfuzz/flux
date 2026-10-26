@@ -1,0 +1,18 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: longhorn-csi-plugin-ingress
+  namespace: longhorn
+spec:
+  endpointSelector:
+    matchLabels:
+      app: longhorn-csi-plugin
+
+  ingress:
+    # Kubelet probes on the CSI sidecar health port
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "9808"
+              protocol: TCP

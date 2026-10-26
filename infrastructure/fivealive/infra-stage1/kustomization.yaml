@@ -11,6 +11,7 @@ resources:
   - ../../base/infra-stage1/rbac
   - ./cert-manager
   - ./cnpg-system
+  - ./longhorn
 patches:
   - path: cert-manager.yaml
     target:

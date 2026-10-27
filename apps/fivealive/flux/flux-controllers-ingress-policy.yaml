@@ -34,8 +34,7 @@ spec:
             - port: "8080"
               protocol: TCP
 
-    # Controllers fetching artifacts and reading source state from each
-    # other, and posting events to notification-controller's event server
+    # Controllers fetching artifacts, reading source state, and posting events
     - fromEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: flux-system

@@ -10,9 +10,7 @@ spec:
   ingress:
     # LoadBalancer traffic (10.0.101.252) on the websecure entrypoint. This
     # policy must stay permissive: every route through Traefik depends on it.
-    # remote-node covers in-cluster clients that resolve a hostname to this
-    # LoadBalancer and hairpin back through it; their traffic arrives with the
-    # node identity, not the world entity.
+    # remote-node covers in-cluster clients hairpinning through the LoadBalancer.
     - fromEntities:
         - world
         - remote-node
@@ -41,9 +39,7 @@ spec:
             - port: "8443"
               protocol: TCP
 
-    # Headlamp OIDC token exchange. It resolves dex.gangsterkitties.com to this
-    # LoadBalancer and hairpins back through it, so its traffic arrives as a
-    # pod rather than as the world entity.
+    # Headlamp OIDC token exchange (hairpins through this LoadBalancer)
     - fromEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system

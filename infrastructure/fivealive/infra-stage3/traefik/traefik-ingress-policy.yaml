@@ -10,8 +10,12 @@ spec:
   ingress:
     # LoadBalancer traffic (10.0.101.252) on the websecure entrypoint. This
     # policy must stay permissive: every route through Traefik depends on it.
+    # remote-node covers in-cluster clients that resolve a hostname to this
+    # LoadBalancer and hairpin back through it; their traffic arrives with the
+    # node identity, not the world entity.
     - fromEntities:
         - world
+        - remote-node
       toPorts:
         - ports:
             - port: "8443"

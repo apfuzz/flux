@@ -37,6 +37,18 @@ spec:
             - port: "8443"
               protocol: TCP
 
+    # Headlamp OIDC token exchange. It resolves dex.gangsterkitties.com to this
+    # LoadBalancer and hairpins back through it, so its traffic arrives as a
+    # pod rather than as the world entity.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s:app.kubernetes.io/name: headlamp
+      toPorts:
+        - ports:
+            - port: "8443"
+              protocol: TCP
+
     # Prometheus scraping (traefik ServiceMonitor)
     - fromEndpoints:
         - matchLabels:

@@ -22,6 +22,7 @@ spec:
         clientSecret: kubernetes-secret
         issuerURL: https://dex.gangsterkitties.com/dex
         scopes: groups
+        autoLogin: true
       watchPlugins: true
     httpRoute:
       enabled: true

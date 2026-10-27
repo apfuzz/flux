@@ -23,6 +23,7 @@ spec:
     injector:
       enabled: false
     server:
+      updateStrategyType: RollingUpdate
       gateway:
         httpRoute:
           enabled: true

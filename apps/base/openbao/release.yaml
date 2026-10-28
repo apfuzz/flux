@@ -81,6 +81,13 @@ spec:
             plugin_auto_download = true
             plugin_auto_register = true
 
+            plugin "auth" "ldap" {
+              image       = "ghcr.io/openbao/openbao-plugin-auth-ldap"
+              version     = "v0.2.0"
+              binary_name = "openbao-plugin-auth-ldap"
+              sha256sum   = "696a711615c112d88d083a2d9708753290800bb6ff49b5ce0254bba16f6f7234"
+            }
+
             plugin "kms" "aws" {
               image       = "ghcr.io/openbao/openbao-plugin-kms-aws"
               version     = "v0.1.1"

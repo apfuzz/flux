@@ -75,6 +75,11 @@ patches:
       kind: HelmRelease
       name: kps
       namespace: monitoring
+  - path: kps-repository.yaml
+    target:
+      kind: OCIRepository
+      name: kube-prometheus-stack
+      namespace: monitoring
   - path: loki.yaml
     target:
       kind: HelmRelease

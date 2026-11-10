@@ -1,0 +1,18 @@
+---
+# Pin kube-prometheus-stack to the last known-good release, 92.16.0
+# (prometheus-operator v0.94.2, published 2026-10-29).
+#
+# The actual breakage: chart 93.x ships prometheus-operator v0.95.1, whose
+# image index has no arm64 build, so pods fail with "no match for platform in
+# manifest" on fivealive's arm64 nodes. v0.94.2 publishes arm64.
+#
+# Deliberately pinned to 92.16.0 specifically rather than a 92.x range:
+# every 92.17 -> 92.22 attempt also failed, so 92.16.0 is the only release
+# proven to deploy here.
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: kube-prometheus-stack
+spec:
+  ref:
+    semver: "~92.16.0"

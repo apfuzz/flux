@@ -1,0 +1,31 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: aws-thanos
+spec:
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  data:
+  - secretKey: AWS_ACCESS_KEY_ID
+    remoteRef:
+      key: aws/thanos
+      property: AWS_ACCESS_KEY_ID
+  - secretKey: AWS_SECRET_ACCESS_KEY
+    remoteRef:
+      key: aws/thanos
+      property: AWS_SECRET_ACCESS_KEY
+  target:
+    name: aws-thanos
+    template:
+      type: Opaque
+      data:
+        objstore.yml: |
+          type: S3
+          prefix: poptart
+          config:
+            bucket: thanos-266798532288-us-east-1-an
+            endpoint: s3.us-east-1.amazonaws.com
+            region: us-east-1
+            access_key: "{{ .AWS_ACCESS_KEY_ID }}"
+            secret_key: "{{ .AWS_SECRET_ACCESS_KEY }}"

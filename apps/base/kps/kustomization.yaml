@@ -9,3 +9,4 @@ resources:
   - slack-token.yaml
   # - recording-rules.yaml
   - release.yaml
+  - aws-thanos.yaml

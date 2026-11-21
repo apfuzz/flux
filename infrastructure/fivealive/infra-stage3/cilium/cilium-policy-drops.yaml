@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: cilium-policy-drops
+  namespace: cilium
+  labels:
+    release: kps
+spec:
+  groups:
+    - name: cilium.network-policy
+      rules:
+        - alert: CiliumNetworkPolicyDrops
+          expr: |
+            sum by (node) (
+              increase(hubble_drop_total{reason="POLICY_DENIED"}[5m])
+            ) > 0
+          for: 0m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Cilium policy drops detected on {{ $labels.node }}"
+            description: >-
+              Network traffic has been denied by a Cilium network
+              policy within the last five minutes.
+              Investigate with Hubble to identify the affected workloads.

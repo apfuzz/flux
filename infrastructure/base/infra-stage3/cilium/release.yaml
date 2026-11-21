@@ -42,7 +42,7 @@ spec:
       metrics:
         enabled:
           - dns:query;ignoreAAAA
-          - drop:sourceContext=workload-name|destinationContext=workload-name
+          - drop
           - tcp
           - flow
           - icmp

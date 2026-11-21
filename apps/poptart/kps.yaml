@@ -117,6 +117,7 @@ spec:
             - poptart-prometheus.gangsterkitties.com
       prometheusSpec:
         externalUrl: https://poptart-prometheus.gangsterkitties.com
+        retention: 1d
         storageSpec:
           volumeClaimTemplate:
             spec:
@@ -125,3 +126,16 @@ spec:
               resources:
                 requests:
                   storage: 50Gi
+        thanos:
+          objectStorageConfig:
+            existingSecret:
+              name: aws-thanos
+              key: objstore.yml
+          resources:
+            requests:
+              cpu: 25m
+              memory: 128Mi
+            limits:
+              memory: 512Mi
+      thanosService:
+        enabled: true

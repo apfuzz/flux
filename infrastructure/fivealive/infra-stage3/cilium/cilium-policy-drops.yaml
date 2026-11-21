@@ -11,15 +11,16 @@ spec:
       rules:
         - alert: CiliumNetworkPolicyDrops
           expr: |
-            sum by (node) (
+            sum by (node, source, destination) (
               increase(hubble_drop_total{reason="POLICY_DENIED"}[5m])
             ) > 0
           for: 0m
           labels:
             severity: warning
           annotations:
-            summary: "Cilium policy drops detected on {{ $labels.node }}"
+            summary: "Cilium policy denied traffic to {{ $labels.destination }}"
             description: >-
-              Network traffic has been denied by a Cilium network
-              policy within the last five minutes.
-              Investigate with Hubble to identify the affected workloads.
+              Traffic from {{ $labels.source }} to
+              {{ $labels.destination }} was denied by a Cilium
+              network policy on {{ $labels.node }} within the
+              last five minutes.

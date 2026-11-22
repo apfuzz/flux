@@ -105,6 +105,10 @@ spec:
           folderAnnotation: grafana_folder
           provider:
             foldersFromFilesStructure: true
+        datasources:
+          url: http://thanos-query.monitoring.svc.cluster.local:9090
+          extraJsonData:
+            prometheusType: Thanos
     kubeEtcd:
       endpoints:
         - 10.0.102.100

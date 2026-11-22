@@ -27,6 +27,11 @@ spec:
 
     query:
       replicaCount: 1
+      httpRoute:
+        enabled: true
+        parentRefs:
+          - name: cilium-gateway
+            namespace: cilium
       endpoints:
         static:
           - dns+kps-thanos-discovery.monitoring.svc.cluster.local:10901

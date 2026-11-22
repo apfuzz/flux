@@ -32,6 +32,11 @@ patches:
       kind: HelmRelease
       name: kps
       namespace: monitoring
+  - path: thanos.yaml
+    target:
+      kind: HelmRelease
+      name: thanos
+      namespace: monitoring
 
   ### json patches
 

@@ -1,0 +1,11 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: thanos
+spec:
+  values:
+    query:
+      httpRoute:
+        hostnames:
+          - poptart-thanos.gangsterkitties.com

@@ -7,6 +7,7 @@ resources:
   - ../base/headlamp
   - ../base/kps
   - ../base/reflector
+  - ../base/thanos
   - ./external-secrets
   - ./flux
   # - ./keycloak-config

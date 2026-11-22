@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: thanos
+spec:
+  dependsOn:
+    - name: kps
+  interval: 15m
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: thanos
+  driftDetection:
+    mode: enabled
+  install:
+    crds: Skip
+  upgrade:
+    crds: Skip
+  values:
+    fullnameOverride: thanos
+    global:
+      objstore:
+        createSecret: false
+        secretName: aws-thanos
+        secretKey: objstore.yml
+
+    query:
+      replicaCount: 1
+      endpoints:
+        static:
+          - dns+kps-thanos-discovery.monitoring.svc.cluster.local:10901
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          memory: 512Mi
+      serviceMonitor:
+        enabled: true
+        labels:
+          release: kps
+
+    storegateway:
+      replicaCount: 1
+      persistence:
+        enabled: false
+      resources:
+        requests:
+          cpu: 50m
+          memory: 256Mi
+        limits:
+          memory: 1Gi
+      serviceMonitor:
+        enabled: true
+        labels:
+          release: kps
+
+    compactor:
+      enabled: false
+
+    receive:
+      enabled: false
+
+    ruler:
+      enabled: false
+
+    queryFrontend:
+      enabled: false

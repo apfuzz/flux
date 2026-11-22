@@ -9,3 +9,6 @@ spec:
       httpRoute:
         hostnames:
           - poptart-thanos.gangsterkitties.com
+    compactor:
+      persistence:
+        storageClass: local-path

@@ -62,7 +62,27 @@ spec:
           release: kps
 
     compactor:
-      enabled: false
+      retention:
+        resolutionRaw: 30d
+        resolution5m: 30d
+        resolution1h: 30d
+      extraArgs:
+        - --log.level=info
+        - --log.format=logfmt
+        - --consistency-delay=30m
+        - --downsampling.disable
+      vpa:
+        enabled: false
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          memory: 2Gi
+      serviceMonitor:
+        enabled: true
+        labels:
+          release: kps
 
     receive:
       enabled: false
@@ -72,3 +92,4 @@ spec:
 
     queryFrontend:
       enabled: false
+
